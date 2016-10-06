@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>Bulletin Board</title>
+
+    <link rel="manifest" href="manifest.json">
+
+    <!-- un-comment this code to enable service worker
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(() => console.log('service worker installed'))
+          .catch(err => console.log('Error', err));
+      }
+    </script>-->
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+	<link href="css/Bulletin_Board_CSS.css" rel="stylesheet" >
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/services.js"></script>
+	</head>
+	<body ng-app="starter">  
+		<ion-header-bar class="bar bar-header bar-stable">
+			<h1 class="title">Bulletin Board</h1>
+			<div class="buttons">
+			<a href="signup.html">
+			<button class="button button-positive">Sign Up/Sign In</button></a>
+			</div>
+		</ion-header-bar>
+
+		<ion-content class="has-header">
+		<div class="list list-inset">
+			<label class="item item-input item-button-right">
+			<i class="icon ion-search placeholder-icon"></i>
+			<input type="search" placeholder="Search"/>
+			</label>
+		</div>
+
+	<!--CATEGORIES--> 
+		<button class="button button-positive">Events</button>
+		<button class="button button-positive" >Books</button>
+		<button class="button button-positive">Mentoring</button>
+		<button class="button button-positive">Housing</button>
+		<button class="button button-positive">Other</button>
+		<a href="newpost.html">
+			<button class="button button-assertive">+</button></a>
+
+
+	<!--TABLE FOR PREMIUM POSTS-->
+		<div class="card" style="max-width:800px;position:relative">
+		<div class="Premium Posts" style="width:100%">PREMIUM POST1</div>
+		<div class="Premium Posts" style="width:100%">PREMIUM POST2</div>
+		<div class="Premium Posts" style="width:100%">PREMIUM POST3</div>
+		<button onclick="plusDivs(-1)" class="button button-light"><i class="icon ion-arrow-left-b"></i></button>
+		<button onclick="plusDivs(1)" class="button button-light"><i class="icon ion-arrow-right-b"></i></button>
+		</div>
+
+		<!--RECENT POSTS-->
+		<h4>Recent Posts</h4>
+		<div>
+			<ul class="list">
+				<li class="item"><a href="announcement_details.html">Normal Post 1</a></li>
+				<li class="item"><a href="announcement_details.html">Normal Post 2</a></li>
+				<li class="item"><a href="announcement_details.html">Normal Post 3</a></li>
+
+			</ul>
+			
+		</div>
+		</ion-content>
+		<script>
+			var slideIndex = 1;
+			showDivs(slideIndex);
+
+			function plusDivs(n) {
+			  showDivs(slideIndex += n);
+			}
+
+			function showDivs(n) {
+			  var i;
+			  var x = document.getElementsByClassName("Premium Posts");
+			  if (n > x.length) {slideIndex = 1}    
+			  if (n < 1) {slideIndex = x.length}
+			  for (i = 0; i < x.length; i++) {
+				 x[i].style.display = "none";  
+			  }
+			  x[slideIndex-1].style.display = "block";  
+			}
+		</script>
+  
+	</body>
+
+</html>
