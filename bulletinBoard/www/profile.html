@@ -39,12 +39,6 @@
 	<body ng-app="starter">
 
 	<ion-header-bar class="bar bar-header bar-stable">
-		
-		<div class="buttons">
-		<a href="announcement_details.html">
-		<button class="button button-positive"><i class="icon ion-chevron-left"></i>
-		</button></a>
-		</div>
 
 	<div class="buttons">
 		<a href="index.html">
@@ -53,30 +47,77 @@
 
 		<h1 class="title">Bulletin Board</h1>
 		<div class="buttons">
-		<a href="profile.html">
-		<button class="button button-positive"><i class="icon ion-android-person"></i></button></a>
+		<a href="settings.html">
+		<button class="button button-positive"><i class="icon ion-gear-b"></i></button></a>
 		</div>
 		</ion-header-bar>
 		<ion-header-bar class="bar bar-subheader bar-light">
 		<h2 class="title">Profile</h2>
 		</ion-header-bar>
 
-		<ion-content class="has-subheader">
-
-			<div class="details">
-			Here are the profile details
+		<ion-content class="has-subheader" draggable="false">
+			<div class="item item-avatar">
+				<img src="http://i2.kym-cdn.com/photos/images/newsfeed/000/848/178/9f9.png">
+				<h2><span id="username">Chris51</span></h2>
+				<p>
+					<span id="email">christian.lorenzo1@upr.edu</span> 
+					</br>
+					<span id="phone">787-366-9586</span></p>
 			</div>
+			<ion-list>
+			<div class="item item-divider">Details:</div>
+				<ion-radio ng-model="details" value="messages"><i class="icon ion-chatbubbles"></i></ion-radio>
+				<ion-radio ng-model="details" value="announcements"><i class="icon ion-compose"></i></ion-radio>
+				<ion-radio ng-model="details" value="payments"><i class="icon ion-card"></i></ion-radio>
 
+			<div class="item-divider"></div>
+			<div ng-show="details=='messages'">
+				<div class="list">
+					<a class="item item-avatar" href="messages.html">
+					  <img src="http://i2.kym-cdn.com/photos/images/newsfeed/000/848/178/9f9.png">
+					  <h2>Pumpkin</h2>
+					  <p>Back off, man. I'm a scientist.</p>
+					</a>
+					<a class="item item-avatar" href="messages.html">
+					  <img src="http://i2.kym-cdn.com/photos/images/newsfeed/000/848/178/9f9.png">
+					  <h2>Bob</h2>
+					  <p>Hey, dude</p>
+					</a>
+					<a class="item item-avatar" href="messages.html">
+					  <img src="http://i2.kym-cdn.com/photos/images/newsfeed/000/848/178/9f9.png">
+					  <h2>Venkman</h2>
+					  <p>SCIENCE</p>
+					</a>
 
-		<a href="messages.html">
-			<button class="button button-positive">Messages</button></a>
+				</div>
+			</div>
 			
-		<a href="payment.html">
-			<button class="button button-positive">Payment</button></a>
+			<div ng-show="details=='announcements'">
+			<a class="item item-avatar" href="messages.html">
+			  <img src="http://pngimg.com/upload/book_PNG2116.png">
+			  <h2>BUY MY BOOK</h2>
+			  <p>It's a new book...</p>
+			</a>
+			<a class="item item-avatar" href="messages.html">
+			  <img src="http://hookedonhouses.net/wp-content/uploads/2009/01/Father-of-the-Bride-Lookalike-house.jpg">
+			  <h2>Lookinhg housemate</h2>
+			  <p>new house !!</p>
+			</a>
+			</div>
 			
-		<a href="report.html">
-			<button class="button button-positive">Report</button></a>
-
+			<div ng-show="details=='payments'">
+				<ul class="list">
+					<li class="item">
+					06-06-06: Payed user 0238109 ......................  $25.00
+					</li>
+					<li class="item">
+					06-06-06: Payed user 6437828 ......................  $5.00
+					</li>
+				</ul>
+			</div>
+			</ion-list>
 		</ion-content>
-	</body>
+		
+
+		</body>
 </html>

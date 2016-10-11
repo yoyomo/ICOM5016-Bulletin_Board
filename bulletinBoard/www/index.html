@@ -60,28 +60,38 @@
 		<button class="button button-positive">Housing</button>
 		<button class="button button-positive">Other</button>
 		<a href="newpost.html">
-			<button class="button button-assertive">+</button></a>
+			<button class="button button-assertive"><i class="icon ion-compose"></i></button></a>
 
 
 	<!--TABLE FOR PREMIUM POSTS-->
 		<div class="card" style="max-width:800px;position:relative">
-		<div class="Premium Posts" style="width:100%">PREMIUM POST1</div>
-		<div class="Premium Posts" style="width:100%">PREMIUM POST2</div>
-		<div class="Premium Posts" style="width:100%">PREMIUM POST3</div>
+		<a class="PremiumPosts item item-avatar" href="announcement_details.html">
+		  <img src="http://pngimg.com/upload/book_PNG2116.png">
+		  <h2>BUY MY BOOK</h2>
+		  <p>It's a new book...</p>
+		</a>
+		<a class=" PremiumPosts item item-avatar" href="announcement_details.html">
+		  <img src="http://hookedonhouses.net/wp-content/uploads/2009/01/Father-of-the-Bride-Lookalike-house.jpg">
+		  <h2>Lookinhg housemate</h2>
+		  <p>new house !!</p>
+		</a>
 		<button onclick="plusDivs(-1)" class="button button-light"><i class="icon ion-arrow-left-b"></i></button>
 		<button onclick="plusDivs(1)" class="button button-light"><i class="icon ion-arrow-right-b"></i></button>
 		</div>
 
 		<!--RECENT POSTS-->
 		<h4>Recent Posts</h4>
-		<div>
-			<ul class="list">
-				<li class="item"><a href="announcement_details.html">Normal Post 1</a></li>
-				<li class="item"><a href="announcement_details.html">Normal Post 2</a></li>
-				<li class="item"><a href="announcement_details.html">Normal Post 3</a></li>
-
-			</ul>
-			
+		<div class="list">
+				<a class="item item-avatar" href="announcement_details.html">
+				  <img src="http://pngimg.com/upload/book_PNG2116.png">
+				  <h2>BUY MY BOOK</h2>
+				  <p>It's a new book...</p>
+				</a>
+				<a class="item item-avatar" href="announcement_details.html">
+				  <img src="http://hookedonhouses.net/wp-content/uploads/2009/01/Father-of-the-Bride-Lookalike-house.jpg">
+				  <h2>Lookinhg housemate</h2>
+				  <p>new house !!</p>
+				</a>			
 		</div>
 		</ion-content>
 		<script>
@@ -94,7 +104,7 @@
 
 			function showDivs(n) {
 			  var i;
-			  var x = document.getElementsByClassName("Premium Posts");
+			  var x = document.getElementsByClassName("PremiumPosts");
 			  if (n > x.length) {slideIndex = 1}    
 			  if (n < 1) {slideIndex = x.length}
 			  for (i = 0; i < x.length; i++) {
