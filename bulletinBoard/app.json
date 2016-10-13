@@ -1,0 +1,7 @@
+{
+    "name": "Bulletin Board",
+    "description": "A simple Ionic app for Heroku for ICOM 5016",
+    "repository": "https://github.com/christianlorenzo1/ICOM5016-Bulletin_Board.git",
+    "logo": "http://fhs1961.com/bulletinboardbest.jpg",
+    "keywords": ["ionic", "devdactic", "whatever"]
+}
