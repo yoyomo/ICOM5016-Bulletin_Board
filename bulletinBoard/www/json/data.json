@@ -1,0 +1,12 @@
+{
+	"announcements":[
+    {"POSTID":"0328", "uID":"327819", "title":"New Book!!",
+    "description":"This is my calculus book.","category":"book",
+    "dateAdded":"06-06-06",
+	"attachment":"http://pngimg.com/upload/book_PNG2116.png"},
+    {"POSTID":"789", "uID":"32173", "title":"Looking for a housemate",
+    "description":"its my new apartment","category":"housing",
+    "dateAdded":"06-06-06",
+	"attachment":"http://hookedonhouses.net/wp-content/uploads/2009/01/Father-of-the-Bride-Lookalike-house.jpg"}
+]
+}

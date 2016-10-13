@@ -35,8 +35,9 @@
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
     <script src="js/services.js"></script>
+    <script src="js/bb.js"></script>
 	</head>
-	<body ng-app="starter">  
+	<body ng-app="bb" ng-controller="bbCtrl">  
 		<ion-header-bar class="bar bar-header bar-stable">
 			<h1 class="title">Bulletin Board</h1>
 			<div class="buttons">
@@ -65,16 +66,16 @@
 
 
 	<!--TABLE FOR PREMIUM POSTS-->
-		<div class="card" style="max-width:800px;position:relative">
+		<div id="premiumPosts" class="card" style="max-width:800px;position:relative">
 		<a class="PremiumPosts item item-avatar" href="announcement_details.html">
-		  <img src="http://pngimg.com/upload/book_PNG2116.png">
-		  <h2>BUY MY BOOK</h2>
-		  <p>It's a new book...</p>
+		  <img src="{{verify.announcements[0].attachment}}">
+		  <h2>{{data.announcements[0].title}}</h2>
+		  <p>{{data.announcements[0].description}}</p>
 		</a>
-		<a class=" PremiumPosts item item-avatar" href="announcement_details.html">
-		  <img src="http://hookedonhouses.net/wp-content/uploads/2009/01/Father-of-the-Bride-Lookalike-house.jpg">
-		  <h2>Lookinhg housemate</h2>
-		  <p>new house !!</p>
+		<a class="PremiumPosts item item-avatar" href="announcement_details.html">
+		  <img src="{{data.announcements[1].attachment}}">
+		  <h2>{{data.announcements[1].title}}</h2>
+		  <p>{{data.announcements[1].description}}</p>
 		</a>
 		<button onclick="plusDivs(-1)" class="button button-light"><i class="icon ion-arrow-left-b"></i></button>
 		<button onclick="plusDivs(1)" class="button button-light"><i class="icon ion-arrow-right-b"></i></button>
@@ -84,14 +85,14 @@
 		<h4>Recent Posts</h4>
 		<div class="list">
 				<a class="item item-avatar" href="announcement_details.html">
-				  <img src="http://pngimg.com/upload/book_PNG2116.png">
-				  <h2>BUY MY BOOK</h2>
-				  <p>It's a new book...</p>
+				  <img src="{{data.announcements[0].attachment}}">
+				  <h2>{{data.announcements[0].title}}</h2>
+				  <p>{{data.announcements[0].description}}</p>
 				</a>
 				<a class="item item-avatar" href="announcement_details.html">
-				  <img src="http://hookedonhouses.net/wp-content/uploads/2009/01/Father-of-the-Bride-Lookalike-house.jpg">
-				  <h2>Lookinhg housemate</h2>
-				  <p>new house !!</p>
+				  <img src="{{data.announcements[1].attachment}}">
+				  <h2>{{data.announcements[1].title}}</h2>
+				  <p>{{data.announcements[1].description}}</p>
 				</a>			
 		</div>
 		</ion-content>
