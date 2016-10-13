@@ -34,8 +34,9 @@
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
     <script src="js/services.js"></script>
+	<script src="js/bb.js"></script>
 	</head>
-	<body  ng-app="starter">
+	<body ng-app="bb" ng-controller="bbCtrl">
 
 		<ion-header-bar class="bar bar-header bar-stable">
 		<div class="buttons">
@@ -55,8 +56,16 @@
 
 	<!--CONTENT-->
 		<ion-content class="has-subheader">
-		<div class="details">
-		Here are the announcement details
+		<div class="item item-avatar">
+			<img src="{{data.announcements[0].attachment}}">
+			<h2><span>{{data.announcements[0].title}}</span></h2>
+			<p>
+				<span>{{data.announcements[0].description}}</span> 
+				</br>
+				<span>Category: {{data.announcements[0].category}}</span>
+				</br>
+				<span>Date Added: {{data.announcements[0].dateAdded}}</span>
+			</p>
 		</div>
 		<a href="messages.html">
 			<button class="button button-positive">Messages</button></a>

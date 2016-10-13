@@ -18,7 +18,7 @@ angular.module('bb', ['ionic'])
 
     // var premiumPosts = angular.element(document.getElementById("premiumPosts"));
     // var post, i;
-    // for(i = 1; i < 0; i--){
+    // for(var i = 1; i < 0; i--){
     //   post = '<a class="PremiumPosts item item-avatar" href="announcement_details.html">\
     //     <img src="'+$scope.data.announcements[i].attachment+'">\
     //     <h2>'+$scope.data.announcements[i].title+'</h2>\
@@ -29,8 +29,29 @@ angular.module('bb', ['ionic'])
     // }
     
   });
-  
-  
+
+  // Mini Filter that toggles if button is clicked
+  $scope.booksFilter = true;
+  $scope.housingFilter = true;
+  $scope.eventsFilter = true;
+  $scope.mentoringFilter = true;
+  $scope.otherFilter = true;
+
+  $scope.filterBooks = function(){
+    $scope.booksFilter = !$scope.booksFilter;
+  }
+  $scope.filterHousing = function(){
+    $scope.housingFilter = !$scope.housingFilter;
+  }
+  $scope.filterEvents = function(){
+    $scope.eventsFilter = !$scope.eventsFilter;
+  }
+  $scope.filterMentoring = function(){
+    $scope.mentoringFilter = !$scope.mentoringFilter;
+  }
+  $scope.filterOther = function(){
+    $scope.otherFilter = !$scope.otherFilter;
+  }
 })
 
 .run(function($ionicPlatform) {

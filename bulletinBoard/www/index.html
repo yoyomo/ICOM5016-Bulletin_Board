@@ -56,11 +56,11 @@
 
 	<!--CATEGORIES--> 
 
-		<button class="button button-positive">Events</button>
-		<button class="button button-positive" >Books</button>
-		<button class="button button-positive">Mentoring</button>
-		<button class="button button-positive">Housing</button>
-		<button class="button button-positive">Other</button>
+		<button ng-click="filterEvents()" class="button button-positive">Events</button>
+		<button ng-click="filterBooks()" class="button button-positive" >Books</button>
+		<button ng-click="filterMentoring()" class="button button-positive">Mentoring</button>
+		<button ng-click="filterHousing()" class="button button-positive">Housing</button>
+		<button ng-click="filterOther())" class="button button-positive">Other</button>
 		<a href="newpost.html">
 			<button class="button button-assertive"><i class="icon ion-compose"></i></button></a>
 
@@ -68,7 +68,7 @@
 	<!--TABLE FOR PREMIUM POSTS-->
 		<div id="premiumPosts" class="card" style="max-width:800px;position:relative">
 		<a class="PremiumPosts item item-avatar" href="announcement_details.html">
-		  <img src="{{verify.announcements[0].attachment}}">
+		  <img src="{{data.announcements[0].attachment}}">
 		  <h2>{{data.announcements[0].title}}</h2>
 		  <p>{{data.announcements[0].description}}</p>
 		</a>
@@ -83,13 +83,13 @@
 
 		<!--RECENT POSTS-->
 		<h4>Recent Posts</h4>
-		<div class="list">
-				<a class="item item-avatar" href="announcement_details.html">
+		<div id="normalPosts" class="list">
+				<a ng-show="booksFilter" class="item item-avatar" href="announcement_details.html">
 				  <img src="{{data.announcements[0].attachment}}">
 				  <h2>{{data.announcements[0].title}}</h2>
 				  <p>{{data.announcements[0].description}}</p>
 				</a>
-				<a class="item item-avatar" href="announcement_details.html">
+				<a ng-show="housingFilter" class="item item-avatar" href="announcement_details.html">
 				  <img src="{{data.announcements[1].attachment}}">
 				  <h2>{{data.announcements[1].title}}</h2>
 				  <p>{{data.announcements[1].description}}</p>

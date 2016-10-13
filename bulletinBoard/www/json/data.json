@@ -1,12 +1,73 @@
 {
 	"announcements":[
-    {"POSTID":"0328", "uID":"327819", "title":"New Book!!",
+    	{"POSTID":"0328", "uID":"327819", "title":"New Book!!",
     "description":"This is my calculus book.","category":"book",
     "dateAdded":"06-06-06",
 	"attachment":"http://pngimg.com/upload/book_PNG2116.png"},
-    {"POSTID":"789", "uID":"32173", "title":"Looking for a housemate",
+    	{"POSTID":"789", "uID":"32173", "title":"Looking for a housemate",
     "description":"its my new apartment","category":"housing",
     "dateAdded":"06-06-06",
 	"attachment":"http://hookedonhouses.net/wp-content/uploads/2009/01/Father-of-the-Bride-Lookalike-house.jpg"}
-]
+	],
+	"users":[
+		{"uID":"4324","username":"Chris51","password":"1234",
+		"email":"christian.lorenzo1@upr.edu", 
+		"profPic":"http://i2.kym-cdn.com/photos/images/newsfeed/000/848/178/9f9.png",
+		"typeOfAccount":"premium","activePosts":"2","phone":"787-366-9586"
+		},
+		{"uID":"7657","username":"Pumpkin","password":"1234",
+		"email":"pumpkin@gmail.com", 
+		"profPic":"https://s-media-cache-ak0.pinimg.com/originals/fd/6c/a4/fd6ca4b02020b9a3c9875f54758bc715.jpg",
+		"typeOfAccount":"premium","activePosts":"2","phone":"787-366-9586"
+		},
+		{"uID":"6545","username":"Bob","password":"1234",
+		"email":"bobby@hotmail.com", 
+		"profPic":"http://i.huffpost.com/gen/1779048/images/o-GRUMPY-OLD-MAN-facebook.jpg",
+		"typeOfAccount":"premium","activePosts":"2","phone":"787-366-9586"
+		},
+		{"uID":"2344","username":"Venkman","password":"1234",
+		"email":"venkman@weird.com", 
+		"profPic":"https://cdn1.thehunt.com/app/public/system/zine_images/9735297/original/ca99fdde02513d84851764a9b80bfa48.jpeg",
+		"typeOfAccount":"premium","activePosts":"2","phone":"787-366-9586"
+		},
+		{"uID":"3333","username":"Dodus","password":"1234",
+		"email":"dodus@weird.com", 
+		"profPic":"http://images.akamai.steamusercontent.com/ugc/29609754497705947/DCEED6760AFAD2841F3EA537720ED82283810FC9/",
+		"typeOfAccount":"premium","activePosts":"2","phone":"787-366-9586"
+		}
+	],
+	"payments":[
+		{"buyer_uID":"4324","seller_uID":"0238109",
+		"amount":"$25.00","typeOfPayment":"paypal","dateOfPayment":"06-06-06"
+		},
+		{"buyer_uID":"4324","seller_uID":"6437828",
+		"amount":"$5.00","typeOfPayment":"paypal","dateOfPayment":"06-06-06"
+		}
+	],
+	"messages":[
+		{
+			"sender_uID":"7657","reciever_uID":"4324",
+			"text":"Back off, man. I'm a scientist.","dateSent":"05-04-16"
+		},
+		{
+			"sender_uID":"6545","reciever_uID":"4324",
+			"text":"Hey, dude","dateSent":"05-04-16"
+		},
+		{
+			"sender_uID":"2344","reciever_uID":"4324",
+			"text":"SCIENCE","dateSent":"05-04-16"
+		},
+		{
+			"sender_uID":"2344","reciever_uID":"3333",
+			"text":"Sup","dateSent":"05-04-16"
+		},
+		{
+			"sender_uID":"3333","reciever_uID":"2344",
+			"text":"Hi","dateSent":"05-04-16"
+		},
+		{
+			"sender_uID":"2344","reciever_uID":"3333",
+			"text":"At what Time is the event?","dateSent":"05-04-16"
+		}
+	]
 }

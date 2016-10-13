@@ -34,9 +34,9 @@
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
     <script src="js/services.js"></script>
+	<script src="js/bb.js"></script>
 	</head>
-
-	<body ng-app="starter">
+	<body ng-app="bb" ng-controller="bbCtrl"> 
 
 	<ion-header-bar class="bar bar-header bar-stable">
 
@@ -57,15 +57,15 @@
 
 		<ion-content class="has-subheader" draggable="false">
 			<div class="item item-avatar">
-				<img src="http://i2.kym-cdn.com/photos/images/newsfeed/000/848/178/9f9.png">
-				<h2><span id="username">Chris51</span></h2>
+				<img src="{{data.users[0].profPic}}">
+				<h2><span id="username">{{data.users[0].username}}</span></h2>
 				<p>
-					<span id="email">christian.lorenzo1@upr.edu</span> 
+					<span id="email">{{data.users[0].email}}</span> 
 					</br>
-					<span id="phone">787-366-9586</span></p>
+					<span id="phone">{{data.users[0].phone}}</span></p>
 			</div>
 			<ion-list>
-			<div class="item item-divider">Details:</div>
+			<div class="item item-divider">History:</div>
 
 
 			<table style="width:100%">
@@ -81,44 +81,44 @@
 			<div ng-show="details=='messages'">
 				<div class="list">
 					<a class="item item-avatar" href="messages.html">
-					  <img src="http://i2.kym-cdn.com/photos/images/newsfeed/000/848/178/9f9.png">
-					  <h2>Pumpkin</h2>
-					  <p>Back off, man. I'm a scientist.</p>
+					  <img src="{{data.users[1].profPic}}">
+					  <h2>{{data.users[1].username}}</h2>
+					  <p>{{data.messages[0].text}}</p>
 					</a>
 					<a class="item item-avatar" href="messages.html">
-					  <img src="http://i2.kym-cdn.com/photos/images/newsfeed/000/848/178/9f9.png">
-					  <h2>Bob</h2>
-					  <p>Hey, dude</p>
+					  <img src="{{data.users[2].profPic}}">
+					  <h2>{{data.users[2].username}}</h2>
+					  <p>{{data.messages[1].text}}</p>
 					</a>
 					<a class="item item-avatar" href="messages.html">
-					  <img src="http://i2.kym-cdn.com/photos/images/newsfeed/000/848/178/9f9.png">
-					  <h2>Venkman</h2>
-					  <p>SCIENCE</p>
+					  <img src="{{data.users[3].profPic}}">
+					  <h2>{{data.users[3].username}}</h2>
+					  <p>{{data.messages[2].text}}</p>
 					</a>
 
 				</div>
 			</div>
 			
 			<div ng-show="details=='announcements'">
-			<a class="item item-avatar" href="messages.html">
-			  <img src="http://pngimg.com/upload/book_PNG2116.png">
-			  <h2>BUY MY BOOK</h2>
-			  <p>It's a new book...</p>
+			<a class="item item-avatar" href="announcement_details.html">
+			  <img src="{{data.announcements[0].attachment}}">
+			  <h2>{{data.announcements[0].title}}</h2>
+			  <p>{{data.announcements[0].description}}</p>
 			</a>
-			<a class="item item-avatar" href="messages.html">
-			  <img src="http://hookedonhouses.net/wp-content/uploads/2009/01/Father-of-the-Bride-Lookalike-house.jpg">
-			  <h2>Lookinhg housemate</h2>
-			  <p>new house !!</p>
+			<a class="item item-avatar" href="announcement_details.html">
+			  <img src="{{data.announcements[1].attachment}}">
+			  <h2>{{data.announcements[1].title}}</h2>
+			  <p>{{data.announcements[1].description}}</p>
 			</a>
 			</div>
 			
 			<div ng-show="details=='payments'">
 				<ul class="list">
 					<li class="item">
-					06-06-06: Payed user 0238109 ......................  $25.00
+					{{data.payments[0].dateOfPayment}}: Payed user {{data.payments[0].seller_uID}} through {{data.payments[0].typeOfPayment}} ......................  {{data.payments[0].amount}}
 					</li>
 					<li class="item">
-					06-06-06: Payed user 6437828 ......................  $5.00
+					{{data.payments[1].dateOfPayment}}: Payed user {{data.payments[1].seller_uID}} through {{data.payments[1].typeOfPayment}} ......................  {{data.payments[1].amount}}
 					</li>
 				</ul>
 			</div>

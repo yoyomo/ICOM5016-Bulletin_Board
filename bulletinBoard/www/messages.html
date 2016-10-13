@@ -34,9 +34,10 @@
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
     <script src="js/services.js"></script>
+	<script src="js/bb.js"></script>
 	</head>
-	
-	<body ng-app="starter">
+	<body ng-app="bb" ng-controller="bbCtrl">
+
 	<ion-header-bar class="bar bar-header bar-stable">
 		
 		<div class="buttons">
@@ -59,21 +60,30 @@
 		<ion-header-bar class="bar bar-subheader bar-light">
 		<h2 class="title">Messages</h2>
 		</ion-header-bar>
+
 	<!--CONTENT-->
 
 		<ion-content class="has-subheader">
-		
-		<div class="list">
-
-    <a class="item item-avatar" href="#">
-      <img src="http://www.freeiconspng.com/uploads/person-icon-5.png">
-      <h2>My Friend</h2>
-    </a>
-	</div>
 		<ul >
-			<li style="text-align:right">Sup</li>
-			<li style="text-align:left">Hi</li>
-			<li style="text-align:right">At what Time is the event?</li>
+			<li style="text-align:right">
+				<a class="item item-avatar" href="profile.html">
+			      <img style="float: right; position: static;" src="{{data.users[4].profPic}}">
+			      <h2>{{data.messages[3].text}}</h2>
+			    </a>
+		    </li>
+
+			<li style="text-align:left">
+				<a class="item item-avatar" href="profile.html">
+			      <img src="{{data.users[3].profPic}}">
+			      <h2>{{data.messages[4].text}}</h2>
+			    </a>
+			</li>
+			<li style="text-align:right">
+				<a class="item item-avatar" href="profile.html">
+			      <img style="float: right; position: static;" src="{{data.users[4].profPic}}">
+			      <h2>{{data.messages[5].text}}</h2>
+			    </a>
+			</li>
 		</ul>
 		
 		<label class="item item-input">
