@@ -7,6 +7,9 @@ angular.module('bb', ['ionic'])
         url : "json/data.json"
     }).then(function mySucces(response) {
         $scope.data = response.data;
+		$scope.statuscode = response.status;
+		$scope.statustext  = response.statustext;
+		console.log($scope.statuscode, "Data Retrieved.");
 
     }, function myError(response) {
         $scope.data = response.statusText;
