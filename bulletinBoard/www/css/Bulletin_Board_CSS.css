@@ -2,3 +2,20 @@ a{
 	text-decoration: none
 }
 
+body{
+	background-color:#FFF
+}
+
+#searchbar{
+	width:55%
+}
+#premiumPosts{
+	max-width:600px;
+	position:relative;
+}
+#buttons{
+	
+}
+.border{
+	background-color:#000;
+}

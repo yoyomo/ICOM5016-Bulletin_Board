@@ -47,7 +47,7 @@
 		</ion-header-bar>
 
 		<ion-content class="has-header">
-		<div class="list list-inset">
+		<div id="searchbar" class="list list-inset">
 			<label class="item item-input item-button-right">
 			<i class="icon ion-search placeholder-icon"></i>
 			<input type="search" placeholder="Search"/>
@@ -55,18 +55,27 @@
 		</div>
 
 	<!--CATEGORIES--> 
-
-		<button ng-click="filterEvents()" class="button button-positive">Events</button>
-		<button ng-click="filterBooks()" class="button button-positive" >Books</button>
-		<button ng-click="filterMentoring()" class="button button-positive">Mentoring</button>
-		<button ng-click="filterHousing()" class="button button-positive">Housing</button>
-		<button ng-click="filterOther())" class="button button-positive">Other</button>
+		<div id="buttons" class="list-inset">
+		<button ng-click="showAll()" class="button button-positive"
+		ng-class="allFilters?'button-positive':'button-outlined'">All</button>
+		<button ng-click="filterEvents()" class="button button-positive" 
+		ng-class="eventFilter?'button-positive':'button-outlined'">Events</button>
+		<button ng-click="filterBooks()" class="button button-positive" 
+		ng-class="booksFilter?'button-positive':'button-outlined'">Books</button>
+		<button ng-click="filterMentoring()" class="button button-positive"
+		ng-class="mentoringFilter?'button-positive':'button-outlined'">Mentoring</button>
+		<button ng-click="filterHousing()" class="button button-positive"
+		ng-class="housingFilter?'button-positive':'button-outlined'">Housing</button>
+		<button ng-click="filterOther()" class="button button-positive"
+		ng-class="otherFilter?'button-positive':'button-outlined'">Other</button>
 		<a href="newpost.html">
 			<button class="button button-assertive"><i class="icon ion-compose"></i></button></a>
+		</div>
+		
 
 
 	<!--TABLE FOR PREMIUM POSTS-->
-		<div id="premiumPosts" class="card" style="max-width:800px;position:relative">
+		<div id="premiumPosts" class="card">
 		<a class="PremiumPosts item item-avatar" href="announcement_details.html">
 		  <img src="{{data.announcements[0].attachment}}">
 		  <h2>{{data.announcements[0].title}}</h2>
@@ -93,29 +102,25 @@
 				  <img src="{{data.announcements[1].attachment}}">
 				  <h2>{{data.announcements[1].title}}</h2>
 				  <p>{{data.announcements[1].description}}</p>
-				</a>			
+				</a>		
+				<a ng-show="eventFilter" class="item item-avatar" href="announcement_details.html">
+				  <img src="{{data.announcements[2].attachment}}">
+				  <h2>{{data.announcements[2].title}}</h2>
+				  <p>{{data.announcements[2].description}}</p>
+				</a>		
+				<a ng-show="mentoringFilter" class="item item-avatar" href="announcement_details.html">
+				  <img src="{{data.announcements[3].attachment}}">
+				  <h2>{{data.announcements[3].title}}</h2>
+				  <p>{{data.announcements[3].description}}</p>
+				</a>		
+				<a ng-show="otherFilter" class="item item-avatar" href="announcement_details.html">
+				  <img src="{{data.announcements[4].attachment}}">
+				  <h2>{{data.announcements[4].title}}</h2>
+				  <p>{{data.announcements[4].description}}</p>
+				</a>		
 		</div>
 		</ion-content>
-		<script>
-			var slideIndex = 1;
-			showDivs(slideIndex);
-
-			function plusDivs(n) {
-			  showDivs(slideIndex += n);
-			}
-
-			function showDivs(n) {
-			  var i;
-			  var x = document.getElementsByClassName("PremiumPosts");
-			  if (n > x.length) {slideIndex = 1}    
-			  if (n < 1) {slideIndex = x.length}
-			  for (i = 0; i < x.length; i++) {
-				 x[i].style.display = "none";  
-			  }
-			  x[slideIndex-1].style.display = "block";  
-			}
-		</script>
-  
+		<script src="js/slider.js"></script>
 	</body>
 
 </html>

@@ -36,6 +36,27 @@ app.get('/findData/:type/:id', function (req, res) {
 	  		}
 		 }
 	  }
+	  if(req.params.type == "announcements"){
+		for (var i = 0; i < type.length; i++){
+			if (type[i].POSTID == req.params.id){
+				var user = type[i];
+	  		}
+		 }
+	  }
+	  if(req.params.type == "messages"){
+		for (var i = 0; i < type.length; i++){
+			if (type[i].mID == req.params.id){
+				var user = type[i];
+	  		}
+		 }
+	  }
+	  if(req.params.type == "payments"){
+		for (var i = 0; i < type.length; i++){
+			if (type[i].pID == req.params.id){
+				var user = type[i];
+	  		}
+		 }
+	  }
       console.log( user);
       res.end( JSON.stringify(user) );
    });

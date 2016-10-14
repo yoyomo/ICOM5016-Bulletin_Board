@@ -7,7 +7,19 @@
     	{"POSTID":"789", "uID":"32173", "title":"Looking for a housemate",
     "description":"its my new apartment","category":"housing",
     "dateAdded":"06-06-06",
-	"attachment":"http://hookedonhouses.net/wp-content/uploads/2009/01/Father-of-the-Bride-Lookalike-house.jpg"}
+	"attachment":"http://hookedonhouses.net/wp-content/uploads/2009/01/Father-of-the-Bride-Lookalike-house.jpg"},
+		{"POSTID":"542", "uID":"9586", "title":"Ionic Workshop",
+    "description":"We are going to teach you how to use ionic.","category":"event",
+    "dateAdded":"06-06-06",
+	"attachment":"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Ionic_Logo.svg/2000px-Ionic_Logo.svg.png"},
+		{"POSTID":"8755", "uID":"32173", "title":"OS Mentor",
+    "description":"You will not understand anything.","category":"mentorship",
+    "dateAdded":"06-06-06",
+	"attachment":"https://upload.wikimedia.org/wikipedia/commons/9/99/DEC_VT100_terminal.jpg"},
+		{"POSTID":"789", "uID":"32173", "title":"Selling used bike.",
+    "description":"It's missing a wheel.","category":"other",
+    "dateAdded":"06-06-06",
+	"attachment":"https://i5.walmartimages.com/asr/ea380232-08a5-4d40-b5b8-7f07baf27a53_1.091aa38b548ecc1f8020a2a120412c18.jpeg"}
 	],
 	"users":[
 		{"uID":"4324","username":"Chris51","password":"1234",
@@ -37,36 +49,36 @@
 		}
 	],
 	"payments":[
-		{"buyer_uID":"4324","seller_uID":"0238109",
+		{"pID":"4324", "buyer_uID":"4324","seller_uID":"0238109",
 		"amount":"$25.00","typeOfPayment":"paypal","dateOfPayment":"06-06-06"
 		},
-		{"buyer_uID":"4324","seller_uID":"6437828",
+		{"pID":"7655", "buyer_uID":"4324","seller_uID":"6437828",
 		"amount":"$5.00","typeOfPayment":"paypal","dateOfPayment":"06-06-06"
 		}
 	],
 	"messages":[
 		{
-			"sender_uID":"7657","reciever_uID":"4324",
+			"mID":"36273","sender_uID":"7657","reciever_uID":"4324",
 			"text":"Back off, man. I'm a scientist.","dateSent":"05-04-16"
 		},
 		{
-			"sender_uID":"6545","reciever_uID":"4324",
+			"mID":"543","sender_uID":"6545","reciever_uID":"4324",
 			"text":"Hey, dude","dateSent":"05-04-16"
 		},
 		{
-			"sender_uID":"2344","reciever_uID":"4324",
+			"mID":"432","sender_uID":"2344","reciever_uID":"4324",
 			"text":"SCIENCE","dateSent":"05-04-16"
 		},
 		{
-			"sender_uID":"2344","reciever_uID":"3333",
+			"mID":"23432","sender_uID":"2344","reciever_uID":"3333",
 			"text":"Sup","dateSent":"05-04-16"
 		},
 		{
-			"sender_uID":"3333","reciever_uID":"2344",
+			"mID":"543","sender_uID":"3333","reciever_uID":"2344",
 			"text":"Hi","dateSent":"05-04-16"
 		},
 		{
-			"sender_uID":"2344","reciever_uID":"3333",
+			"mID":"54345","sender_uID":"2344","reciever_uID":"3333",
 			"text":"At what Time is the event?","dateSent":"05-04-16"
 		}
 	]

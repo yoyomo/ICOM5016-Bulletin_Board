@@ -34,27 +34,55 @@ angular.module('bb', ['ionic'])
   });
 
   // Mini Filter that toggles if button is clicked
-  $scope.booksFilter = true;
-  $scope.housingFilter = true;
-  $scope.eventsFilter = true;
-  $scope.mentoringFilter = true;
-  $scope.otherFilter = true;
-
   $scope.filterBooks = function(){
-    $scope.booksFilter = !$scope.booksFilter;
+	$scope.booksFilter = true;
+	$scope.housingFilter = false;
+	$scope.eventFilter = false;
+	$scope.mentoringFilter = false;
+	$scope.otherFilter = false;
+	$scope.allFilters = false;
   }
   $scope.filterHousing = function(){
-    $scope.housingFilter = !$scope.housingFilter;
+	$scope.booksFilter = false;
+	$scope.housingFilter = true;
+	$scope.eventFilter = false;
+	$scope.mentoringFilter = false;
+	$scope.otherFilter = false;
+	$scope.allFilters = false;
   }
   $scope.filterEvents = function(){
-    $scope.eventsFilter = !$scope.eventsFilter;
+	$scope.booksFilter = false;
+	$scope.housingFilter = false;
+	$scope.eventFilter = true;
+	$scope.mentoringFilter = false;
+	$scope.otherFilter = false;
+	$scope.allFilters = false;
   }
   $scope.filterMentoring = function(){
-    $scope.mentoringFilter = !$scope.mentoringFilter;
+    $scope.booksFilter = false;
+	$scope.housingFilter = false;
+	$scope.eventFilter = false;
+	$scope.mentoringFilter = true;
+	$scope.otherFilter = false;
+	$scope.allFilters = false;
   }
   $scope.filterOther = function(){
-    $scope.otherFilter = !$scope.otherFilter;
+    $scope.booksFilter = false;
+	$scope.housingFilter = false;
+	$scope.eventFilter = false;
+	$scope.mentoringFilter = false;
+	$scope.otherFilter = true;
+	$scope.allFilters = false;
   }
+  $scope.showAll = function(){
+    $scope.booksFilter = true;
+	$scope.housingFilter = true;
+	$scope.eventFilter = true;
+	$scope.mentoringFilter = true;
+	$scope.otherFilter = true;
+	$scope.allFilters = true;
+  }
+  $scope.showAll();
 })
 
 .run(function($ionicPlatform) {
