@@ -1,5 +1,5 @@
-var express = require('express'),
-app = express();
+var express = require('express');
+var app = express();
 app.use(express.static('www'));
 app.set('port', process.env.PORT || 5000);
 app.listen(app.get('port'), function () {
@@ -9,13 +9,39 @@ app.listen(app.get('port'), function () {
 var fs = require("fs");
 
 app.get('/findData', function (req, res) {
-   fs.readFile( __dirname + "/" + "json/data.json", 'utf8', function (err, data) {
-      console.log( data, err );
-      res.end( data );
+   fs.readFile( __dirname + "/" + "www/json/data.json", 'utf8',function (err, data) {
+      data = JSON.parse(data);
+      console.log( data);
+      res.end( JSON.stringify(data) );
    });
 })
 
-var server = app.listen(8081, function () {
+app.get('/findData/:type', function (req, res) {
+   fs.readFile( __dirname + "/" + "www/json/data.json", 'utf8',function (err, data) {
+      data = JSON.parse(data);
+      var type = data[""+req.params.type];
+      console.log( type);
+      res.end( JSON.stringify(type) );
+   });
+})
+
+app.get('/findData/:type/:id', function (req, res) {
+   fs.readFile( __dirname + "/" + "www/json/data.json", 'utf8',function (err, data) {
+      data = JSON.parse(data);
+      var type = data[""+req.params.type];
+      if(req.params.type == "users"){
+		for (var i = 0; i < type.length; i++){
+			if (type[i].uID == req.params.id){
+				var user = type[i];
+	  		}
+		 }
+	  }
+      console.log( user);
+      res.end( JSON.stringify(user) );
+   });
+})
+
+var server = app.listen(5000, function () {
    var host = server.address().address
    var port = server.address().port
 
