@@ -1,11 +1,19 @@
+var SECONDS = 3;
+
+var milliseconds = SECONDS * 1000;
 var slideIndex = 1;
+var timer;
+var playPause = 0;
+var playPauseButton = document.getElementById("playPause");
 showDivs(slideIndex);
 
 function plusDivs(n) {
   showDivs(slideIndex += n);
+  clearInterval(timer);
 }
 function plusDivs() {
   showDivs(slideIndex += 1);
+
 }
 
 function showDivs(n) {
@@ -19,4 +27,20 @@ function showDivs(n) {
   x[slideIndex-1].style.display = "block";  
 }
 
-setInterval(plusDivs,3000);
+function stopResumeSlider(){
+  playPauseButton.removeAttribute("class");
+
+  if(playPause){
+    playPauseButton.setAttribute("class","icon ion-pause");
+    timer = setInterval(plusDivs,milliseconds);
+    playPause = 0;
+  }
+  else{
+    playPauseButton.setAttribute("class","icon ion-play");
+    clearInterval(timer);
+    playPause = 1;
+  }
+}
+
+timer = setInterval(plusDivs,milliseconds);
+
