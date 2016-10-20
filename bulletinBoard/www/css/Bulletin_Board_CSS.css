@@ -13,9 +13,13 @@ body{
 	max-width:600px;
 	position:relative;
 }
-#buttons{
+button-group{
 	
 }
 .border{
 	background-color:#000;
+}
+
+#reportButton{
+	float:right;
 }

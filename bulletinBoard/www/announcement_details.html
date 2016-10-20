@@ -67,14 +67,16 @@
 				<span>Date Added: {{data.announcements[0].dateAdded}}</span>
 			</p>
 		</div>
-		<a href="messages.html">
-			<button class="button button-positive">Messages</button></a>
-			
-		<a href="payment.html">
-			<button class="button button-positive">Payment</button></a>
-			
-		<a href="report.html">
-			<button class="button button-positive">Report</button></a>
-		</ion-content>
+		<div class="list-inset">
+			<a href="messages.html">
+				<button class="button button-positive"><i class="icon ion-paper-airplane"></i></button></a>
+				
+			<a href="payment.html">
+				<button class="button button-positive"><i class="icon ion-card"></i></button></a>
+				
+			<a id="reportButton" href="report.html">
+				<button class="button button-assertive icon-right"><i class="icon ion-alert-circled"></i></button></a>
+			</ion-content>
+		</div>
 	</body>
 </html>
