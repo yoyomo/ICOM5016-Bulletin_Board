@@ -5,6 +5,9 @@ Class project for ICOM-5016.
 [Bulletin Board](announceit.herokuapp.com)
 
 ### REST API:
+
+```
 /findData/
 /findData/:type/
 /findData/:type/:id
+```
