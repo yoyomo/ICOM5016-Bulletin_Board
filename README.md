@@ -2,7 +2,7 @@
 Class project for ICOM-5016.
 
 ## Heroku link:
-[Bulletin Board](announceit.herokuapp.com)
+[Bulletin Board](https://announceit.herokuapp.com)
 
 ### REST API:
 
