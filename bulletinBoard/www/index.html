@@ -61,7 +61,7 @@
 		<button ng-click="filterEvents()" class="button button-positive" 
 		ng-class="eventFilter?'button-positive':'button-outlined'">Events</button>
 		<button ng-click="filterBooks()" class="button button-positive" 
-		ng-class="booksFilter?'button-positive':'button-outlined'">Books</button>
+		ng-class="bookFilter?'button-positive':'button-outlined'">Books</button>
 		<button ng-click="filterMentoring()" class="button button-positive"
 		ng-class="mentoringFilter?'button-positive':'button-outlined'">Mentoring</button>
 		<button ng-click="filterHousing()" class="button button-positive"
@@ -76,49 +76,36 @@
 
 	<!--TABLE FOR PREMIUM POSTS-->
 		<div id="premiumPosts" class="card">
-		<a class="PremiumPosts item item-avatar" href="announcement_details.html">
-		  <img src="{{data.announcements[0].attachment}}">
-		  <h2>{{data.announcements[0].title}}</h2>
-		  <p>{{data.announcements[0].description}}</p>
-		</a>
-		<a class="PremiumPosts item item-avatar" href="announcement_details.html">
-		  <img src="{{data.announcements[1].attachment}}">
-		  <h2>{{data.announcements[1].title}}</h2>
-		  <p>{{data.announcements[1].description}}</p>
-		</a>
-		<button onclick="plusDivs(-1)" class="button button-light"><i class="icon ion-chevron-left"></i></button>
-		<button onclick="stopResumeSlider()" class="button button-light"><i class="icon ion-pause" id="playPause"></i></button>
-		<button onclick="plusDivs(1)" class="button button-light"><i class="icon ion-chevron-right"></i></button>
+			<!--<a ng-repeat="announcement in premiumPosts" class="PremiumPosts item item-avatar" href="announcement_details.html">
+			  <img src="{{announcement.attachment}}">
+			  <h2>{{announcement.title}}</h2>
+			  <p>{{announcement.description}}</p>
+			</a>-->
+			<a class="PremiumPosts item item-avatar" href="announcement_details.html">
+			  <img src="{{data.announcements[0].attachment}}">
+			  <h2>{{data.announcements[0].title}}</h2>
+			  <p>{{data.announcements[0].description}}</p>
+			</a>
+			<a class="PremiumPosts item item-avatar" href="announcement_details.html">
+			  <img src="{{data.announcements[1].attachment}}">
+			  <h2>{{data.announcements[1].title}}</h2>
+			  <p>{{data.announcements[1].description}}</p>
+			</a>
+			
+			<button onclick="plusDivs(-1)" class="button button-light"><i class="icon ion-chevron-left"></i></button>
+			<button onclick="stopResumeSlider()" class="button button-light"><i class="icon ion-pause" id="playPause"></i></button>
+			<button onclick="plusDivs(1)" class="button button-light"><i class="icon ion-chevron-right"></i></button>
 		</div>
 
 		<!--RECENT POSTS-->
 		<h4>Recent Posts</h4>
-		<div id="normalPosts" class="list">
-				<a ng-show="booksFilter" class="item item-avatar" href="announcement_details.html">
-				  <img src="{{data.announcements[0].attachment}}">
-				  <h2>{{data.announcements[0].title}}</h2>
-				  <p>{{data.announcements[0].description}}</p>
+		<div id="normalPosts" class="list" >
+				<a ng-repeat="announcement in data.announcements" ng-show="{{announcement.category}}Filter" class="item item-avatar" href="announcement_details.html">
+				  <img src="{{announcement.attachment}}">
+				  <h2>{{announcement.title}}</h2>
+				  <p>{{announcement.description}}</p>
 				</a>
-				<a ng-show="housingFilter" class="item item-avatar" href="announcement_details.html">
-				  <img src="{{data.announcements[1].attachment}}">
-				  <h2>{{data.announcements[1].title}}</h2>
-				  <p>{{data.announcements[1].description}}</p>
-				</a>		
-				<a ng-show="eventFilter" class="item item-avatar" href="announcement_details.html">
-				  <img src="{{data.announcements[2].attachment}}">
-				  <h2>{{data.announcements[2].title}}</h2>
-				  <p>{{data.announcements[2].description}}</p>
-				</a>		
-				<a ng-show="mentoringFilter" class="item item-avatar" href="announcement_details.html">
-				  <img src="{{data.announcements[3].attachment}}">
-				  <h2>{{data.announcements[3].title}}</h2>
-				  <p>{{data.announcements[3].description}}</p>
-				</a>		
-				<a ng-show="otherFilter" class="item item-avatar" href="announcement_details.html">
-				  <img src="{{data.announcements[4].attachment}}">
-				  <h2>{{data.announcements[4].title}}</h2>
-				  <p>{{data.announcements[4].description}}</p>
-				</a>		
+					
 		</div>
 		</ion-content>
 		<script src="js/slider.js"></script>

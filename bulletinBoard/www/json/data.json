@@ -1,10 +1,10 @@
 {
 	"announcements":[
-    	{"POSTID":"0328", "uID":"327819", "title":"New Book!!",
+    	{"POSTID":"7643", "uID":"4324", "title":"New Book!!",
     "description":"This is my calculus book.","category":"book",
     "dateAdded":"06-06-06",
 	"attachment":"http://pngimg.com/upload/book_PNG2116.png"},
-    	{"POSTID":"789", "uID":"32173", "title":"Looking for a housemate",
+    	{"POSTID":"234", "uID":"4324", "title":"Looking for a housemate",
     "description":"its my new apartment","category":"housing",
     "dateAdded":"06-06-06",
 	"attachment":"http://hookedonhouses.net/wp-content/uploads/2009/01/Father-of-the-Bride-Lookalike-house.jpg"},
@@ -13,7 +13,7 @@
     "dateAdded":"06-06-06",
 	"attachment":"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Ionic_Logo.svg/2000px-Ionic_Logo.svg.png"},
 		{"POSTID":"8755", "uID":"32173", "title":"OS Mentor",
-    "description":"You will not understand anything.","category":"mentorship",
+    "description":"You will not understand anything.","category":"mentoring",
     "dateAdded":"06-06-06",
 	"attachment":"https://upload.wikimedia.org/wikipedia/commons/9/99/DEC_VT100_terminal.jpg"},
 		{"POSTID":"789", "uID":"32173", "title":"Selling used bike.",
@@ -30,22 +30,22 @@
 		{"uID":"7657","username":"Pumpkin","password":"1234",
 		"email":"pumpkin@gmail.com", 
 		"profPic":"https://s-media-cache-ak0.pinimg.com/originals/fd/6c/a4/fd6ca4b02020b9a3c9875f54758bc715.jpg",
-		"typeOfAccount":"premium","activePosts":"2","phone":"787-366-9586"
+		"typeOfAccount":"normal","activePosts":"2","phone":"787-366-9586"
 		},
 		{"uID":"6545","username":"Bob","password":"1234",
 		"email":"bobby@hotmail.com", 
 		"profPic":"http://i.huffpost.com/gen/1779048/images/o-GRUMPY-OLD-MAN-facebook.jpg",
-		"typeOfAccount":"premium","activePosts":"2","phone":"787-366-9586"
+		"typeOfAccount":"normal","activePosts":"2","phone":"787-366-9586"
 		},
 		{"uID":"2344","username":"Venkman","password":"1234",
 		"email":"venkman@weird.com", 
 		"profPic":"https://cdn1.thehunt.com/app/public/system/zine_images/9735297/original/ca99fdde02513d84851764a9b80bfa48.jpeg",
-		"typeOfAccount":"premium","activePosts":"2","phone":"787-366-9586"
+		"typeOfAccount":"normal","activePosts":"2","phone":"787-366-9586"
 		},
 		{"uID":"3333","username":"Dodus","password":"1234",
 		"email":"dodus@weird.com", 
 		"profPic":"http://images.akamai.steamusercontent.com/ugc/29609754497705947/DCEED6760AFAD2841F3EA537720ED82283810FC9/",
-		"typeOfAccount":"premium","activePosts":"2","phone":"787-366-9586"
+		"typeOfAccount":"normal","activePosts":"2","phone":"787-366-9586"
 		}
 	],
 	"payments":[

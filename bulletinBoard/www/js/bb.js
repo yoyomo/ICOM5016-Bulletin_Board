@@ -17,25 +17,47 @@ angular.module('bb', ['ionic'])
   };
 
   $scope.get().then(function(){
-    $scope.verify = $scope.data;
+    //$scope.verify = $scope.data;
 
-    // var premiumPosts = angular.element(document.getElementById("premiumPosts"));
-    // var post, i;
-    // for(var i = 1; i < 0; i--){
+    // var $premiumPosts = angular.element(document.querySelector("#premiumPosts"));
+    // var post;
+    // for(var i = 1; i > 0; i--){
     //   post = '<a class="PremiumPosts item item-avatar" href="announcement_details.html">\
     //     <img src="'+$scope.data.announcements[i].attachment+'">\
-    //     <h2>'+$scope.data.announcements[i].title+'</h2>\
+    //     <h2>POOOP'+$scope.data.announcements[i].title+'</h2>\
     //     <p>'+$scope.data.announcements[i].description+'</p>\
     //   </a>';
 
-    //   premiumPosts.prepend(post);
+    //   $premiumPosts.prepend(post);
     // }
-    
-  });
+    // var normalPosts = angular.element(document.querySelector("#normalPosts"));
+    // var post;
+    // for(var i = Object.keys($scope.data).length; i >= 0; i--){
+    //   post = '<a ng-show="booksFilter" class="item item-avatar" href="announcement_details.html">\
+    //       <img src="'+$scope.data.announcements[i].attachment+'">\
+    //       <h2>'+$scope.data.announcements[i].title+'</h2>\
+    //       <p>'+$scope.data.announcements[i].description+'</p>\
+    //     </a>';
+    //   normalPosts.prepend(post);
+    // }
+    $scope.premiumUsers = [];
+    $scope.premiumPosts = [];
+    for(var i = Object.keys($scope.data.users).length-1;i >= 0;i--){
+      if($scope.data.users[i].typeOfAccount == 'premium'){
+        $scope.premiumUsers.push($scope.data.users[i]);
+        for(var j = Object.keys($scope.data.announcements).length-1;j >= 0;j--){
+          if($scope.data.users[i].uID == $scope.data.announcements[j].uID){
+              $scope.premiumPosts.push($scope.data.announcements[j]);
+          }
+        }
+      }
+    }
 
+  });
+  
   // Mini Filter that toggles if button is clicked
   $scope.filterBooks = function(){
-	$scope.booksFilter = true;
+	$scope.bookFilter = true;
 	$scope.housingFilter = false;
 	$scope.eventFilter = false;
 	$scope.mentoringFilter = false;
@@ -43,7 +65,7 @@ angular.module('bb', ['ionic'])
 	$scope.allFilters = false;
   }
   $scope.filterHousing = function(){
-	$scope.booksFilter = false;
+	$scope.bookFilter = false;
 	$scope.housingFilter = true;
 	$scope.eventFilter = false;
 	$scope.mentoringFilter = false;
@@ -51,7 +73,7 @@ angular.module('bb', ['ionic'])
 	$scope.allFilters = false;
   }
   $scope.filterEvents = function(){
-	$scope.booksFilter = false;
+	$scope.bookFilter = false;
 	$scope.housingFilter = false;
 	$scope.eventFilter = true;
 	$scope.mentoringFilter = false;
@@ -59,7 +81,7 @@ angular.module('bb', ['ionic'])
 	$scope.allFilters = false;
   }
   $scope.filterMentoring = function(){
-    $scope.booksFilter = false;
+    $scope.bookFilter = false;
 	$scope.housingFilter = false;
 	$scope.eventFilter = false;
 	$scope.mentoringFilter = true;
@@ -67,7 +89,7 @@ angular.module('bb', ['ionic'])
 	$scope.allFilters = false;
   }
   $scope.filterOther = function(){
-    $scope.booksFilter = false;
+    $scope.bookFilter = false;
 	$scope.housingFilter = false;
 	$scope.eventFilter = false;
 	$scope.mentoringFilter = false;
@@ -75,7 +97,7 @@ angular.module('bb', ['ionic'])
 	$scope.allFilters = false;
   }
   $scope.showAll = function(){
-    $scope.booksFilter = true;
+    $scope.bookFilter = true;
 	$scope.housingFilter = true;
 	$scope.eventFilter = true;
 	$scope.mentoringFilter = true;

@@ -2,10 +2,11 @@ var SECONDS = 3;
 
 var milliseconds = SECONDS * 1000;
 var slideIndex = 1;
+var x = document.getElementsByClassName("PremiumPosts");
 var timer;
 var playPause = 0;
 var playPauseButton = document.getElementById("playPause");
-showDivs(slideIndex);
+
 
 function plusDivs(n) {
   showDivs(slideIndex += n);
@@ -18,13 +19,13 @@ function plusDivs() {
 
 function showDivs(n) {
   var i;
-  var x = document.getElementsByClassName("PremiumPosts");
   if (n > x.length) {slideIndex = 1}    
   if (n < 1) {slideIndex = x.length}
   for (i = 0; i < x.length; i++) {
 	 x[i].style.display = "none";  
   }
-  x[slideIndex-1].style.display = "block";  
+  if(x.length != 0)
+    x[slideIndex-1].style.display = "block";  
 }
 
 function stopResumeSlider(){
@@ -41,6 +42,8 @@ function stopResumeSlider(){
     playPause = 1;
   }
 }
+
+showDivs(slideIndex);
 
 timer = setInterval(plusDivs,milliseconds);
 
