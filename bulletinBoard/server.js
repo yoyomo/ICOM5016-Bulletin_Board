@@ -8,12 +8,26 @@ app.listen(app.get('port'), function () {
 });
 var fs = require("fs");
 
+var pg = require('pg');
+pg.defaults.ssl = true;          
+var conString = process.env.DATABASE_URL ||
+  "postgres://cggtxtfflkmdrx:l9xnU_uY1DpvOh6YrdOnn2MbTS@ec2-54-225-121-93.compute-1.amazonaws.com:5432/d395p50rdtiaf1";
+var client = new pg.Client(conString);
+client.connect();
+
+
 app.get('/findData', function (req, res) {
-   fs.readFile( __dirname + "/" + "www/json/data.json", 'utf8',function (err, data) {
-      data = JSON.parse(data);
-      console.log( data);
-      res.end( JSON.stringify(data) );
-   });
+	fs.readFile( __dirname + "/" + "www/json/data.json", 'utf8',function (err, data) {
+    	data = JSON.parse(data);
+      	console.log( data);
+      	//res.write( JSON.stringify(data) );
+   	});
+   	var query = client.query("select * from member;");    
+   	query.on("end", function (result) {          
+   		client.end(); 
+		res.write(JSON.stringify(result.rows[0].username));
+		res.end();  
+	});
 })
 
 app.get('/findData/:type', function (req, res) {
@@ -62,9 +76,3 @@ app.get('/findData/:type/:id', function (req, res) {
    });
 })
 
-var server = app.listen(5000, function () {
-   var host = server.address().address
-   var port = server.address().port
-
-   console.log("Example app listening at http://%s:%s", host, port)
-})
