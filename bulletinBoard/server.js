@@ -7,27 +7,33 @@ app.listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });
 var fs = require("fs");
+var pg, conString, client;
+function clientConnect(){
+	pg = require('pg');
+	pg.defaults.ssl = true;          
+	conString = process.env.DATABASE_URL ||
+	  "postgres://cggtxtfflkmdrx:l9xnU_uY1DpvOh6YrdOnn2MbTS@ec2-54-225-121-93.compute-1.amazonaws.com:5432/d395p50rdtiaf1";
+	client = new pg.Client(conString);
+	client.connect();
+}
 
-var pg = require('pg');
-pg.defaults.ssl = true;          
-var conString = process.env.DATABASE_URL ||
-  "postgres://cggtxtfflkmdrx:l9xnU_uY1DpvOh6YrdOnn2MbTS@ec2-54-225-121-93.compute-1.amazonaws.com:5432/d395p50rdtiaf1";
-var client = new pg.Client(conString);
-client.connect();
-
-
-app.get('/findData', function (req, res) {
-	fs.readFile( __dirname + "/" + "www/json/data.json", 'utf8',function (err, data) {
-    	data = JSON.parse(data);
-      	console.log( data);
-      	//res.write( JSON.stringify(data) );
-   	});
-   	var query = client.query("select * from member;");    
+app.get('/db/get', function (req,res) {
+	clientConnect();
+	var query = client.query("select * from member;");    
    	query.on("end", function (result) {          
    		client.end(); 
 		res.write(JSON.stringify(result.rows[0].username));
 		res.end();  
 	});
+})
+
+app.get('/findData', function (req, res) {
+	fs.readFile( __dirname + "/" + "www/json/data.json", 'utf8',function (err, data) {
+    	data = JSON.parse(data);
+      	console.log( data);
+      	res.end( JSON.stringify(data) );
+   	});
+   	
 })
 
 app.get('/findData/:type', function (req, res) {
