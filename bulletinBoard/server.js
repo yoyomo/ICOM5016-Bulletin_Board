@@ -27,6 +27,35 @@ app.get('/db/get', function (req,res) {
 	});
 })
 
+app.get('/db/get/announcements', function (req,res) {
+	clientConnect();
+	var query = client.query(
+		"with announcements as \
+		((select category,postID,title,description, attachment, dateAdded\
+		from event )\
+		union \
+		(select category,postID,title,description, attachment, dateAdded\
+		from book)\
+		union\
+		(select category,postID,title,description, attachment, dateAdded\
+		from housing)\
+		union\
+		(select category,postID,title,description, attachment, dateAdded\
+		from mentorship)\
+		union\
+		(select category,postID,title,description, attachment, dateAdded\
+		from other))\
+		select *\
+		from announcements\
+		order by dateAdded;"
+	);    
+   	query.on("end", function (result) {          
+   		client.end(); 
+		res.write(JSON.stringify(result.rows, null, "    "));
+		res.end();  
+	});
+})
+
 app.get('/findData', function (req, res) {
 	fs.readFile( __dirname + "/" + "www/json/data.json", 'utf8',function (err, data) {
     	data = JSON.parse(data);

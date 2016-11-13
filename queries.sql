@@ -160,23 +160,26 @@ comment text not null,
 primary key (uID,postID,category)
 );
 
--- INSERTS
-insert into Member (username,password,email,activePosts)
-values('papo_elprimero','1234','papo1@gmail.com',2);
+-- QUERIES
 
-insert into Member(username,password,email,activePosts,
-typeOfAccount)
-values('papo2','1234','papo2@gmail.com',50,'Premium');
+--ALL ANNOUNCEMENTS
+with announcements as ((select category,postID,title,description, attachment, dateAdded
+from event )
+union 
+(select category,postID,title,description, attachment, dateAdded
+from book)
+union
+(select category,postID,title,description, attachment, dateAdded
+from housing)
+union
+(select category,postID,title,description, attachment, dateAdded
+from mentorship)
+union
+(select category,postID,title,description, attachment, dateAdded
+from other))
+select *
+from announcements
+order by dateAdded
 
-insert into Member (username,password,email,activePosts,
-typeOfAccount,phoneNumber)
-values('papo3','1234','papo3@gmail.com',50,'Premium',
-'{{787-40-432423},{209348209348}}');
+--
 
-insert into Member (username,password,email,activePosts,
-typeOfAccount,phoneNumber)
-values('papa','1234','papa@gmail.com',100,'Premium',
-'{{787-40-432423},{209348209348}}');
-
-insert into Admin 
-values('4','1234','PAPA','ALEXA');
