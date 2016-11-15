@@ -1,110 +1,118 @@
 angular.module('bb', ['ionic'])
 
-.controller('bbCtrl', function($scope, $http) {
-    $scope.get = function(){
+.controller('homeCtrl', function($scope, $http, $window) {
+
+  $scope.getAnnouncements = function(){
       return $http({
         method : "GET",
-        url : "json/data.json"
+        url : "/db/get/announcements"
     }).then(function mySucces(response) {
-        $scope.data = response.data;
-		$scope.statuscode = response.status;
-		$scope.statustext  = response.statustext;
-		console.log($scope.statuscode, "Data Retrieved.");
+        $scope.announcements = response.data;
+    $scope.statuscode = response.status;
+    $scope.statustext  = response.statustext;
+    console.log($scope.statuscode, "Data Retrieved.");
 
     }, function myError(response) {
         $scope.data = response.statusText;
     });
   };
+$scope.getAnnouncements();
+$scope.getPremiumPosts = function(){
+      return $http({
+        method : "GET",
+        url : "/db/get/premiumPosts"
+    }).then(function mySucces(response) {
+        $scope.premiumPosts = response.data;
+    $scope.statuscode = response.status;
+    $scope.statustext  = response.statustext;
+    console.log($scope.statuscode, "Data Retrieved.");
 
-  $scope.get().then(function(){
-    //$scope.verify = $scope.data;
+    }, function myError(response) {
+        $scope.data = response.statusText;
+    });
+  };
+$scope.getPremiumPosts();
 
-    // var $premiumPosts = angular.element(document.querySelector("#premiumPosts"));
-    // var post;
-    // for(var i = 1; i > 0; i--){
-    //   post = '<a class="PremiumPosts item item-avatar" href="announcement_details.html">\
-    //     <img src="'+$scope.data.announcements[i].attachment+'">\
-    //     <h2>POOOP'+$scope.data.announcements[i].title+'</h2>\
-    //     <p>'+$scope.data.announcements[i].description+'</p>\
-    //   </a>';
 
-    //   $premiumPosts.prepend(post);
-    // }
-    // var normalPosts = angular.element(document.querySelector("#normalPosts"));
-    // var post;
-    // for(var i = Object.keys($scope.data).length; i >= 0; i--){
-    //   post = '<a ng-show="booksFilter" class="item item-avatar" href="announcement_details.html">\
-    //       <img src="'+$scope.data.announcements[i].attachment+'">\
-    //       <h2>'+$scope.data.announcements[i].title+'</h2>\
-    //       <p>'+$scope.data.announcements[i].description+'</p>\
-    //     </a>';
-    //   normalPosts.prepend(post);
-    // }
-    $scope.premiumUsers = [];
-    $scope.premiumPosts = [];
-    for(var i = Object.keys($scope.data.users).length-1;i >= 0;i--){
-      if($scope.data.users[i].typeOfAccount == 'premium'){
-        $scope.premiumUsers.push($scope.data.users[i]);
-        for(var j = Object.keys($scope.data.announcements).length-1;j >= 0;j--){
-          if($scope.data.users[i].uID == $scope.data.announcements[j].uID){
-              $scope.premiumPosts.push($scope.data.announcements[j]);
-          }
-        }
-      }
-    }
+$scope.setTransfer = function(category,postID){
+  sessionStorage.setItem('category',category);
+  sessionStorage.setItem('postID',postID);
+  $window.location.href = "announcement_details.html";
+};
 
-  });
-  
   // Mini Filter that toggles if button is clicked
   $scope.filterBooks = function(){
-	$scope.bookFilter = true;
-	$scope.housingFilter = false;
-	$scope.eventFilter = false;
-	$scope.mentoringFilter = false;
-	$scope.otherFilter = false;
-	$scope.allFilters = false;
+  	$scope.bFilter = true;
+  	$scope.hFilter = false;
+  	$scope.eFilter = false;
+  	$scope.mFilter = false;
+  	$scope.oFilter = false;
+  	$scope.allFilters = false;
   }
   $scope.filterHousing = function(){
-	$scope.bookFilter = false;
-	$scope.housingFilter = true;
-	$scope.eventFilter = false;
-	$scope.mentoringFilter = false;
-	$scope.otherFilter = false;
-	$scope.allFilters = false;
+  	$scope.bFilter = false;
+  	$scope.hFilter = true;
+  	$scope.eFilter = false;
+  	$scope.mFilter = false;
+  	$scope.oFilter = false;
+  	$scope.allFilters = false;
   }
   $scope.filterEvents = function(){
-	$scope.bookFilter = false;
-	$scope.housingFilter = false;
-	$scope.eventFilter = true;
-	$scope.mentoringFilter = false;
-	$scope.otherFilter = false;
-	$scope.allFilters = false;
+  	$scope.bFilter = false;
+  	$scope.hFilter = false;
+  	$scope.eFilter = true;
+  	$scope.mFilter = false;
+  	$scope.oFilter = false;
+  	$scope.allFilters = false;
   }
   $scope.filterMentoring = function(){
-    $scope.bookFilter = false;
-	$scope.housingFilter = false;
-	$scope.eventFilter = false;
-	$scope.mentoringFilter = true;
-	$scope.otherFilter = false;
-	$scope.allFilters = false;
+    $scope.bFilter = false;
+  	$scope.hFilter = false;
+  	$scope.eFilter = false;
+  	$scope.mFilter = true;
+  	$scope.oFilter = false;
+  	$scope.allFilters = false;
   }
   $scope.filterOther = function(){
-    $scope.bookFilter = false;
-	$scope.housingFilter = false;
-	$scope.eventFilter = false;
-	$scope.mentoringFilter = false;
-	$scope.otherFilter = true;
-	$scope.allFilters = false;
+    $scope.bFilter = false;
+  	$scope.hFilter = false;
+  	$scope.eFilter = false;
+  	$scope.mFilter = false;
+  	$scope.oFilter = true;
+  	$scope.allFilters = false;
   }
   $scope.showAll = function(){
-    $scope.bookFilter = true;
-	$scope.housingFilter = true;
-	$scope.eventFilter = true;
-	$scope.mentoringFilter = true;
-	$scope.otherFilter = true;
-	$scope.allFilters = true;
+    $scope.bFilter = true;
+  	$scope.hFilter = true;
+  	$scope.eFilter = true;
+  	$scope.mFilter = true;
+  	$scope.oFilter = true;
+  	$scope.allFilters = true;
   }
   $scope.showAll();
+})
+
+.controller('announcementDetailsCtrl', function($scope, $http) {
+
+  $scope.transfer = {category:sessionStorage.getItem('category'),
+  postID: sessionStorage.getItem('postID')};
+
+  $scope.getAnnouncementsDetails = function(){
+      return $http({
+        method : "GET",
+        url : "/db/get/"+$scope.transfer.category+"/"+$scope.transfer.postID+"/"
+    }).then(function mySucces(response) {
+        $scope.announcement = response.data;
+    $scope.statuscode = response.status;
+    $scope.statustext  = response.statustext;
+    console.log($scope.statuscode, "Data Retrieved.");
+
+    }, function myError(response) {
+        $scope.transfer = response.statusText;
+    });
+  };
+  $scope.getAnnouncementsDetails();
+
 })
 
 .run(function($ionicPlatform) {

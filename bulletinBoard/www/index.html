@@ -32,12 +32,9 @@
     <script src="cordova.js"></script>
 
     <!-- your app's js -->
-    <script src="js/app.js"></script>
-    <script src="js/controllers.js"></script>
-    <script src="js/services.js"></script>
     <script src="js/bb.js"></script>
 	</head>
-	<body ng-app="bb" ng-controller="bbCtrl">  
+	<body ng-app="bb" ng-controller="homeCtrl">  
 		<ion-header-bar class="bar bar-header bar-stable">
 			<h1 class="title">Bulletin Board</h1>
 			<div class="buttons">
@@ -59,15 +56,15 @@
 		<button ng-click="showAll()" class="button button-positive"
 		ng-class="allFilters?'button-positive':'button-outlined'">All</button>
 		<button ng-click="filterEvents()" class="button button-positive" 
-		ng-class="eventFilter?'button-positive':'button-outlined'">Events</button>
+		ng-class="eFilter?'button-positive':'button-outlined'">Events</button>
 		<button ng-click="filterBooks()" class="button button-positive" 
-		ng-class="bookFilter?'button-positive':'button-outlined'">Books</button>
+		ng-class="bFilter?'button-positive':'button-outlined'">Books</button>
 		<button ng-click="filterMentoring()" class="button button-positive"
-		ng-class="mentoringFilter?'button-positive':'button-outlined'">Mentoring</button>
+		ng-class="mFilter?'button-positive':'button-outlined'">Mentorship</button>
 		<button ng-click="filterHousing()" class="button button-positive"
-		ng-class="housingFilter?'button-positive':'button-outlined'">Housing</button>
+		ng-class="hFilter?'button-positive':'button-outlined'">Housing</button>
 		<button ng-click="filterOther()" class="button button-positive"
-		ng-class="otherFilter?'button-positive':'button-outlined'">Other</button>
+		ng-class="oFilter?'button-positive':'button-outlined'">Other</button>
 		<a href="newpost.html">
 			<button class="button button-assertive"><i class="icon ion-compose"></i></button></a>
 		</div>
@@ -76,20 +73,10 @@
 
 	<!--TABLE FOR PREMIUM POSTS-->
 		<div id="premiumPosts" class="card">
-			<!--<a ng-repeat="announcement in premiumPosts" class="PremiumPosts item item-avatar" href="announcement_details.html">
+			<a ng-hide="premiumWait" ng-repeat="announcement in premiumPosts" class="PremiumPosts item item-avatar" href="announcement_details.html">
 			  <img src="{{announcement.attachment}}">
 			  <h2>{{announcement.title}}</h2>
 			  <p>{{announcement.description}}</p>
-			</a>-->
-			<a class="PremiumPosts item item-avatar" href="announcement_details.html">
-			  <img src="{{data.announcements[0].attachment}}">
-			  <h2>{{data.announcements[0].title}}</h2>
-			  <p>{{data.announcements[0].description}}</p>
-			</a>
-			<a class="PremiumPosts item item-avatar" href="announcement_details.html">
-			  <img src="{{data.announcements[1].attachment}}">
-			  <h2>{{data.announcements[1].title}}</h2>
-			  <p>{{data.announcements[1].description}}</p>
 			</a>
 			
 			<button onclick="plusDivs(-1)" class="button button-light"><i class="icon ion-chevron-left"></i></button>
@@ -100,7 +87,8 @@
 		<!--RECENT POSTS-->
 		<h4>Recent Posts</h4>
 		<div id="normalPosts" class="list" >
-				<a ng-repeat="announcement in data.announcements" ng-show="{{announcement.category}}Filter" class="item item-avatar" href="announcement_details.html">
+				<a ng-repeat="announcement in announcements" ng-show="{{announcement.category}}Filter" class="item item-avatar" ng-click="setTransfer(announcement.category,announcement.postid)">
+
 				  <img src="{{announcement.attachment}}">
 				  <h2>{{announcement.title}}</h2>
 				  <p>{{announcement.description}}</p>
