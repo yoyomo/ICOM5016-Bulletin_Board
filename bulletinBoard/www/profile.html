@@ -36,7 +36,7 @@
     <script src="js/services.js"></script>
 	<script src="js/bb.js"></script>
 	</head>
-	<body ng-app="bb" ng-controller="bbCtrl"> 
+	<body ng-app="bb" ng-controller="profileCtrl"> 
 
 	<ion-header-bar class="bar bar-header bar-stable">
 
@@ -57,12 +57,12 @@
 
 		<ion-content class="has-subheader" draggable="false">
 			<div class="item item-avatar">
-				<img src="{{data.users[0].profPic}}">
-				<h2><span id="username">{{data.users[0].username}}</span></h2>
+				<img src="{{user.profpic}}">
+				<h2><span id="username">{{user.username}}</span></h2>
 				<p>
-					<span id="email">{{data.users[0].email}}</span> 
+					<span id="email">{{user.email}}</span> 
 					</br>
-					<span id="phone">{{data.users[0].phone}}</span></p>
+					<span id="phone" ng-repeat="phonenumber in user.phonenumber">{{phonenumber}}</br></span></p>
 			</div>
 			<ion-list>
 			<div class="item item-divider">History:</div>
@@ -71,8 +71,8 @@
 			<table style="width:100%">
 				<tr>
 					<td><ion-radio ng-model="details" value="messages"><i class="icon ion-chatbubbles"></i></ion-radio></td>
-					<td><ion-radio ng-model="details" value="announcements"><i class="icon ion-compose"></i></ion-radio></td>
-					<td><ion-radio ng-model="details" value="payments"><i class="icon ion-card"></i></ion-radio></td>
+					<td><ion-radio ng-model="details" value="announcements" ng-click="announcementHistory()"><i class="icon ion-compose"></i></ion-radio></td>
+					<td><ion-radio ng-model="details" value="payments" ng-click="paymentHistory()"><i class="icon ion-card"></i></ion-radio></td>
 				</tr>
 			</table>
 			
@@ -100,25 +100,23 @@
 			</div>
 			
 			<div ng-show="details=='announcements'">
-			<a class="item item-avatar" href="announcement_details.html">
-			  <img src="{{data.announcements[0].attachment}}">
-			  <h2>{{data.announcements[0].title}}</h2>
-			  <p>{{data.announcements[0].description}}</p>
-			</a>
-			<a class="item item-avatar" href="announcement_details.html">
-			  <img src="{{data.announcements[1].attachment}}">
-			  <h2>{{data.announcements[1].title}}</h2>
-			  <p>{{data.announcements[1].description}}</p>
+			<a ng-repeat="announcement in announcements" class="item item-avatar" ng-click="transferAnnouncement(announcement.category,announcement.postid)">
+			  <img src="{{announcement.attachment}}">
+			  <h2>{{announcement.title}}</h2>
+			  <p>{{announcements.description}}</p>
 			</a>
 			</div>
 			
 			<div ng-show="details=='payments'">
 				<ul class="list">
-					<li class="item">
-					{{data.payments[0].dateOfPayment}}: Payed user {{data.payments[0].seller_uID}} through {{data.payments[0].typeOfPayment}} ......................  {{data.payments[0].amount}}
-					</li>
-					<li class="item">
-					{{data.payments[1].dateOfPayment}}: Payed user {{data.payments[1].seller_uID}} through {{data.payments[1].typeOfPayment}} ......................  {{data.payments[1].amount}}
+					<li class="item" ng-repeat="payment in payments">
+					<div ng-show="user.uid==payment.buyerid">
+						{{payment.dateofpayment}}: Transaction with user {{payment.sellerid}} through {{payment.typeofpayment}} ......................  (-){{payment.amount}}
+
+					</div>
+					<div ng-show="user.uid==payment.sellerid">
+						{{payment.dateofpayment}}: Transaction with user {{payment.buyerid}} through {{payment.typeofpayment}} ......................  (+){{payment.amount}}
+					</div>
 					</li>
 				</ul>
 			</div>

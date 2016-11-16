@@ -88,7 +88,7 @@ app.get('/db/get/other', function (req,res) {
 	});
 })
 
-app.get('/db/get/:category/:postID/', function (req,res) {
+app.get('/db/get/announcement/:category/:postID/', function (req,res) {
 	clientConnect();
 	if(req.params.category== 'e'){
 		query = client.query("\
@@ -159,7 +159,7 @@ app.get('/db/get/announcements', function (req,res) {
 		from other))\
 		select *\
 		from announcements\
-		order by dateAdded;"
+		order by dateAdded desc;"
 	);    
    	query.on("end", function (result) {          
    		client.end(); 
@@ -191,9 +191,86 @@ app.get('/db/get/premiumPosts',function(req,res) {
 		select distinct category,postID,uID,title,description, attachment, dateAdded\
 		from announcements natural join member\
 		where member.typeOfAccount='Premium'\
-		order by dateAdded;"
+		order by dateAdded desc;"
 		);
 	query.on("end", function (result) {          
+   		client.end(); 
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+		res.write(JSON.stringify(result.rows, null, "    "));
+		res.end();  
+	});
+})
+
+app.get('/db/get/login/:email/:password', function (req,res) {
+	clientConnect();
+	query = client.query("select *\
+	from member\
+	where email='"+req.params.email+"' and password='"+req.params.password+"'\
+	");    
+   	query.on("end", function (result) {          
+   		client.end(); 
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+		res.write(JSON.stringify(result.rows[0], null, "    "));
+		res.end();  
+	});
+})
+
+app.get('/db/get/user/:uID/:username/:email/', function (req,res) {
+	clientConnect();
+	query = client.query("select *\
+	from member\
+	where uID="+req.params.uID+" and username='"+req.params.username+"'\
+	and email='"+req.params.email+"'\
+	");    
+   	query.on("end", function (result) {          
+   		client.end(); 
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+		res.write(JSON.stringify(result.rows[0], null, "    "));
+		res.end();  
+	});
+})
+
+app.get('/db/get/user/announcements/:uID/', function (req,res) {
+	clientConnect();
+	query = client.query("\
+		with announcements as \
+		((select category,postID,uid,title,description, attachment, dateAdded\
+		from event )\
+		union \
+		(select category,postID,uid,title,description, attachment, dateAdded\
+		from book)\
+		union\
+		(select category,postID,uid,title,description, attachment, dateAdded\
+		from housing)\
+		union\
+		(select category,postID,uid,title,description, attachment, dateAdded\
+		from mentorship)\
+		union\
+		(select category,postID,uid,title,description, attachment, dateAdded\
+		from other))\
+\
+		select *\
+		from announcements\
+		where uid="+req.params.uID+"\
+		order by dateadded desc\
+	");    
+   	query.on("end", function (result) {          
+   		client.end(); 
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+		res.write(JSON.stringify(result.rows, null, "    "));
+		res.end();  
+	});
+})
+
+app.get('/db/get/user/payments/:uID/', function (req,res) {
+	clientConnect();
+	query = client.query("\
+		select *\
+		from payment\
+		where buyerid="+req.params.uID+" or sellerid="+req.params.uID+"\
+		order by dateofpayment desc\
+	");    
+   	query.on("end", function (result) {          
    		client.end(); 
 		res.writeHead(200, {'Content-Type': 'text/plain'});
 		res.write(JSON.stringify(result.rows, null, "    "));

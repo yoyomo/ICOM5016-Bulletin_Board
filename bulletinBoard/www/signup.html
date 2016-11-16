@@ -34,7 +34,7 @@
     <script src="js/bb.js"></script>
 	</head>
 
-	<body ng-app="bb">
+	<body ng-app="bb" ng-controller="loginCtrl">
 	<ion-header-bar class="bar bar-header bar-stable">
 		<div class="buttons">
 		<a href="index.html">
@@ -48,16 +48,18 @@
 		<!--Sign In-->
 		<div class="item item-divider">Log In</div>
 		<ion-list>
-		<label class="item item-input">
+
+		<form name="loginForm" class="item item-input">
 				<span class="input-label">Email:</span>
-				<input type="email" />
+				<input ng-model="user.email" type="email"/>
 				<span class="input-label">Password:</span>
-				<input type="password" />
-				<a href="profile.html"><button class="button button-positive">Log In</button></a>
-		</label>
+				<input ng-model="user.password" type="password" />
+				<button ng-click="login(user)" class="button button-positive">Log In</button>
+		</form>
+		
+		</br><span class="error">{{error}}</span></br></br>
 		</ion-list>
 		
-		</br></br></br>
 
 		<div class="item item-divider">Sign Up</div>
 	

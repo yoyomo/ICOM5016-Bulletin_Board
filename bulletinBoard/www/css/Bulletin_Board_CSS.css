@@ -23,3 +23,6 @@ button-group{
 #reportButton{
 	float:right;
 }
+.error{
+	color:red;
+}

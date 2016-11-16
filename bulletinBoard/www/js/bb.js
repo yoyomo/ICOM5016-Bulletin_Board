@@ -34,7 +34,7 @@ $scope.getPremiumPosts = function(){
 $scope.getPremiumPosts();
 
 
-$scope.setTransfer = function(category,postID){
+$scope.transferAnnouncement = function(category,postID){
   sessionStorage.setItem('category',category);
   sessionStorage.setItem('postID',postID);
   $window.location.href = "announcement_details.html";
@@ -100,7 +100,7 @@ $scope.setTransfer = function(category,postID){
   $scope.getAnnouncementsDetails = function(){
       return $http({
         method : "GET",
-        url : "/db/get/"+$scope.transfer.category+"/"+$scope.transfer.postID+"/"
+        url : "/db/get/announcement/"+$scope.transfer.category+"/"+$scope.transfer.postID+"/"
     }).then(function mySucces(response) {
         $scope.announcement = response.data;
     $scope.statuscode = response.status;
@@ -112,6 +112,116 @@ $scope.setTransfer = function(category,postID){
     });
   };
   $scope.getAnnouncementsDetails();
+
+})
+
+.controller('loginCtrl', function($scope, $http,$window) {
+
+  $scope.login = function(user){
+    $scope.master = {};
+    $scope.master = angular.copy(user);
+
+    if($scope.master.email && $scope.master.password){
+      $http({
+          method : "GET",
+          url : "/db/get/login/"+$scope.master.email+"/"+$scope.master.password+"/"
+      }).then(function mySucces(response) {
+          $scope.user = response.data;
+          $scope.statuscode = response.status;
+          $scope.statustext  = response.statustext;
+          console.log($scope.statuscode, "Data Retrieved.");
+
+          sessionStorage.setItem('uid',$scope.user.uid);
+          sessionStorage.setItem('username',$scope.user.username);
+          sessionStorage.setItem('email',$scope.user.email);
+          
+          $window.location.href = "profile.html";
+          
+
+      }, function myError(response) {
+          $scope.error = response.statusCode + ": User not found";
+      });
+    
+    }
+    else{
+      $scope.error = "Please write email and password";
+    }
+
+  };
+})
+.controller('profileCtrl', function($scope, $http,$window) {
+
+  $scope.transfer = {
+    uid: sessionStorage.getItem('uid'),
+    username: sessionStorage.getItem('username'),
+    email:sessionStorage.getItem('email')
+  };
+
+  $scope.profileDetails = function(user){
+
+    $http({
+        method : "GET",
+        url : "/db/get/user/"+$scope.transfer.uid+"/"+$scope.transfer.username+
+        "/"+$scope.transfer.email
+    }).then(function mySucces(response) {
+        $scope.user = response.data;
+        $scope.statuscode = response.status;
+        $scope.statustext  = response.statustext;
+        console.log($scope.statuscode, "Data Retrieved.");
+        
+
+    }, function myError(response) {
+        $scope.error = response.statusCode + ": User not found";
+
+    });
+
+  };
+
+  $scope.profileDetails();
+
+  $scope.announcementHistory = function(){
+
+    $http({
+        method : "GET",
+        url : "/db/get/user/announcements/"+$scope.user.uid
+    }).then(function mySucces(response) {
+        $scope.announcements = response.data;
+        $scope.statuscode = response.status;
+        $scope.statustext  = response.statustext;
+        console.log($scope.statuscode, "Data Retrieved.");
+        
+
+    }, function myError(response) {
+        $scope.error = response.statusCode + ": Announcements not found";
+
+    });
+
+  };
+  $scope.transferAnnouncement = function(category,postID){
+    sessionStorage.setItem('category',category);
+    sessionStorage.setItem('postID',postID);
+    $window.location.href = "announcement_details.html";
+  };
+
+  $scope.paymentHistory = function(){
+
+    $http({
+        method : "GET",
+        url : "/db/get/user/payments/"+$scope.user.uid
+    }).then(function mySucces(response) {
+        $scope.payments = response.data;
+        $scope.statuscode = response.status;
+        $scope.statustext  = response.statustext;
+        console.log($scope.statuscode, "Data Retrieved.");
+        
+
+    }, function myError(response) {
+        $scope.error = response.statusCode + ": Announcements not found";
+
+    });
+
+  };
+
 
 })
 

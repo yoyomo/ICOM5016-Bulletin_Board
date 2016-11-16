@@ -128,18 +128,22 @@ primary key(category,postID)
 ) ;
 
 create table Message(
-mID bigint not null check(mID > 0),
+mID bigserial not null check(mID > 0),
 senderID bigserial references member(uID) not null,
 receiverID bigserial references member(uID) not null,
 messageText text not null, 
+seen text not null default 'Not Seen'
+check (seen in ('Not Seen','Seen')),
 dateSent timestamp default current_timestamp not null,
 primary key(mID,senderID,receiverID)
 );
 
 create table Payment(
-pID bigint not null,
+pID bigserial not null,
 buyerID bigserial references member(uID) not null,
 sellerID bigserial references member(uID) not null,
+category char(1) not null,
+postID bigserial not null,
 amount numeric(9,2) not null,
 typeOfPayment text 
 check (typeOfPayment in ('Paypal','MasterCard','Visa',
@@ -163,23 +167,27 @@ primary key (uID,postID,category)
 -- QUERIES
 
 --ALL ANNOUNCEMENTS
-with announcements as ((select category,postID,title,description, attachment, dateAdded
+with announcements as ((select category,postID,uID,title,description, attachment, dateAdded
 from event )
 union 
-(select category,postID,title,description, attachment, dateAdded
+(select category,postID,uID,title,description, attachment, dateAdded
 from book)
 union
-(select category,postID,title,description, attachment, dateAdded
+(select category,postID,uID,title,description, attachment, dateAdded
 from housing)
 union
-(select category,postID,title,description, attachment, dateAdded
+(select category,postID,uID,title,description, attachment, dateAdded
 from mentorship)
 union
-(select category,postID,title,description, attachment, dateAdded
+(select category,postID,uID,title,description, attachment, dateAdded
 from other))
 select *
 from announcements
-order by dateAdded
+order by dateAdded desc
 
 --
-
+select *
+from message
+where (senderID=1 and receiverid=4)
+or (senderid=4 and receiverid=4)
+order by datesent

@@ -87,7 +87,7 @@
 		<!--RECENT POSTS-->
 		<h4>Recent Posts</h4>
 		<div id="normalPosts" class="list" >
-				<a ng-repeat="announcement in announcements" ng-show="{{announcement.category}}Filter" class="item item-avatar" ng-click="setTransfer(announcement.category,announcement.postid)">
+				<a ng-repeat="announcement in announcements" ng-show="{{announcement.category}}Filter" class="item item-avatar" ng-click="transferAnnouncement(announcement.category,announcement.postid)">
 
 				  <img src="{{announcement.attachment}}">
 				  <h2>{{announcement.title}}</h2>
