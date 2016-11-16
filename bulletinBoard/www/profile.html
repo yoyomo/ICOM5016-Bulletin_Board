@@ -64,20 +64,20 @@
 					</br>
 					<span id="phone" ng-repeat="phonenumber in user.phonenumber">{{phonenumber}}</br></span></p>
 			</div>
+			
 			<ion-list>
 			<div class="item item-divider">History:</div>
-
-
-			<table style="width:100%">
-				<tr>
-					<td><ion-radio ng-model="details" value="messages"><i class="icon ion-chatbubbles"></i></ion-radio></td>
-					<td><ion-radio ng-model="details" value="announcements" ng-click="announcementHistory()"><i class="icon ion-compose"></i></ion-radio></td>
-					<td><ion-radio ng-model="details" value="payments" ng-click="paymentHistory()"><i class="icon ion-card"></i></ion-radio></td>
-				</tr>
-			</table>
+				<table style="width:100%">
+					<tr>
+						<td><ion-radio ng-model="details" value="messages"><i class="icon ion-chatbubbles"></i></ion-radio></td>
+						<td><ion-radio ng-model="details" value="announcements" ng-click="announcementHistory()"><i class="icon ion-compose"></i></ion-radio></td>
+						<td><ion-radio ng-model="details" value="payments" ng-click="paymentHistory()"><i class="icon ion-card"></i></ion-radio></td>
+					</tr>
+				</table>
 			
 			
 			<div class="item-divider"></div>
+			
 			<div ng-show="details=='messages'">
 				<div class="list">
 					<a class="item item-avatar" href="messages.html">
@@ -121,6 +121,12 @@
 				</ul>
 			</div>
 			</ion-list>
+			<div id="subscribe">
+				<a href="premiumpayment.html">
+					<button class="button button-royal">SUBSCRIBE</button>
+				</a>
+			</div>
+			
 		</ion-content>
 		
 

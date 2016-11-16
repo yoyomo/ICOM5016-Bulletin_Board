@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>Bulletin Board</title>
+
+    <link rel="manifest" href="manifest.json">
+
+    <!-- un-comment this code to enable service worker
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(() => console.log('service worker installed'))
+          .catch(err => console.log('Error', err));
+      }
+    </script>-->
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+	<link href="css/Bulletin_Board_CSS.css" rel="stylesheet" >
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/bb.js"></script>
+	</head>
+	<body ng-app="bb" ng-controller="homeCtrl">  
+		<ion-header-bar class="bar bar-header bar-stable">
+			<h1 class="title">Bulletin Board</h1>
+			<div class="buttons">
+			<a href="signup.html">
+			<button class="button button-positive">Sign Up/Sign In</button></a>
+			</div>
+		</ion-header-bar>
+
+		<ion-content class="has-header">
+		
+	<!--CATEGORIES--> 
+		<div class="list-inset button-group">
+		<button ng-click="showAll()" class="button button-positive"
+		ng-class="allFilters?'button-positive':'button-outlined'">All</button>
+		<button ng-click="filterEvents()" class="button button-positive" 
+		ng-class="eFilter?'button-positive':'button-outlined'">Events</button>
+		<button ng-click="filterBooks()" class="button button-positive" 
+		ng-class="bFilter?'button-positive':'button-outlined'">Books</button>
+		<button ng-click="filterMentoring()" class="button button-positive"
+		ng-class="mFilter?'button-positive':'button-outlined'">Mentorship</button>
+		<button ng-click="filterHousing()" class="button button-positive"
+		ng-class="hFilter?'button-positive':'button-outlined'">Housing</button>
+		<button ng-click="filterOther()" class="button button-positive"
+		ng-class="oFilter?'button-positive':'button-outlined'">Other</button>
+		<a href="newpost.html">
+			<button class="button button-assertive"><i class="icon ion-compose"></i></button></a>
+		</div>
+		
+		<!--RECENT POSTS-->
+		<h4>Recent Posts</h4>
+		<div id="normalPosts" class="list" >
+				<a ng-repeat="announcement in announcements" ng-show="{{announcement.category}}Filter" class="item item-avatar" ng-click="transferAnnouncement(announcement.category,announcement.postid)">
+
+				  <img src="{{announcement.attachment}}">
+				  <h2>{{announcement.title}}</h2>
+				  <p>{{announcement.description}}</p>
+				</a>
+					
+		</div>
+		</ion-content>
+	</body>
+
+</html>
