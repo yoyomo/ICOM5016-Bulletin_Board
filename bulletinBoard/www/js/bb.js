@@ -232,6 +232,31 @@ $scope.search = function(searchText){
 
   $scope.profileDetails();
 
+	$scope.chatlogs = function(){
+
+    $http({
+        method : "GET",
+        url : "/db/get/chatlogs/"+$scope.user.uid
+    }).then(function mySucces(response) {
+        $scope.chatlogs = response.data;
+        $scope.statuscode = response.status;
+        $scope.statustext  = response.statustext;
+        console.log($scope.statuscode, "Data Retrieved.");
+        
+
+    }, function myError(response) {
+        $scope.error = response.statusCode + ": Announcements not found";
+
+    });
+
+  };
+  $scope.transferMessage = function(messageUser){
+  	$scope.master = {};
+  	$scope.master = angular.copy(messageUser);
+    sessionStorage.setItem('messageuser',$scope.master);
+    $window.location.href = "messages.html";
+  }
+
   $scope.announcementHistory = function(){
 
     $http({

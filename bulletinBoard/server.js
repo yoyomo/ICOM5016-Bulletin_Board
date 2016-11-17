@@ -310,6 +310,28 @@ app.get('/db/get/user/payments/:uID/', function (req,res) {
 	});
 })
 
+app.get('/db/get/chatlogs/:loggedInUser/', function (req,res) {
+	clientConnect();
+	query = client.query("\
+		select *\
+		from (\
+		  select message.*,member.uid,member.username,member.profpic,\
+		         row_number() over (partition by chatid order by datesent desc) as rn\
+		  from message, member\
+		  where (senderid="+req.params.loggedInUser+" and receiverid=member.uid)\
+		  or (member.uid=senderid and receiverid="+req.params.loggedInUser+")\
+		) t\
+		where rn = 1\
+		order by datesent desc\
+	");    
+   	query.on("end", function (result) {          
+   		client.end(); 
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+		res.write(JSON.stringify(result.rows, null, "    "));
+		res.end();  
+	});
+})
+
 app.get('/db/get/messages/:loggedInUser/:messageUser/', function (req,res) {
 	clientConnect();
 	query = client.query("\

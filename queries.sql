@@ -129,13 +129,14 @@ primary key(category,postID)
 
 create table Message(
 mID bigserial not null check(mID > 0),
+chatid bigint not null default 1,
 senderID bigserial references member(uID) not null,
 receiverID bigserial references member(uID) not null,
 messageText text not null, 
 seen text not null default 'Not Seen'
 check (seen in ('Not Seen','Seen')),
 dateSent timestamp default current_timestamp not null,
-primary key(mID,senderID,receiverID)
+primary key(mID,chatid,senderID,receiverID)
 );
 
 create table Payment(
@@ -185,9 +186,22 @@ select *
 from announcements
 order by dateAdded desc
 
---
+--MESSAGE DETAILS
 select *
 from message
 where (senderID=1 and receiverid=4)
 or (senderid=4 and receiverid=1)
 order by datesent
+
+--MESSAGE LOGS
+select *
+from (
+  select message.*,member.uid,member.username,member.profpic,
+         row_number() over (partition by chatid order by datesent desc) as rn
+  from message, member
+  where (senderid=1 and receiverid=member.uid)
+  or (member.uid=senderid and receiverid=1)
+) t
+where rn = 1
+
+order by datesent desc

@@ -69,7 +69,7 @@
 			<div class="item item-divider">History:</div>
 				<table style="width:100%">
 					<tr>
-						<td><ion-radio ng-model="details" value="messages"><i class="icon ion-chatbubbles"></i></ion-radio></td>
+						<td><ion-radio ng-model="details" value="messages" ng-click="chatlogs()"><i class="icon ion-chatbubbles"></i></ion-radio></td>
 						<td><ion-radio ng-model="details" value="announcements" ng-click="announcementHistory()"><i class="icon ion-compose"></i></ion-radio></td>
 						<td><ion-radio ng-model="details" value="payments" ng-click="paymentHistory()"><i class="icon ion-card"></i></ion-radio></td>
 					</tr>
@@ -80,20 +80,10 @@
 			
 			<div ng-show="details=='messages'">
 				<div class="list">
-					<a class="item item-avatar" href="messages.html">
-					  <img src="{{data.users[1].profPic}}">
-					  <h2>{{data.users[1].username}}</h2>
-					  <p>{{data.messages[0].text}}</p>
-					</a>
-					<a class="item item-avatar" href="messages.html">
-					  <img src="{{data.users[2].profPic}}">
-					  <h2>{{data.users[2].username}}</h2>
-					  <p>{{data.messages[1].text}}</p>
-					</a>
-					<a class="item item-avatar" href="messages.html">
-					  <img src="{{data.users[3].profPic}}">
-					  <h2>{{data.users[3].username}}</h2>
-					  <p>{{data.messages[2].text}}</p>
+					<a ng-repeat="chat in chatlogs" class="item item-avatar" ng-click="transferMessage(chat.uid)">
+					  <img src="{{chat.profpic}}">
+					  <h2>{{chat.username}}</h2>
+					  <p>{{chat.messagetext}}</p>
 					</a>
 
 				</div>
