@@ -33,3 +33,16 @@ button-group{
 	
 	
 }
+#reports{
+	width: 50%;
+	float: left;
+	
+}
+#reportlistdivider{
+	width: 50%;
+	float:left;
+}
+#reportdetailsdivider{
+	width:50%;
+	float: right;
+}
