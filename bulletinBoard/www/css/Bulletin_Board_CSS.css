@@ -33,7 +33,7 @@ button-group{
 	
 	
 }
-#reports{
+#reportsCSS{
 	width: 50%;
 	float: left;
 	
@@ -45,4 +45,8 @@ button-group{
 #reportdetailsdivider{
 	width:50%;
 	float: right;
+}
+#reportAnnouncementDetails{
+	width:50%;
+	float:right;
 }

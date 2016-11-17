@@ -36,7 +36,7 @@
     <script src="js/services.js"></script>
 	<script src="js/bb.js"></script>
 	</head>
-	<body ng-app="bb" ng-controller="profileCtrl"> 
+	<body ng-app="bb" ng-controller="adminCtrl"> 
 
 	<ion-header-bar class="bar bar-header bar-stable">
 
@@ -60,21 +60,25 @@
 				<img src="{{admin.profpic}}">
 				<h2><span id="username">{{admin.username}}</span></h2>
 				<p>
-					<span id="email">{{admin.email}}</span> 
+					<span>{{admin.firstname}}</span> 
 					</br>
-					<span id="phone" ng-repeat="phonenumber in user.phonenumber">{{phonenumber}}</br></span></p>
+					<span>{{admin.lastname}}</span> 
+					</br>
+					<span>{{admin.email}}</span> 
+					</br>
+					<span ng-repeat="phonenumber in user.phonenumber">{{phonenumber}}</br></span></p>
 			</div>
 			
 			<div id="reportlistdivider" class="item item-divider">Report List</div>
 			<div id="reportdetailsdivider" class="item item-divider">Report Details	</div>
 			
-			<div id="reports" class="list" >
-				<a class="item item-avatar">
-				  <h2>Type Of Report</h2>
-				  <p>Comment in the report</p>
+			<div id="reportsCSS" class="list" >
+				<a ng-repeat="report in reports" ng-click="getAnnouncementsDetails(report.category,report.postid)" class="item item-avatar">
+				  <h2>{{report.typeofreport}}</h2>
+				  <p>{{report.comment}}</p>
 				</a>
 			</div>		
-			<div>
+			<div id="reportAnnouncementDetails">
 				<img src="{{announcement.attachment}}">
 				<h2><span>{{announcement.title}}</span></h2>
 				<p>

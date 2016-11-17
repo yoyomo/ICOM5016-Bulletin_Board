@@ -257,6 +257,69 @@ $scope.transferAnnouncement = function(category,postID){
 
 })
 
+.controller('adminCtrl', function($scope, $http,$window) {
+
+  $scope.transfer = {
+    uid: sessionStorage.getItem('uid')
+  };
+
+  $scope.getAdmin = function(){
+
+    $http({
+        method : "GET",
+        url : "/db/get/admin/"+$scope.transfer.uid
+    }).then(function mySucces(response) {
+        $scope.admin = response.data;
+        $scope.statuscode = response.status;
+        $scope.statustext  = response.statustext;
+        console.log($scope.statuscode, "Data Retrieved.");
+        
+
+    }, function myError(response) {
+        $scope.error = response.statusCode + ": Announcements not found";
+
+    });
+
+  };
+  $scope.getAdmin();
+
+  $scope.getReports = function(){
+
+    $http({
+        method : "GET",
+        url : "/db/get/reports/"
+    }).then(function mySucces(response) {
+        $scope.reports = response.data;
+        $scope.statuscode = response.status;
+        $scope.statustext  = response.statustext;
+        console.log($scope.statuscode, "Data Retrieved.");
+        
+
+    }, function myError(response) {
+        $scope.error = response.statusCode + ": Announcements not found";
+
+    });
+
+
+  };
+  $scope.getReports();
+
+  $scope.getAnnouncementsDetails = function(category,postID){
+      return $http({
+        method : "GET",
+        url : "/db/get/announcement/"+category+"/"+postID+"/"
+    }).then(function mySucces(response) {
+        $scope.announcement = response.data;
+    $scope.statuscode = response.status;
+    $scope.statustext  = response.statustext;
+    console.log($scope.statuscode, "Data Retrieved.");
+
+    }, function myError(response) {
+        $scope.transfer = response.statusText;
+    });
+  };
+})
+
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard

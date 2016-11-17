@@ -297,3 +297,33 @@ app.get('/db/get/messages/:loggedInUser/:messageUser/', function (req,res) {
 		res.end();  
 	});
 })
+
+
+app.get('/db/get/admin/:uID/', function (req,res) {
+	clientConnect();
+	query = client.query("\
+		select *\
+		from admin natural join member\
+		where uID="+req.params.uID+"\
+	");    
+   	query.on("end", function (result) {          
+   		client.end(); 
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+		res.write(JSON.stringify(result.rows[0], null, "    "));
+		res.end();  
+	});
+})
+
+app.get('/db/get/reports/', function (req,res) {
+	clientConnect();
+	query = client.query("\
+		select *\
+		from report\
+	");    
+   	query.on("end", function (result) {          
+   		client.end(); 
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+		res.write(JSON.stringify(result.rows, null, "    "));
+		res.end();  
+	});
+})
