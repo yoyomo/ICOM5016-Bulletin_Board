@@ -1,8 +1,7 @@
-
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
+	<head>
+			<meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title>Bulletin Board</title>
 
@@ -32,49 +31,100 @@
     <script src="cordova.js"></script>
 
     <!-- your app's js -->
-    <script src="js/bb.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/services.js"></script>
+	<script src="js/bb.js"></script>
 	</head>
-	<body ng-app="bb" ng-controller="homeCtrl">  
-		<ion-header-bar class="bar bar-header bar-stable">
-			<h1 class="title">Bulletin Board</h1>
-			<div class="buttons">
-			<a href="signup.html">
-			<button class="button button-positive">Sign Up/Sign In</button></a>
-			</div>
+	<body ng-app="bb" ng-controller="profileCtrl"> 
+
+	<ion-header-bar class="bar bar-header bar-stable">
+
+	<div class="buttons">
+		<a href="index.html">
+			<button class="button button-positive"><i class="icon ion-home"></i></button></a>
+		</div>
+
+		<h1 class="title">Bulletin Board</h1>
+		<div class="buttons">
+		<a href="settings.html">
+		<button class="button button-positive"><i class="icon ion-gear-b"></i></button></a>
+		</div>
+		</ion-header-bar>
+		<ion-header-bar class="bar bar-subheader bar-light">
+		<h2 class="title">Website Adminstration</h2>
 		</ion-header-bar>
 
-		<ion-content class="has-header">
-		
-	<!--CATEGORIES--> 
-		<div class="list-inset button-group">
-		<button ng-click="showAll()" class="button button-positive"
-		ng-class="allFilters?'button-positive':'button-outlined'">All</button>
-		<button ng-click="filterEvents()" class="button button-positive" 
-		ng-class="eFilter?'button-positive':'button-outlined'">Events</button>
-		<button ng-click="filterBooks()" class="button button-positive" 
-		ng-class="bFilter?'button-positive':'button-outlined'">Books</button>
-		<button ng-click="filterMentoring()" class="button button-positive"
-		ng-class="mFilter?'button-positive':'button-outlined'">Mentorship</button>
-		<button ng-click="filterHousing()" class="button button-positive"
-		ng-class="hFilter?'button-positive':'button-outlined'">Housing</button>
-		<button ng-click="filterOther()" class="button button-positive"
-		ng-class="oFilter?'button-positive':'button-outlined'">Other</button>
-		<a href="newpost.html">
-			<button class="button button-assertive"><i class="icon ion-compose"></i></button></a>
-		</div>
-		
-		<!--RECENT POSTS-->
-		<h4>Recent Posts</h4>
-		<div id="normalPosts" class="list" >
-				<a ng-repeat="announcement in announcements" ng-show="{{announcement.category}}Filter" class="item item-avatar" ng-click="transferAnnouncement(announcement.category,announcement.postid)">
-
-				  <img src="{{announcement.attachment}}">
-				  <h2>{{announcement.title}}</h2>
-				  <p>{{announcement.description}}</p>
+		<ion-content class="has-subheader" draggable="false">
+			<div class="item item-avatar">
+				<img src="{{admin.profpic}}">
+				<h2><span id="username">{{admin.username}}</span></h2>
+				<p>
+					<span id="email">{{admin.email}}</span> 
+					</br>
+					<span id="phone" ng-repeat="phonenumber in user.phonenumber">{{phonenumber}}</br></span></p>
+			</div>
+			
+			<div id="reportlistdivider" class="item item-divider">Report List</div>
+			<div id="reportdetailsdivider" class="item item-divider">Report Details	</div>
+			
+			<div id="reports" class="list" >
+				<a class="item item-avatar">
+				  <h2>Type Of Report</h2>
+				  <p>Comment in the report</p>
 				</a>
-					
-		</div>
-		</ion-content>
-	</body>
+			</div>		
+			<div>
+				<img src="{{announcement.attachment}}">
+				<h2><span>{{announcement.title}}</span></h2>
+				<p>
+					<span>{{announcement.description}}</span> 
+					</br>
 
+					<p ng-show="announcement.category=='e'">
+						<span>Location: {{announcement.location}}</span>
+						</br>
+						<span>Date of Event: {{announcement.dateofevent}}</span>
+						</br>
+						<span>Fee: {{announcement.fee}}</span>
+						</br>
+					</p>
+					<p ng-show="announcement.category=='b'">
+						<span>Name: {{announcement.name}}</span>
+						</br>
+						<span>Author: {{announcement.author}}</span>
+						</br>
+						<span>Edition: {{announcement.edition}}</span>
+						</br>
+						<span>Year: {{announcement.year}}</span>
+						</br>
+						<span>Price: {{announcement.price}}</span>
+						</br>
+					</p>
+					<p ng-show="announcement.category=='h'">
+						<span>Address: {{announcement.address}}</span>
+						</br>
+						<span>Monthly Price: {{announcement.monthlyprice}}</span>
+						</br>
+					</p>
+					<p ng-show="announcement.category=='m'">
+						<span>Subject: {{announcement.subject}}</span>
+						</br>
+						<span>Fee: {{announcement.fee}}</span>
+						</br>
+					</p>
+					<p ng-show="announcement.category=='o'">
+						<span>Item Name: {{announcement.itemname}}</span>
+						</br>
+					</p>
+					<span>Date Added: {{announcement.dateadded}}</span>
+					</br></br>
+					<button style="float:right;" class="button button-clear button-assertive"><i class="icon ion-close-round"></i></button>
+				</p>
+			</div>
+			
+		</ion-content>
+		
+
+		</body>
 </html>
