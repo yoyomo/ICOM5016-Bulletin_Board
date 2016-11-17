@@ -189,5 +189,5 @@ order by dateAdded desc
 select *
 from message
 where (senderID=1 and receiverid=4)
-or (senderid=4 and receiverid=4)
+or (senderid=4 and receiverid=1)
 order by datesent

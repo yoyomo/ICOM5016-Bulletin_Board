@@ -34,7 +34,7 @@
 
 	<script src="js/bb.js"></script>
 	</head>
-	<body ng-app="bb" ng-controller="bbCtrl">
+	<body ng-app="bb" ng-controller="messageCtrl">
 
 	<ion-header-bar class="bar bar-header bar-stable">
 
@@ -57,27 +57,19 @@
 
 		<ion-content class="has-subheader">
 		<ul >
-			<li style="text-align:right">
-				<a class="item item-avatar" href="profile.html">
-			      <img style="float: right; position: static;" src="{{data.users[4].profPic}}">
-			      <h2>{{data.messages[3].text}}</h2>
-			    </a>
-		    </li>
+			<li class="item item-avatar" ng-repeat="message in messages">
+				<div ng-show="message.senderid==transfer.messageUser" style="text-align:left">
+					<h2>{{message.messageuser}} said:</h2>
+				    <h3>{{message.messagetext}}</h3>
+			    </div>
+			    <div ng-show="message.senderid==transfer.loggedInUser" style="text-align:right">
+			    	<h2>You said:</h2>
+			    	<h3>{{message.messagetext}}</h3>
+			    </div>
+			</li>
 
-			<li style="text-align:left">
-				<a class="item item-avatar" href="profile.html">
-			      <img src="{{data.users[3].profPic}}">
-			      <h2>{{data.messages[4].text}}</h2>
-			    </a>
-			</li>
-			<li style="text-align:right">
-				<a class="item item-avatar" href="profile.html">
-			      <img style="float: right; position: static;" src="{{data.users[4].profPic}}">
-			      <h2>{{data.messages[5].text}}</h2>
-			    </a>
-			</li>
 		</ul>
-		
+		<div class="item item-divider"></div>
 		<label class="item item-input">
 			<textarea placeholder="Type message..."></textarea>
 		</label>

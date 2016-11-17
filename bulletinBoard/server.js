@@ -277,3 +277,23 @@ app.get('/db/get/user/payments/:uID/', function (req,res) {
 		res.end();  
 	});
 })
+
+app.get('/db/get/messages/:loggedInUser/:messageUser/', function (req,res) {
+	clientConnect();
+	query = client.query("\
+		select m.*,u.username as messageUser\
+		from message as m, member as u\
+		where ((senderID="+req.params.loggedInUser+" \
+		and receiverid="+req.params.messageUser+")\
+		or (senderid="+req.params.messageUser+" \
+		and receiverid="+req.params.loggedInUser+"))\
+		and (u.uid="+req.params.messageUser+")\
+		order by datesent\
+	");    
+   	query.on("end", function (result) {          
+   		client.end(); 
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+		res.write(JSON.stringify(result.rows, null, "    "));
+		res.end();  
+	});
+})

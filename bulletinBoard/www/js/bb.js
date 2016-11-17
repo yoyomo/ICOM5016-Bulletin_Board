@@ -92,7 +92,7 @@ $scope.transferAnnouncement = function(category,postID){
   $scope.showAll();
 })
 
-.controller('announcementDetailsCtrl', function($scope, $http) {
+.controller('announcementDetailsCtrl', function($scope, $http, $window) {
 
   $scope.transfer = {category:sessionStorage.getItem('category'),
   postID: sessionStorage.getItem('postID')};
@@ -112,6 +112,38 @@ $scope.transferAnnouncement = function(category,postID){
     });
   };
   $scope.getAnnouncementsDetails();
+
+  $scope.transferMessage = function(){
+    sessionStorage.setItem('messageuser',$scope.announcement.uid);
+    $window.location.href = "messages.html";
+  }
+
+})
+
+.controller('messageCtrl', function($scope, $http, $window) {
+
+  $scope.transfer = {
+    messageUser:sessionStorage.getItem('messageuser'),
+    loggedInUser: sessionStorage.getItem('uid')
+  };
+
+  $scope.getMessageDetails = function(){
+      return $http({
+        method : "GET",
+        url : "/db/get/messages/"+$scope.transfer.loggedInUser+"/"
+        +$scope.transfer.messageUser+"/"
+    }).then(function mySucces(response) {
+        $scope.messages = response.data;
+        $scope.statuscode = response.status;
+        $scope.statustext  = response.statustext;
+        console.log($scope.statuscode, "Data Retrieved.");
+
+    }, function myError(response) {
+        $scope.transfer = response.statusText;
+    });
+  };
+  $scope.getMessageDetails();
+
 
 })
 
