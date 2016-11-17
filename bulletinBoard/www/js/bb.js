@@ -33,12 +33,33 @@ $scope.getPremiumPosts = function(){
   };
 $scope.getPremiumPosts();
 
-
 $scope.transferAnnouncement = function(category,postID){
   sessionStorage.setItem('category',category);
   sessionStorage.setItem('postID',postID);
   $window.location.href = "announcement_details.html";
 };
+
+$scope.search = function(searchText){
+  $scope.master = {};
+  $scope.master = angular.copy(searchText);
+  if($scope.master){
+    return $http({
+        method : "GET",
+        url : "/db/get/search/"+$scope.master
+        }).then(function mySucces(response) {
+            $scope.announcements = response.data;
+        $scope.statuscode = response.status;
+        $scope.statustext  = response.statustext;
+        console.log($scope.statuscode, "Data Retrieved.");
+
+        }, function myError(response) {
+            $scope.data = response.statusText;
+        });
+    }
+    else{
+      return $scope.getAnnouncements();
+    }
+  };
 
   // Mini Filter that toggles if button is clicked
   $scope.filterBooks = function(){

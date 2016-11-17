@@ -45,10 +45,11 @@
 
 		<ion-content class="has-header">
 		<div id="searchbar" class="list list-inset">
-			<label class="item item-input item-button-right">
-			<i class="icon ion-search placeholder-icon"></i>
-			<input type="search" placeholder="Search"/>
-			</label>
+			<form ng-submit="search(searchtext)" class="item item-input ">
+			
+			<input  type="search" ng-model="searchtext" placeholder="Search..."/>
+			<button class="button button-clear button-positive" ng-click="search(searchtext)"><i class="icon ion-search "></i></button>
+			</form>
 		</div>
 
 	<!--CATEGORIES--> 

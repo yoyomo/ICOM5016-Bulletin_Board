@@ -201,6 +201,38 @@ app.get('/db/get/premiumPosts',function(req,res) {
 	});
 })
 
+app.get('/db/get/search/:searchtext', function (req,res) {
+	clientConnect();
+	query = client.query(
+		"with announcements as \
+		((select category,postID,title,description, attachment, dateAdded\
+		from event )\
+		union \
+		(select category,postID,title,description, attachment, dateAdded\
+		from book)\
+		union\
+		(select category,postID,title,description, attachment, dateAdded\
+		from housing)\
+		union\
+		(select category,postID,title,description, attachment, dateAdded\
+		from mentorship)\
+		union\
+		(select category,postID,title,description, attachment, dateAdded\
+		from other))\
+		select *\
+		from announcements\
+		where lower(title) like lower('%"+req.params.searchtext+"%')\
+		or lower(description) like lower('%"+req.params.searchtext+"%')\
+		order by dateAdded desc;"
+	);    
+   	query.on("end", function (result) {          
+   		client.end(); 
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+		res.write(JSON.stringify(result.rows, null, "    "));
+		res.end();  
+	});
+})
+
 app.get('/db/get/login/:email/:password', function (req,res) {
 	clientConnect();
 	query = client.query("select *\
