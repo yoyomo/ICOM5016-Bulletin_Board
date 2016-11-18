@@ -82,7 +82,7 @@
 	<!--TABLE FOR PREMIUM POSTS-->
 		<div id="premiumPosts" class="card">
 			<a ng-hide="premiumWait" ng-repeat="announcement in premiumPosts" class="PremiumPosts item item-avatar" href="announcement_details.html">
-			  <img src="{{announcement.attachment}}">
+			  <img src="img/{{announcement.category}}.png">
 			  <h2>{{announcement.title}}</h2>
 			  <p>{{announcement.description}}</p>
 			</a>
@@ -97,7 +97,7 @@
 		<div id="normalPosts" class="list" >
 				<a ng-repeat="announcement in announcements" ng-show="{{announcement.category}}Filter" class="item item-avatar" ng-click="transferAnnouncement(announcement.category,announcement.postid)">
 
-				  <img src="{{announcement.attachment}}">
+				  <img src="img/{{announcement.category}}.png">
 				  <h2>{{announcement.title}}</h2>
 				  <p>{{announcement.description}}</p>
 				</a>

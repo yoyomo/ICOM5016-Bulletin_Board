@@ -94,7 +94,7 @@
 			
 			<div ng-show="details=='announcements'">
 			<a ng-repeat="announcement in announcements" class="item item-avatar" ng-click="transferAnnouncement(announcement.category,announcement.postid)">
-			  <img src="{{announcement.attachment}}">
+			  <img src="img/{{announcement.category}}.png">
 			  <h2>{{announcement.title}}</h2>
 			  <p>{{announcements.description}}</p>
 			</a>
