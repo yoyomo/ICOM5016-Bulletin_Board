@@ -206,11 +206,17 @@ $scope.search = function(searchText){
           $scope.statustext  = response.statustext;
           console.log($scope.statuscode, "Data Retrieved.");
 
-          sessionStorage.setItem('uid',$scope.user.uid);
-          sessionStorage.setItem('username',$scope.user.username);
-          sessionStorage.setItem('email',$scope.user.email);
+          if($scope.user[0]){
+            sessionStorage.setItem('uid',$scope.user[0].uid);
+            sessionStorage.setItem('username',$scope.user[0].username);
+            sessionStorage.setItem('email',$scope.user[0].email);
+            $window.location.href = "profile.html";
+          }
+          else{
+            $scope.error = "User not found";
+          }
           
-          $window.location.href = "profile.html";
+          
           
 
       }, function myError(response) {

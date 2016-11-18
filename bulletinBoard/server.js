@@ -235,14 +235,14 @@ app.get('/db/get/search/:searchtext', function (req,res) {
 
 app.get('/db/get/login/:email/:password', function (req,res) {
 	clientConnect();
-	query = client.query("select *\
+	query = client.query("select distinct *\
 	from member\
 	where email='"+req.params.email+"' and password='"+req.params.password+"'\
 	");    
    	query.on("end", function (result) {          
    		client.end(); 
 		res.writeHead(200, {'Content-Type': 'text/plain'});
-		res.write(JSON.stringify(result.rows[0], null, "    "));
+		res.status(200).write(JSON.stringify(result.rows, null, "    "));
 		res.end();  
 	});
 })
@@ -257,7 +257,7 @@ app.get('/db/get/user/:uID/:username/:email/', function (req,res) {
    	query.on("end", function (result) {          
    		client.end(); 
 		res.writeHead(200, {'Content-Type': 'text/plain'});
-		res.write(JSON.stringify(result.rows[0], null, "    "));
+		res.status(200).write(JSON.stringify(result.rows[0], null, "    "));
 		res.end();  
 	});
 })
