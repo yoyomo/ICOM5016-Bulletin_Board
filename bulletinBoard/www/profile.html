@@ -62,7 +62,10 @@
 				<p>
 					<span id="email">{{user.email}}</span> 
 					</br>
-					<span id="phone" ng-repeat="phonenumber in user.phonenumber">{{phonenumber}}</br></span></p>
+					Phone Numbers:</br>
+					<span id="phone" ng-repeat="phonenumber in user.phonenumber">{{phonenumber}}</br></span>
+					Credit Cards:</br>
+					<span id="creditcard" ng-repeat="creditcard in creditcards">{{creditcard.cardtype}}: {{creditcard.cardnumber}}</br></span></p>
 			</div>
 			
 			<ion-list>
@@ -101,15 +104,16 @@
 				<ul class="list">
 					<li class="item" ng-repeat="payment in payments">
 					<div ng-show="user.uid==payment.buyerid">
-						{{payment.dateofpayment}}: Transaction with user {{payment.sellerid}} through {{payment.typeofpayment}} ......................  (-){{payment.amount}}
+						{{payment.dateofpayment}}: Transaction of {{payment.title}} with user {{payment.sellerid}} through {{payment.cardtype}} ......................  (-){{payment.amount}}
 
 					</div>
 					<div ng-show="user.uid==payment.sellerid">
-						{{payment.dateofpayment}}: Transaction with user {{payment.buyerid}} through {{payment.typeofpayment}} ......................  (+){{payment.amount}}
+						{{payment.dateofpayment}}: Transaction of {{payment.title}} with user {{payment.buyerid}} through {{payment.cardtype}} ......................  (+){{payment.amount}}
 					</div>
 					</li>
 				</ul>
 			</div>
+
 			</ion-list>
 			<div id="subscribe">
 				<a href="premiumpayment.html">

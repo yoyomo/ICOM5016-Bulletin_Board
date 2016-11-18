@@ -297,10 +297,25 @@ app.get('/db/get/user/announcements/:uID/', function (req,res) {
 app.get('/db/get/user/payments/:uID/', function (req,res) {
 	clientConnect();
 	query = client.query("\
-		select *\
-		from payment\
-		where buyerid="+req.params.uID+" or sellerid="+req.params.uID+"\
-		order by dateofpayment desc\
+		with announcements as ((select category,postID,uID,title,description, attachment, dateAdded\
+		from event )\
+		union \
+		(select category,postID,uID,title,description, attachment, dateAdded\
+		from book)\
+		union\
+		(select category,postID,uID,title,description, attachment, dateAdded\
+		from housing)\
+		union\
+		(select category,postID,uID,title,description, attachment, dateAdded\
+		from mentorship)\
+		union\
+		(select category,postID,uID,title,description, attachment, dateAdded\
+		from other))\
+		select p.*,a.title,c.cardtype\
+		from payment as p natural join announcements as a, creditcard as c\
+		where c.cardid=p.cardid\
+		and (buyerid="+req.params.uID+" or sellerid="+req.params.uID+")\
+		order by dateAdded desc\
 	");    
    	query.on("end", function (result) {          
    		client.end(); 
@@ -382,3 +397,17 @@ app.get('/db/get/reports/', function (req,res) {
 	});
 })
 
+app.get('/db/get/creditcards/:uid', function (req,res) {
+	clientConnect();
+	query = client.query("\
+		select *\
+		from creditcard\
+		where uid="+req.params.uid+"\
+	");    
+   	query.on("end", function (result) {          
+   		client.end(); 
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+		res.write(JSON.stringify(result.rows, null, "    "));
+		res.end();  
+	});
+})

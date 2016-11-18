@@ -143,12 +143,10 @@ create table Payment(
 pID bigserial not null,
 buyerID bigserial references member(uID) not null,
 sellerID bigserial references member(uID) not null,
+cardID bigserial references creditcard(cardid) not null,
 category char(1) not null,
 postID bigserial not null,
 amount numeric(9,2) not null,
-typeOfPayment text 
-check (typeOfPayment in ('Paypal','MasterCard','Visa',
-'Discover','American Express')) not null,
 dateOfPayment timestamp default current_timestamp not null,
 
 primary key(pID, buyerID, sellerID)
@@ -164,6 +162,13 @@ check(typeOfReport in ('Inappropriate','Spam',
 comment text not null,
 primary key (uID,postID,category)
 );
+
+create table creditcard (
+cardid bigserial unique not null,
+uid bigserial references member(uid) not null,
+cardtype text check(cardtype in ('Paypal','MasterCard','Visa','Discover','American Express')) ,
+cardnumber text,
+primary key (cardid,uid,cardtype))
 
 -- QUERIES
 

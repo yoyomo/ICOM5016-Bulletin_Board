@@ -2,11 +2,11 @@ angular.module('bb', ['ionic'])
 
 .controller('homeCtrl', function($scope, $http, $window) {
 	
-	sessionStorage.getItem('uid',$scope.uid);
-	sessionStorage.getItem('username',$scope.username);
-	sessionStorage.getItem('email',$scope.email);
+	$scope.uid = sessionStorage.getItem('uid');
+	$scope.username = sessionStorage.getItem('username');
+	$scope.email = sessionStorage.getItem('email');
 
-	if($scope.uid == null || $scope.username == null || $scope.email == null){
+	if(!$scope.username){
 		$scope.loggedIn = false;
 	}
 	else{
@@ -126,6 +126,17 @@ $scope.search = function(searchText){
 
 .controller('announcementDetailsCtrl', function($scope, $http, $window) {
 
+  $scope.uid = sessionStorage.getItem('uid');
+  $scope.username = sessionStorage.getItem('username');
+  $scope.email = sessionStorage.getItem('email');
+
+  if(!$scope.username){
+    $scope.loggedIn = false;
+  }
+  else{
+    $scope.loggedIn = true;
+  }
+
   $scope.transfer = {category:sessionStorage.getItem('category'),
   postID: sessionStorage.getItem('postID')};
 
@@ -243,6 +254,27 @@ $scope.search = function(searchText){
 
   $scope.profileDetails();
 
+  $scope.profileDetails = function(user){
+
+    $http({
+        method : "GET",
+        url : "/db/get/creditcards/"+$scope.transfer.uid+""
+    }).then(function mySucces(response) {
+        $scope.creditcards = response.data;
+        $scope.statuscode = response.status;
+        $scope.statustext  = response.statustext;
+        console.log($scope.statuscode, "Data Retrieved.");
+        
+
+    }, function myError(response) {
+        $scope.error = response.statusCode + ": User not found";
+
+    });
+
+  };
+
+  $scope.profileDetails();
+
 	$scope.chatlogs = function(){
 
     $http({
@@ -312,9 +344,9 @@ $scope.search = function(searchText){
   };
 
   $scope.logout = function(){
-	  sessionStorage.setItem('uid',null);
-	  sessionStorage.setItem('username',null);
-	  sessionStorage.setItem('email',null);
+	  sessionStorage.removeItem('uid');
+	  sessionStorage.removeItem('username');
+	  sessionStorage.removeItem('email');
 	  $window.location.href = "index.html";
   }
 
@@ -384,10 +416,10 @@ $scope.search = function(searchText){
   };
 
   $scope.logout = function(){
-	  sessionStorage.setItem('uid',null);
-	  sessionStorage.setItem('username',null);
-	  sessionStorage.setItem('email',null);
-	  $window.location.href = "index.html";
+    sessionStorage.removeItem('uid');
+    sessionStorage.removeItem('username');
+    sessionStorage.removeItem('email');
+    $window.location.href = "index.html";
   }
 })
 

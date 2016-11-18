@@ -36,10 +36,13 @@
 	</head>
 	<body ng-app="bb" ng-controller="homeCtrl">  
 		<ion-header-bar class="bar bar-header bar-stable">
-			<h1 class="title">Bulletin Board{{uid}} {{username}} {{email}}</h1>
+			<h1 class="title">Bulletin Board</h1>
 			<div class="buttons">
-			<a ng-show="!loggedIn" href="signup.html">
-			<button  class="button button-positive">Sign Up/Sign In</button></a>
+			<a ng-show="loggedIn" href="profile.html">
+				<button class="button button-positive"><i class="icon ion-android-person"></i>{{username}}</button></a>
+			<a ng-hide="loggedIn" href="signup.html">
+				<button  class="button button-positive">Sign Up/Sign In</button>
+			</a>
 			</div>
 		</ion-header-bar>
 
@@ -66,8 +69,12 @@
 		ng-class="hFilter?'button-positive':'button-outlined'">Housing</button>
 		<button ng-click="filterOther()" class="button button-positive"
 		ng-class="oFilter?'button-positive':'button-outlined'">Other</button>
-		<a href="newpost.html">
-			<button class="button button-assertive"><i class="icon ion-compose"></i></button></a>
+		<a ng-show="loggedIn" href="newpost.html">
+			<button class="button button-assertive"><i class="icon ion-compose"></i></button>
+		</a>
+		<a ng-hide="loggedIn" href="signup.html">
+			<button class="button button-assertive"><i class="icon ion-compose"></i></button>
+		</a>
 		</div>
 		
 

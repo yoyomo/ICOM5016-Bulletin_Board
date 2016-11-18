@@ -42,8 +42,11 @@
 		</div>
 		<h1 class="title">Bulletin Board</h1>
 		<div class="buttons">
-		<a href="profile.html">
-		<button class="button button-positive"><i class="icon ion-android-person"></i></button></a>
+		<a ng-show="loggedIn" href="profile.html">
+			<button class="button button-positive"><i class="icon ion-android-person"></i>{{username}}</button></a>
+		<a ng-hide="loggedIn" href="signup.html">
+			<button  class="button button-positive">Sign Up/Sign In</button>
+		</a>
 		</div>
 		</ion-header-bar>
 
@@ -102,14 +105,22 @@
 			</p>
 		</div>
 		<div class="list-inset">
-			<a ng-click="transferMessage()">
+			<a ng-show="loggedIn" ng-click="transferMessage()">
 				<button class="button button-positive"><i class="icon ion-paper-airplane"></i></button></a>
-				
-			<a href="payment.html">
+			<a ng-hide="loggedIn" href="signup.html">
+				<button class="button button-positive"><i class="icon ion-paper-airplane"></i></button></a>
+
+			<a ng-show="loggedIn" href="payment.html">
 				<button class="button button-positive"><i class="icon ion-card"></i></button></a>
-				
-			<a id="reportButton" href="report.html">
-				<button class="button button-assertive icon-right"><i class="icon ion-alert-circled"></i></button></a>
+			<a ng-hide="loggedIn" href="signup.html">
+				<button class="button button-positive"><i class="icon ion-card"></i></button></a>
+
+			<a ng-show="loggedIn" id="reportButton" href="report.html">
+				<button class="button button-assertive icon-right"><i class="icon ion-alert-circled"></i></button>
+				</a>
+			<a ng-hide="loggedIn" id="reportButton" href="signup.html">
+				<button class="button button-assertive icon-right"><i class="icon ion-alert-circled"></i></button>
+				</a>
 			</ion-content>
 		</div>
 	</body>
