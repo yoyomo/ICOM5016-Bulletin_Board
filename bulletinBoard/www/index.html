@@ -36,10 +36,10 @@
 	</head>
 	<body ng-app="bb" ng-controller="homeCtrl">  
 		<ion-header-bar class="bar bar-header bar-stable">
-			<h1 class="title">Bulletin Board</h1>
+			<h1 class="title">Bulletin Board{{uid}} {{username}} {{email}}</h1>
 			<div class="buttons">
-			<a href="signup.html">
-			<button class="button button-positive">Sign Up/Sign In</button></a>
+			<a ng-show="!loggedIn" href="signup.html">
+			<button  class="button button-positive">Sign Up/Sign In</button></a>
 			</div>
 		</ion-header-bar>
 

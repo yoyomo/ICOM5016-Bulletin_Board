@@ -1,6 +1,17 @@
 angular.module('bb', ['ionic'])
 
 .controller('homeCtrl', function($scope, $http, $window) {
+	
+	sessionStorage.getItem('uid',$scope.uid);
+	sessionStorage.getItem('username',$scope.username);
+	sessionStorage.getItem('email',$scope.email);
+
+	if($scope.uid == null || $scope.username == null || $scope.email == null){
+		$scope.loggedIn = false;
+	}
+	else{
+		$scope.loggedIn = true;
+	}
 
   $scope.getAnnouncements = function(){
       return $http({
@@ -300,6 +311,13 @@ $scope.search = function(searchText){
 
   };
 
+  $scope.logout = function(){
+	  sessionStorage.setItem('uid',null);
+	  sessionStorage.setItem('username',null);
+	  sessionStorage.setItem('email',null);
+	  $window.location.href = "index.html";
+  }
+
 
 })
 
@@ -364,6 +382,13 @@ $scope.search = function(searchText){
         $scope.transfer = response.statusText;
     });
   };
+
+  $scope.logout = function(){
+	  sessionStorage.setItem('uid',null);
+	  sessionStorage.setItem('username',null);
+	  sessionStorage.setItem('email',null);
+	  $window.location.href = "index.html";
+  }
 })
 
 .run(function($ionicPlatform) {

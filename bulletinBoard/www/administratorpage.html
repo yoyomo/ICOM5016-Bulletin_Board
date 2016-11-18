@@ -66,7 +66,13 @@
 					</br>
 					<span>{{admin.email}}</span> 
 					</br>
-					<span ng-repeat="phonenumber in user.phonenumber">{{phonenumber}}</br></span></p>
+					<span ng-repeat="phonenumber in user.phonenumber">{{phonenumber}}</br></span>
+				</p>
+				<div id="logout">
+					<a ng-click="logout()">
+						<button class="button button-assertive">Log Out</button>
+					</a>
+				</div>
 			</div>
 			
 			<div id="reportlistdivider" class="item item-divider">Report List</div>
