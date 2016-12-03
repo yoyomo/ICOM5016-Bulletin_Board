@@ -26,11 +26,10 @@ button-group{
 .error{
 	color:red;
 }
-#subscribe{
-	width: 200px;
-	margin-left: auto;
-	margin-right: auto;
-	
+#profileButtons{
+	width: 100%;
+	margin-left: 40%;
+	margin-right: 40%;
 	
 }
 #reportsCSS{

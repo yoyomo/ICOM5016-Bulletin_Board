@@ -56,25 +56,7 @@
 		</ion-header-bar>
 
 		<ion-content class="has-subheader" draggable="false">
-			<div class="item item-avatar">
-				<img src="{{admin.profpic}}">
-				<h2><span id="username">{{admin.username}}</span></h2>
-				<p>
-					<span>{{admin.firstname}}</span> 
-					</br>
-					<span>{{admin.lastname}}</span> 
-					</br>
-					<span>{{admin.email}}</span> 
-					</br>
-					<span ng-repeat="phonenumber in user.phonenumber">{{phonenumber}}</br></span>
-				</p>
-				<div id="logout">
-					<a ng-click="logout()">
-						<button class="button button-assertive">Log Out</button>
-					</a>
-				</div>
-			</div>
-			
+					
 			<div id="reportlistdivider" class="item item-divider">Report List</div>
 			<div id="reportdetailsdivider" class="item item-divider">Report Details	</div>
 			
@@ -129,7 +111,9 @@
 					</p>
 					<span>Date Added: {{announcement.dateadded}}</span>
 					</br></br>
-					<button style="float:right;" class="button button-clear button-assertive"><i class="icon ion-close-round"></i></button>
+					<button style="float:right;" class="button button-clear button-assertive">Delete</button>
+					<button style="float:right;" class="button button-clear button-stable">Ignore</button>
+
 				</p>
 			</div>
 			
