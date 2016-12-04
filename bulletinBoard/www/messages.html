@@ -71,10 +71,10 @@
 		</ul>
 		<div class="item item-divider"></div>
 		<label class="item item-input">
-			<textarea placeholder="Type message..."></textarea>
+			<textarea ng-model="messagetext" placeholder="Type message..."></textarea>
 		</label>
 				
-		<button class="button button-balanced">Send</button>
+		<button ng-click="sendMessage(messagetext)" class="button button-balanced">Send</button>
 		</ion-content>
 	</body>
 </html>

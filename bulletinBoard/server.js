@@ -554,3 +554,19 @@ app.get('/db/get/existingUsers',function(req,res){
 		res.end();  
 	});
 })
+
+app.get('/db/insert/message/:chatid/:senderid/:receiverid/:text',function(req,res){
+	clientConnect();
+	query = client.query("\
+		INSERT INTO message(\
+		chatid, senderid, receiverid, messagetext)\
+		VALUES ("+req.params.chatid+", "+req.params.senderid+", "+
+		req.params.receiverid+", '"+req.params.text+"');\
+	");    
+   	query.on("end", function (result) {          
+   		client.end(); 
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+		res.status(200).write(JSON.stringify(result.rows, null, "    "));
+	});
+		
+})

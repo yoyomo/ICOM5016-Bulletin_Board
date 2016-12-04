@@ -187,6 +187,30 @@ $scope.search = function(searchText){
   };
   $scope.getMessageDetails();
 
+  $scope.sendMessage = function(text){
+    $scope.master = {};
+    $scope.master.text = angular.copy(text);
+
+    $http({
+        method : "GET",
+        url : "/db/insert/message/"+$scope.messages[0].chatid+"/"+
+        $scope.transfer.loggedInUser+"/"
+        +$scope.transfer.messageUser+"/"+
+        $scope.master.text+""
+    }).then(function mySucces(response) {
+        $scope.messages = response.data;
+        $scope.statuscode = response.status;
+        $scope.statustext  = response.statustext;
+        console.log($scope.statuscode, "Data Retrieved.");
+
+        $window.location.reload();
+
+    }, function myError(response) {
+        $scope.transfer = response.statusText;
+    });
+
+
+  };
 
 })
 
