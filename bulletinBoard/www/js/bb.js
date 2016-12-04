@@ -191,6 +191,19 @@ $scope.search = function(searchText){
 })
 
 .controller('loginCtrl', function($scope, $http,$window) {
+$http({
+      method : "GET",
+      url : "/db/get/existingUsers"
+  }).then(function mySucces(response) {
+      $scope.users = response.data;
+      $scope.statuscode = response.status;
+      $scope.statustext  = response.statustext;
+      console.log($scope.statuscode, "Data Retrieved.");
+
+      
+  }, function myError(response) {
+      $scope.error = response.statusCode + ": User not found";
+});
 
   $scope.login = function(user){
     $scope.master = {};
@@ -252,10 +265,24 @@ $scope.search = function(searchText){
       $scope.notSameError = "Password must be the same."
       getOut = true;
     }
+    
+
+    for(user in $scope.users){
+      if($scope.users[user].email===$scope.master.newUser.email){
+            $scope.error = "email already exists";
+            getOut = true;
+            break;
+          }
+      if($scope.users[user].username===$scope.master.newUser.username){
+        $scope.error = "Username already exists";
+        getOut = true;
+        break;
+      }
+
+    }
     if(getOut){
       return;
     }
-    
 
     $http({
         method : "GET",
@@ -266,10 +293,22 @@ $scope.search = function(searchText){
     }).then(function mySucces(response) {
         alert("You have created new account!\nPlease verify your account.");
 
+        $http({
+            method : "GET",
+            url : "/sendMail/"+$scope.master.newUser.username+"/"+
+            $scope.master.newUser.email+""
+
+        }).then(function mySucces(response) {
+
+        }, function myError(response) {
+            $scope.error = "Mail not sent";
+        });
+
         $window.location.href = "index.html";
 
     }, function myError(response) {
-        $scope.error = response.statusCode + ": User not found";
+        $scope.error = "Username or email already exists";
+        return;
     });
     
   };

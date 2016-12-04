@@ -17,6 +17,37 @@ function clientConnect(){
 	client.connect();
 }
 
+var nodemailer = require('nodemailer');
+
+// create reusable transporter object using the default SMTP transport
+var transporter = nodemailer.createTransport({
+	service: 'Gmail',
+	auth: {
+		user: 'bulletinboarduprm@gmail.com',
+		pass:'announceit'
+	}
+});
+
+app.get('/sendMail/:username/:email',function(req,res){
+	// setup e-mail data with unicode symbols
+	var mailOptions = {
+	    from: 'bulletinboarduprm@gmail.com', // sender address
+	    to: req.params.email, // list of receivers
+	    subject: 'Welcome to Bulletin Board!', // Subject line
+	    text: 'Hello '+req.params.username+',\
+	    \nPlease verify your account by logging in: announceit.herokuapp.com/signup.html', // plaintext body
+	    //html: '<b>Hello world ?</b>' // html body
+	};
+
+	// send mail with defined transport object
+	transporter.sendMail(mailOptions, function(error, info){
+	    if(error){
+	        return console.log(error);
+	    }
+	    console.log('Message sent: ' + info.response);
+	});
+})
+
 app.get('/db/get', function (req,res) {
 	clientConnect();
 	query = client.query("select * from member;");    
@@ -233,11 +264,12 @@ app.get('/db/get/search/:searchtext', function (req,res) {
 	});
 })
 
-app.get('/db/get/login/:email/:password', function (req,res) {
+app.get('/db/get/login/:usernameORemail/:password', function (req,res) {
 	clientConnect();
 	query = client.query("select distinct *\
 	from member\
-	where email='"+req.params.email+"' and password='"+req.params.password+"'\
+	where (email='"+req.params.usernameORemail+"'\
+	or username='"+req.params.usernameORemail+"' )and password='"+req.params.password+"'\
 	");    
    	query.on("end", function (result) {          
    		client.end(); 
@@ -500,6 +532,20 @@ app.get('/db/insert/user/:username/:email/:password', function(req,res){
 		INSERT INTO member(username, email, password)\
 		VALUES ('"+req.params.username+"','"+req.params.email+"'\
 		,'"+req.params.password+"')\
+	");    
+   	query.on("end", function (result) {          
+   		client.end(); 
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+		res.status(200).write(JSON.stringify(result.rows, null, "    "));
+		res.end();  
+	});
+})
+
+app.get('/db/get/existingUsers',function(req,res){
+	clientConnect();
+	query = client.query("\
+		select username, email\
+		from member\
 	");    
    	query.on("end", function (result) {          
    		client.end(); 
