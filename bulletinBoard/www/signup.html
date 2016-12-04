@@ -65,23 +65,28 @@
 	
 		<ion-list>
 		<label class="item item-input">
-		<span class="input-label">Username:</span>
-				<input type="text" />					
+		<span class="input-label">Username:
+		<span class="error">{{usernameError}}</span></span>
+				<input ng-model="newUser.username" type="text" />					
 		</label>
 		<label class="item item-input">
-			<span class="input-label">Email:</span>
-			<input type="email" />
+			<span class="input-label">Email:
+			<span class="error">{{emailError}}</span></span>
+			<input ng-model="newUser.email" type="email" />
 		</label>
 		<label class="item item-input">
-			<span class="input-label">Password:</span>
-			<input type="password" />
+			<span class="input-label">Password:
+			<span class="error">{{passwordError}}</span></span>
+			<input ng-model="newUser.password" type="password" />
 		</label>
 		<label class="item item-input">
-			<span class="input-label">Confirm Password:</span>
-			<input type="password" />
+			<span class="input-label">Confirm Password:
+			<span class="error">{{confirmError}}</span>
+			<span class="error">{{notSameError}}</span></span>
+			<input ng-model="newUser.confirm" type="password" />
 		</label>
 		<label>
-			<a href="profile.html"><button class="button button-positive">Sign Up</button></a>
+			<button class="button button-positive" ng-click="signUp(newUser)">Sign Up</button>
 		</label>
 		</ion-list>
 

@@ -215,10 +215,6 @@ $scope.search = function(searchText){
           else{
             $scope.error = "User not found";
           }
-          
-          
-          
-
       }, function myError(response) {
           $scope.error = response.statusCode + ": User not found";
       });
@@ -229,6 +225,55 @@ $scope.search = function(searchText){
     }
 
   };
+
+  $scope.signUp = function(newUser){
+
+    $scope.master = {};
+    $scope.master.newUser = angular.copy(newUser);
+
+    getOut = false;
+    if(!$scope.master.newUser.username){
+      $scope.usernameError = errorMessage;
+      getOut = true;
+    }
+    if(!$scope.master.newUser.email){
+      $scope.emailError = errorMessage;
+      getOut = true;
+    }
+    if(!$scope.master.newUser.password){
+      $scope.passwordError = errorMessage;
+      getOut = true;
+    }
+    if(!$scope.master.newUser.confirm){
+      $scope.confirmError = errorMessage;
+      getOut = true;
+    }
+    if($scope.master.newUser.password != $scope.master.newUser.confirm){
+      $scope.notSameError = "Password must be the same."
+      getOut = true;
+    }
+    if(getOut){
+      return;
+    }
+    
+
+    $http({
+        method : "GET",
+        url : "/db/insert/user/"+$scope.master.newUser.username+"/"+
+        $scope.master.newUser.email+"/"+
+        $scope.master.newUser.password+""
+
+    }).then(function mySucces(response) {
+        alert("You have created new account!\nPlease verify your account.");
+
+        $window.location.href = "index.html";
+
+    }, function myError(response) {
+        $scope.error = response.statusCode + ": User not found";
+    });
+    
+  };
+
 })
 .controller('profileCtrl', function($scope, $http,$window) {
 
@@ -428,6 +473,203 @@ $scope.search = function(searchText){
     $window.location.href = "index.html";
   }
 })
+
+.controller('newPostCtrl',function($scope, $http,$window) {
+
+  $scope.uid = sessionStorage.getItem('uid');
+  $scope.username = sessionStorage.getItem('username');
+  $scope.email = sessionStorage.getItem('email');
+
+  errorMessage = "Required Field";
+
+  $scope.postEvent = function(announcement,detail){
+
+    $scope.master = {};
+    $scope.master.announcement = angular.copy(announcement);
+    $scope.master.detail = angular.copy(detail);
+
+    $scope.timestamp = $scope.master.detail.date.year+"-"+
+    $scope.master.detail.date.month+"-"+
+    $scope.master.detail.date.day+" "+
+    $scope.master.detail.date.hour+":"+
+    $scope.master.detail.date.minute+":00";
+
+    if(!$scope.master.announcement.title){
+      $scope.titleError = errorMessage;
+      return;
+    }
+
+    $http({
+        method : "GET",
+        url : "/db/insert/event/"+$scope.uid+"/"+
+        $scope.master.announcement.title+"/"+
+        $scope.master.announcement.description+"/"+
+        $scope.timestamp+"/"+
+        $scope.master.detail.location+"/"+
+        $scope.master.detail.fee+""
+    }).then(function mySucces(response) {
+        alert("Your announcement was succesfully posted!");
+        $window.location.href = "index.html";
+
+    }, function myError(response) {
+        $scope.error = response.statusCode + ": User not found";
+    });
+    
+
+  };
+
+  $scope.postBook = function(announcement,detail){
+
+    $scope.master = {};
+    $scope.master.announcement = angular.copy(announcement);
+    $scope.master.detail = angular.copy(detail);
+
+    getOut = false;
+    if(!$scope.master.announcement.title){
+      $scope.titleError = errorMessage;
+      getOut = true;
+    }
+    if(!$scope.master.detail.name){
+      $scope.nameError = errorMessage;
+      getOut = true;
+    }
+    if(!$scope.master.detail.author){
+      $scope.authorError = errorMessage;
+      getOut = true;
+    }
+
+    if(getOut){
+      return;
+    }
+    $http({
+        method : "GET",
+        url : "/db/insert/book/"+$scope.uid+"/"+
+        $scope.master.announcement.title+"/"+
+        $scope.master.announcement.description+"/"+
+        $scope.master.detail.name+"/"+
+        $scope.master.detail.author+"/"+
+        $scope.master.detail.edition+"/"+
+        $scope.master.detail.year+"/"+
+        $scope.master.detail.price+""
+
+    }).then(function mySucces(response) {
+        alert("Your announcement was succesfully posted!");
+        $window.location.href = "index.html";
+
+    }, function myError(response) {
+        $scope.error = response.statusCode + ": User not found";
+    });
+    
+
+  };
+
+  $scope.postHousing = function(announcement,detail){
+
+    $scope.master = {};
+    $scope.master.announcement = angular.copy(announcement);
+    $scope.master.detail = angular.copy(detail);
+
+    if(!$scope.master.announcement.title){
+      $scope.titleError = errorMessage;
+      return;
+    }
+
+    $http({
+        method : "GET",
+        url : "/db/insert/housing/"+$scope.uid+"/"+
+        $scope.master.announcement.title+"/"+
+        $scope.master.announcement.description+"/"+
+        $scope.master.detail.address+"/"+
+        $scope.master.detail.monthlyprice+""
+
+    }).then(function mySucces(response) {
+        alert("Your announcement was succesfully posted!");
+        $window.location.href = "index.html";
+
+    }, function myError(response) {
+        $scope.error = response.statusCode + ": User not found";
+    });
+    
+
+  };
+
+  $scope.postMentorship = function(announcement,detail){
+
+    $scope.master = {};
+    $scope.master.announcement = angular.copy(announcement);
+    $scope.master.detail = angular.copy(detail);
+
+    getOut = false;
+    if(!$scope.master.announcement.title){
+      $scope.titleError = errorMessage;
+      getOut = true;
+    }
+    if(!$scope.master.detail.subject){
+      $scope.subjectError = errorMessage;
+      getOut = true;
+    }
+    if(getOut){
+      return;
+    }
+    
+
+    $http({
+        method : "GET",
+        url : "/db/insert/mentorship/"+$scope.uid+"/"+
+        $scope.master.announcement.title+"/"+
+        $scope.master.announcement.description+"/"+
+        $scope.master.detail.subject+"/"+
+        $scope.master.detail.fee+""
+
+    }).then(function mySucces(response) {
+        alert("Your announcement was succesfully posted!");
+        $window.location.href = "index.html";
+
+    }, function myError(response) {
+        $scope.error = response.statusCode + ": User not found";
+    });
+    
+  };
+    $scope.postOther = function(announcement,detail){
+
+    $scope.master = {};
+    $scope.master.announcement = angular.copy(announcement);
+    $scope.master.detail = angular.copy(detail);
+
+    getOut = false;
+    if(!$scope.master.announcement.title){
+      $scope.titleError = errorMessage;
+      getOut = true;
+    }
+    if(!$scope.master.detail.item){
+      $scope.itemError = errorMessage;
+      getOut = true;
+    }
+    if(getOut){
+      return;
+    }
+    
+
+    $http({
+        method : "GET",
+        url : "/db/insert/other/"+$scope.uid+"/"+
+        $scope.master.announcement.title+"/"+
+        $scope.master.announcement.description+"/"+
+        $scope.master.detail.item+""
+
+    }).then(function mySucces(response) {
+        alert("Your announcement was succesfully posted!");
+        $window.location.href = "index.html";
+
+    }, function myError(response) {
+        $scope.error = response.statusCode + ": User not found";
+    });
+    
+  };
+
+})
+
+
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {

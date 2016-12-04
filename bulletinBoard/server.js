@@ -411,3 +411,100 @@ app.get('/db/get/creditcards/:uid', function (req,res) {
 		res.end();  
 	});
 })
+
+app.get('/db/insert/event/:uid/:title/:description/:dateofevent/:location/:fee', function(req,res){
+	clientConnect();
+	query = client.query("\
+		INSERT INTO event(uid, title, description,\
+		dateofevent, location, fee)\
+		VALUES ("+req.params.uid+",'"+req.params.title+"','"+req.params.description+"'\
+		,'"+req.params.dateofevent+"','"+req.params.location+"',"+req.params.fee+")\
+	");    
+   	query.on("end", function (result) {          
+   		client.end(); 
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+		res.status(200).write(JSON.stringify(result.rows, null, "    "));
+		res.end();  
+	});
+})
+
+
+app.get('/db/insert/book/:uid/:title/:description/:name/:author/:edition/:year/:price', function(req,res){
+	clientConnect();
+	query = client.query("\
+		INSERT INTO book(uid, title, description,\
+		name, author, edition, year, price)\
+		VALUES ("+req.params.uid+",'"+req.params.title+"','"+req.params.description+"'\
+		,'"+req.params.name+"','"+req.params.author+"','"+req.params.edition+"',\
+		"+req.params.year+","+req.params.price+")\
+	");    
+   	query.on("end", function (result) {          
+   		client.end(); 
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+		res.status(200).write(JSON.stringify(result.rows, null, "    "));
+		res.end();  
+	});
+})
+
+app.get('/db/insert/housing/:uid/:title/:description/:address/:monthlyprice', function(req,res){
+	clientConnect();
+	query = client.query("\
+		INSERT INTO housing(uid, title, description,\
+		address, monthlyprice)\
+		VALUES ("+req.params.uid+",'"+req.params.title+"','"+req.params.description+"'\
+		,'"+req.params.address+"',"+req.params.monthlyprice+")\
+	");    
+   	query.on("end", function (result) {          
+   		client.end(); 
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+		res.status(200).write(JSON.stringify(result.rows, null, "    "));
+		res.end();  
+	});
+})
+
+app.get('/db/insert/mentorship/:uid/:title/:description/:subject/:fee', function(req,res){
+	clientConnect();
+	query = client.query("\
+		INSERT INTO mentorship(uid, title, description,\
+		subject, fee)\
+		VALUES ("+req.params.uid+",'"+req.params.title+"','"+req.params.description+"'\
+		,'"+req.params.subject+"',"+req.params.fee+")\
+	");    
+   	query.on("end", function (result) {          
+   		client.end(); 
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+		res.status(200).write(JSON.stringify(result.rows, null, "    "));
+		res.end();  
+	});
+})
+
+app.get('/db/insert/other/:uid/:title/:description/:item', function(req,res){
+	clientConnect();
+	query = client.query("\
+		INSERT INTO other(uid, title, description,\
+		itemname)\
+		VALUES ("+req.params.uid+",'"+req.params.title+"','"+req.params.description+"'\
+		,'"+req.params.item+"')\
+	");    
+   	query.on("end", function (result) {          
+   		client.end(); 
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+		res.status(200).write(JSON.stringify(result.rows, null, "    "));
+		res.end();  
+	});
+})
+
+app.get('/db/insert/user/:username/:email/:password', function(req,res){
+	clientConnect();
+	query = client.query("\
+		INSERT INTO member(username, email, password)\
+		VALUES ('"+req.params.username+"','"+req.params.email+"'\
+		,'"+req.params.password+"')\
+	");    
+   	query.on("end", function (result) {          
+   		client.end(); 
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+		res.status(200).write(JSON.stringify(result.rows, null, "    "));
+		res.end();  
+	});
+})
