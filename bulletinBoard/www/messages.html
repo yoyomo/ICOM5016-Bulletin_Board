@@ -31,7 +31,6 @@
     <script src="cordova.js"></script>
 
     <!-- your app's js -->
-
 	<script src="js/bb.js"></script>
 	</head>
 	<body ng-app="bb" ng-controller="messageCtrl">
@@ -46,16 +45,17 @@
 		<h1 class="title">Bulletin Board</h1>
 		<div class="buttons">
 		<a href="profile.html">
-		<button class="button button-positive"><i class="icon ion-android-person"></i></button></a>
+		<button class="button button-positive"><i class="icon ion-android-person"></i>{{username}}</button></a>
 		</div>
 		</ion-header-bar>
 		<ion-header-bar class="bar bar-subheader bar-light">
-		<h2 class="title">Messages</h2>
+		<h2 class="title">Messages with {{messages[0].messageuser}}</h2>
 		</ion-header-bar>
 
 	<!--CONTENT-->
 
 		<ion-content class="has-subheader">
+		
 		<ul >
 			<li class="item item-avatar" ng-repeat="message in messages">
 				<div ng-show="message.senderid==transfer.messageUser" style="text-align:left">
@@ -69,6 +69,7 @@
 			</li>
 
 		</ul>
+		
 		<div class="item item-divider"></div>
 		<label class="item item-input">
 			<textarea ng-model="messagetext" placeholder="Type message..."></textarea>

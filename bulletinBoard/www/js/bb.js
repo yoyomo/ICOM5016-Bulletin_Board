@@ -161,9 +161,25 @@ $scope.search = function(searchText){
     $window.location.href = "messages.html";
   }
 
+  $scope.transferPayment = function(){
+    sessionStorage.setItem('sellerid',$scope.announcement.uid);
+    sessionStorage.setItem('category',$scope.announcement.category);
+    sessionStorage.setItem('postid', $scope.announcement.postid);
+    $window.location.href = "payment.html";
+  }
+
+  $scope.transferReport = function(){
+    sessionStorage.setItem('category',$scope.announcement.category);
+    sessionStorage.setItem('postid', $scope.announcement.postid);
+    $window.location.href = "report.html";
+  }
+
 })
 
 .controller('messageCtrl', function($scope, $http, $window) {
+  $scope.uid = sessionStorage.getItem('uid');
+  $scope.username = sessionStorage.getItem('username');
+  $scope.email = sessionStorage.getItem('email');
 
   $scope.transfer = {
     messageUser:sessionStorage.getItem('messageuser'),
@@ -191,23 +207,22 @@ $scope.search = function(searchText){
     $scope.master = {};
     $scope.master.text = angular.copy(text);
 
-    $http({
-        method : "GET",
-        url : "/db/insert/message/"+$scope.messages[0].chatid+"/"+
-        $scope.transfer.loggedInUser+"/"
-        +$scope.transfer.messageUser+"/"+
-        $scope.master.text+""
-    }).then(function mySucces(response) {
-        $scope.messages = response.data;
-        $scope.statuscode = response.status;
-        $scope.statustext  = response.statustext;
-        console.log($scope.statuscode, "Data Retrieved.");
+    if($scope.master.text){
+      $http({
+          method : "GET",
+          url : "/db/insert/message/"+$scope.messages[0].chatid+"/"+
+          $scope.transfer.loggedInUser+"/"
+          +$scope.transfer.messageUser+"/"+
+          $scope.master.text+""
+      }).then(function mySucces(response) {
 
-        $window.location.reload();
+      }, function myError(response) {
+          $scope.transfer = response.statusText;
+      });
 
-    }, function myError(response) {
-        $scope.transfer = response.statusText;
-    });
+      $scope.getMessageDetails();
+      $window.location.href = "messages.html";
+    }
 
 
   };
@@ -529,12 +544,33 @@ $http({
     });
   };
 
+   $scope.ignoreReport = function(category,postID){
+    
+    if(category && postID){
+       return $http({
+        method : "GET",
+        url : "/db/delete/report/"+category+"/"+postID+"/"
+    }).then(function mySucces(response) {
+      $scope.report = response.data;
+      $scope.statuscode = response.status;
+      $scope.statustext  = response.statustext;
+      console.log($scope.statuscode, "Data Retrieved.");
+
+      $window.location.href = "administratorpage.html"
+
+    }, function myError(response) {
+        $scope.transfer = response.statusText;
+    });
+    }
+     
+  };
+
   $scope.logout = function(){
     sessionStorage.removeItem('uid');
     sessionStorage.removeItem('username');
     sessionStorage.removeItem('email');
     $window.location.href = "index.html";
-  }
+  };
 })
 
 .controller('newPostCtrl',function($scope, $http,$window) {
@@ -732,7 +768,93 @@ $http({
 
 })
 
+.controller('paymentCtrl',function($scope, $http,$window) {
+  $scope.uid = sessionStorage.getItem('uid');
+  $scope.username = sessionStorage.getItem('username');
+  $scope.email = sessionStorage.getItem('email');
 
+  $scope.transfer = {
+  sellerid : sessionStorage.getItem('sellerid'),
+  category : sessionStorage.getItem('category'),
+  postid : sessionStorage.getItem('postid')};
+
+  $http({
+      method : "GET",
+      url : "/db/get/creditcards/"+$scope.uid+""
+
+  }).then(function mySucces(response) {
+      $scope.creditcards = response.data;
+      $scope.statuscode = response.status;
+      $scope.statustext  = response.statustext;
+      console.log($scope.statuscode, "Data Retrieved.");
+
+  }, function myError(response) {
+      $scope.error = response.statusCode + ": User not found";
+  });
+
+  $scope.choosePayment = function(cardid){
+    $scope.cardid = angular.copy(cardid);
+    
+  }
+
+  $scope.pay = function(amount){
+    $scope.master = {};
+    $scope.master.cardid = $scope.cardid;
+    $scope.master.amount = angular.copy(amount);
+
+
+    if($scope.master.cardid && $scope.master.amount){
+      $http({
+        method : "GET",
+        url : "/db/insert/payment/"+$scope.uid+"/"+
+        $scope.transfer.sellerid+"/"+$scope.master.cardid+"/"+
+        $scope.transfer.category+"/"+$scope.transfer.postid+"/"+$scope.master.amount+""
+
+      }).then(function mySucces(response) {
+          alert("You have successfully paid user "+$scope.transfer.sellerid);
+          $window.location.href = "profile.html";
+
+      }, function myError(response) {
+          $scope.error = response.statusCode + ": User not found";
+      });
+    }
+  };
+
+})
+
+.controller('reportCtrl',function($scope, $http,$window) {
+  $scope.uid = sessionStorage.getItem('uid');
+  $scope.username = sessionStorage.getItem('username');
+  $scope.email = sessionStorage.getItem('email');
+
+  $scope.transfer = {
+  category : sessionStorage.getItem('category'),
+  postid : sessionStorage.getItem('postid')};
+
+  $scope.report = function(type,comment){
+    $scope.master = {};
+    $scope.master.type = angular.copy(type);
+    $scope.master.comment = angular.copy(comment);
+
+
+    if($scope.master.type && $scope.master.comment){
+      $http({
+        method : "GET",
+        url : "/db/insert/report/"+$scope.transfer.category+"/"+
+        $scope.transfer.postid+"/"+$scope.uid+"/"+
+        $scope.master.type+"/"+$scope.master.comment+""
+
+      }).then(function mySucces(response) {
+          alert("You have successfully reported post "+$scope.transfer.category+
+            $scope.transfer.postid);
+          $window.location.href = "profile.html";
+
+      }, function myError(response) {
+          $scope.error = response.statusCode + ": User not found";
+      });
+    }
+  };  
+})
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {

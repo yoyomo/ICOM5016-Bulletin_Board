@@ -34,7 +34,7 @@
     <script src="js/bb.js"></script>
 	</head>
 
-	<body ng-app="bb">
+	<body ng-app="bb" ng-controller="paymentCtrl">
 
 		<ion-header-bar class="bar bar-header bar-stable">
 
@@ -46,7 +46,7 @@
 		<h1 class="title">Bulletin Board</h1>
 		<div class="buttons">
 		<a href="profile.html">
-		<button class="button button-positive"><i class="icon ion-android-person"></i></button></a>
+		<button class="button button-positive"><i class="icon ion-android-person"></i>{{username}}</button></a>
 		</div>
 		</ion-header-bar>
 		<ion-header-bar class="bar bar-subheader bar-light">
@@ -57,17 +57,14 @@
 		
 		<label class="item item-input">
   		<span class="input-label">Amount:</span>
- 		<input type="number" step="0.01">
+ 		<input ng-model="amount" type="number" step="0.01">
 		</label>
-		
+		{{what}}
 		<ion-list>
 			<div class="item item-divider">Type of Payment:</div>
-			<ion-radio ng-model="typeOfPayment" value="paypal" >PayPal</ion-radio>
-			<ion-radio ng-model="typeOfPayment" value="visa">Visa</ion-radio>
-			<ion-radio ng-model="typeOfPayment" value="americanexpress">American Express</ion-radio>
-			<ion-radio ng-model="typeOfPayment" value="discover">Discover</ion-radio>
+			<ion-radio ng-repeat="card in creditcards" ng-click="choosePayment(card.cardid)" ng-model="typeOfPayment" value="card.cardid" >{{card.cardtype}} - {{card.cardnumber}}</ion-radio>
 		</ion-list>
-		<button class="button button-balanced">Send</button>	
+		<button ng-click="pay(amount)" class="button button-balanced">Send</button>	
 		</ion-content>
 	</body>
 </html>

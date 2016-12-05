@@ -567,6 +567,74 @@ app.get('/db/insert/message/:chatid/:senderid/:receiverid/:text',function(req,re
    		client.end(); 
 		res.writeHead(200, {'Content-Type': 'text/plain'});
 		res.status(200).write(JSON.stringify(result.rows, null, "    "));
+		res.end();
 	});
 		
+})
+
+app.get('/db/get/creditcards/:uid',function(req,res){
+	
+	clientConnect();
+	query = client.query("\
+		select *\
+		from creditcard\
+		where uid = "+req.params.uid+";\
+	");    
+   	query.on("end", function (result) {          
+   		client.end(); 
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+		res.status(200).write(JSON.stringify(result.rows, null, "    "));
+		res.end();
+	});
+})
+
+app.get('/db/insert/payment/:buyerid/:sellerid/:cardid/:category/:postid/:amount',
+	function(req,res){
+
+	clientConnect();
+	query = client.query("\
+		INSERT INTO payment(\
+		buyerid, sellerid, cardid, category, postid, amount)\
+		VALUES ("+req.params.buyerid+","+req.params.sellerid+",\
+		"+req.params.cardid+",'"+req.params.category+"',\
+		"+req.params.postid+","+req.params.amount+");\
+	");    
+   	query.on("end", function (result) {          
+   		client.end(); 
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+		res.status(200).write(JSON.stringify(result.rows, null, "    "));
+		res.end();
+	});
+})
+
+app.get('/db/insert/report/:category/:postid/:uid/:typeOfReport/:comment',
+	function(req,res){
+
+	clientConnect();
+	query = client.query("\
+		INSERT INTO report(\
+		category, postid, uid, typeofreport, comment)\
+		VALUES ('"+req.params.category+"',"+req.params.postid+",\
+		"+req.params.uid+",'"+req.params.typeOfReport+"',\
+		'"+req.params.comment+"');\
+	");    
+   	query.on("end", function (result) {          
+   		client.end(); 
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+		res.status(200).write(JSON.stringify(result.rows, null, "    "));
+		res.end();
+	});
+
+})
+
+app.get('/db/delete/report/:category/:postID', function(req,res){
+	clientConnect();
+	query = client.query("DELETE FROM report\
+	where category='"+req.params.category+"'and postID="+req.params.postID+";");    
+   	query.on("end", function (result) {          
+   		client.end(); 
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+		res.status(200).write(JSON.stringify(result.rows, null, "    "));
+		res.end();  
+	});
 })

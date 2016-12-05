@@ -110,12 +110,12 @@
 			<a ng-hide="loggedIn" href="signup.html">
 				<button class="button button-positive"><i class="icon ion-paper-airplane"></i></button></a>
 
-			<a ng-show="loggedIn" href="payment.html">
+			<a ng-show="loggedIn" ng-click="transferPayment()">
 				<button class="button button-positive"><i class="icon ion-card"></i></button></a>
 			<a ng-hide="loggedIn" href="signup.html">
 				<button class="button button-positive"><i class="icon ion-card"></i></button></a>
 
-			<a ng-show="loggedIn" id="reportButton" href="report.html">
+			<a ng-show="loggedIn" id="reportButton" ng-click="transferReport()">
 				<button class="button button-assertive icon-right"><i class="icon ion-alert-circled"></i></button>
 				</a>
 			<a ng-hide="loggedIn" id="reportButton" href="signup.html">
