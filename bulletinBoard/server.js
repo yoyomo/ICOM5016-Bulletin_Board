@@ -410,7 +410,7 @@ app.get('/db/get/admin/:uID/', function (req,res) {
    	query.on("end", function (result) {          
    		client.end(); 
 		res.writeHead(200, {'Content-Type': 'text/plain'});
-		res.write(JSON.stringify(result.rows[0], null, "    "));
+		res.status(200).write(JSON.stringify(result.rows[0], null, "    "));
 		res.end();  
 	});
 })
@@ -631,6 +631,41 @@ app.get('/db/delete/report/:category/:postID', function(req,res){
 	clientConnect();
 	query = client.query("DELETE FROM report\
 	where category='"+req.params.category+"'and postID="+req.params.postID+";");    
+   	query.on("end", function (result) {          
+   		client.end(); 
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+		res.status(200).write(JSON.stringify(result.rows, null, "    "));
+		res.end();  
+	});
+})
+
+app.get('/db/delete/post/:category/:postID', function(req,res){
+	clientConnect();
+	var queryReport = client.query("DELETE FROM report\
+	where category='"+req.params.category+"'and postID="+req.params.postID+";"); 
+
+	if(req.params.category == 'o'){   
+	   	var queryPost = client.query("DELETE FROM other\
+		where category='"+req.params.category+"'and postID="+req.params.postID+";");
+	}
+
+	queryReport.on("end", function (result) {  
+	});
+   	queryPost.on("end", function (result) {          
+   		client.end(); 
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+		res.status(200).write(JSON.stringify(result.rows, null, "    "));
+		res.end();  
+	});
+})
+
+app.get('/db/get/ifadmin/:uID/', function (req,res) {
+	clientConnect();
+	query = client.query("\
+		select *\
+		from admin\
+		where uID="+req.params.uID+"\
+	");    
    	query.on("end", function (result) {          
    		client.end(); 
 		res.writeHead(200, {'Content-Type': 'text/plain'});

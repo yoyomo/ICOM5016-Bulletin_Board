@@ -117,13 +117,13 @@
 			</ion-list>
 			
 		<div id="profileButtons" class="list-inset button-group">
-		<a href="administratorpage.html"
+		<a ng-show="ifAdmin" href="reportlist.html"
 		<button class="button button-positive">Report List</button>
 		</a>
 		<a href="premiumpayment.html"
 		<button class="button button-royal" >Subscribe</button>
 		</a>
-		<a href="admod.html"
+		<a ng-show="ifAdmin" href="admod.html"
 		<button class="button button-positive" >Admod</button>
 		</a>
 		

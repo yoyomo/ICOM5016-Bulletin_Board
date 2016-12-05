@@ -361,7 +361,7 @@ $http({
     email:sessionStorage.getItem('email')
   };
 
-  $scope.profileDetails = function(user){
+  $scope.profileDetails = function(){
 
     $http({
         method : "GET",
@@ -383,7 +383,7 @@ $http({
 
   $scope.profileDetails();
 
-  $scope.profileDetails = function(user){
+  $scope.getCreditCards = function(){
 
     $http({
         method : "GET",
@@ -402,7 +402,29 @@ $http({
 
   };
 
-  $scope.profileDetails();
+  $scope.getCreditCards();
+
+  $scope.ifAdmin = function(){
+
+    $http({
+        method : "GET",
+        url : "/db/get/ifadmin/"+$scope.transfer.uid+""
+    }).then(function mySucces(response) {
+        $scope.ifAdmin = response.data[0];
+        $scope.statuscode = response.status;
+        $scope.statustext  = response.statustext;
+        console.log($scope.statuscode, "Data Retrieved.");
+        
+
+
+    }, function myError(response) {
+        $scope.error = response.statusCode + ": User not found";
+
+    });
+
+  };
+
+  $scope.ifAdmin();
 
 	$scope.chatlogs = function(){
 
@@ -556,7 +578,27 @@ $http({
       $scope.statustext  = response.statustext;
       console.log($scope.statuscode, "Data Retrieved.");
 
-      $window.location.href = "administratorpage.html"
+      $window.location.href = "reportlist.html"
+
+    }, function myError(response) {
+        $scope.transfer = response.statusText;
+    });
+    }
+     
+  };
+   $scope.deletePost = function(category,postID){
+    
+    if(category && postID){
+       return $http({
+        method : "GET",
+        url : "/db/delete/post/"+category+"/"+postID+"/"
+    }).then(function mySucces(response) {
+      $scope.post = response.data;
+      $scope.statuscode = response.status;
+      $scope.statustext  = response.statustext;
+      console.log($scope.statuscode, "Data Retrieved.");
+
+      $window.location.href = "reportlist.html"
 
     }, function myError(response) {
         $scope.transfer = response.statusText;
@@ -807,6 +849,55 @@ $http({
       $http({
         method : "GET",
         url : "/db/insert/payment/"+$scope.uid+"/"+
+        $scope.transfer.sellerid+"/"+$scope.master.cardid+"/"+
+        $scope.transfer.category+"/"+$scope.transfer.postid+"/"+$scope.master.amount+""
+
+      }).then(function mySucces(response) {
+          alert("You have successfully paid user "+$scope.transfer.sellerid);
+          $window.location.href = "profile.html";
+
+      }, function myError(response) {
+          $scope.error = response.statusCode + ": User not found";
+      });
+    }
+  };
+
+})
+
+.controller('premiumCtrl',function($scope, $http,$window) {
+  $scope.uid = sessionStorage.getItem('uid');
+  $scope.username = sessionStorage.getItem('username');
+  $scope.email = sessionStorage.getItem('email');
+
+  $http({
+      method : "GET",
+      url : "/db/get/creditcards/"+$scope.uid+""
+
+  }).then(function mySucces(response) {
+      $scope.creditcards = response.data;
+      $scope.statuscode = response.status;
+      $scope.statustext  = response.statustext;
+      console.log($scope.statuscode, "Data Retrieved.");
+
+  }, function myError(response) {
+      $scope.error = response.statusCode + ": User not found";
+  });
+
+  $scope.choosePayment = function(cardid){
+    $scope.cardid = angular.copy(cardid);
+    
+  }
+
+  $scope.subscribe = function(){
+    $scope.master = {};
+    $scope.master.cardid = $scope.cardid;
+    $scope.master.amount = 15;
+
+
+    if($scope.master.cardid && $scope.master.amount){
+      $http({
+        method : "GET",
+        url : "/db/update/subscription/"+$scope.uid+"/"+
         $scope.transfer.sellerid+"/"+$scope.master.cardid+"/"+
         $scope.transfer.category+"/"+$scope.transfer.postid+"/"+$scope.master.amount+""
 

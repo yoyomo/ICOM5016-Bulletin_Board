@@ -111,7 +111,7 @@
 					</p>
 					<span>Date Added: {{announcement.dateadded}}</span>
 					</br></br>
-					<button style="float:right;" class="button button-clear button-assertive">Delete</button>
+					<button ng-click="deletePost(announcement.category,announcement.postid)" style="float:right;" class="button button-clear button-assertive">Delete</button>
 					<button  ng-click="ignoreReport(announcement.category,announcement.postid)" style="float:right;" class="button button-clear button-stable">Ignore</button>
 
 				</p>
