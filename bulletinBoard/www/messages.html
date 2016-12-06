@@ -49,7 +49,7 @@
 		</div>
 		</ion-header-bar>
 		<ion-header-bar class="bar bar-subheader bar-light">
-		<h2 class="title">Messages with {{messages[0].messageuser}}</h2>
+		<h2 class="title">Messages with {{messages[0].messageuser}}</h2><button ng-click="goDown()" class="button button-positive"><i class="icon ion-arrow-down-c"></i></button></a>
 		</ion-header-bar>
 
 	<!--CONTENT-->
@@ -75,7 +75,7 @@
 			<textarea ng-model="messagetext" placeholder="Type message..."></textarea>
 		</label>
 				
-		<button ng-click="sendMessage(messagetext)" class="button button-balanced">Send</button>
+		<button id="bottom" ng-click="sendMessage(messagetext)" class="button button-balanced">Send</button>
 		</ion-content>
 	</body>
 </html>

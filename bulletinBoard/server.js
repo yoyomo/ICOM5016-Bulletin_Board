@@ -673,3 +673,71 @@ app.get('/db/get/ifadmin/:uID/', function (req,res) {
 		res.end();  
 	});
 })
+
+app.get('/db/update/user/:uid/:username/:email/:phonenumber/:password',
+	function(req,res){
+		
+	clientConnect();
+	query = client.query("\
+		UPDATE member\
+		SET username='"+req.params.username+"', email='"+req.params.email+"',\
+		phonenumber='"+req.params.phonenumber+"', password='"+req.params.password+"'\
+		WHERE uid = "+req.params.uid+";\
+	");    
+   	query.on("end", function (result) {          
+   		client.end(); 
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+		res.status(200).write(JSON.stringify(result.rows, null, "    "));
+		res.end();  
+	});
+})
+
+app.get('/db/insert/creditcard/:uid/:cardtype/:cardnumber',function(req,res){
+	
+	clientConnect();
+	query = client.query("\
+		INSERT INTO creditcard(\
+		uid, cardtype, cardnumber)\
+		VALUES ("+req.params.uid+",'"+req.params.cardtype+"',\
+		'"+req.params.cardnumber+"')\
+	");    
+   	query.on("end", function (result) {          
+   		client.end(); 
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+		res.status(200).write(JSON.stringify(result.rows, null, "    "));
+		res.end();
+	});
+})
+
+app.get('/db/update/creditcard/:cardid/:uid/:cardtype/:cardnumber',function(req,res){
+	
+	clientConnect();
+	query = client.query("\
+		update creditcard\
+		set cardtype='"+req.params.cardtype+"', cardnumber='"+req.params.cardnumber+"'\
+		where uid = "+req.params.uid+" and cardid ="+req.params.cardid+"\
+	");    
+   	query.on("end", function (result) {          
+   		client.end(); 
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+		res.status(200).write(JSON.stringify(result.rows, null, "    "));
+		res.end();
+	});
+})
+
+app.get('/db/update/subscription/:uid',
+	function(req,res){
+		
+	clientConnect();
+	query = client.query("\
+		UPDATE member\
+		SET typeOfAccount='Premium'\
+		WHERE uid = "+req.params.uid+";\
+	");    
+   	query.on("end", function (result) {          
+   		client.end(); 
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+		res.status(200).write(JSON.stringify(result.rows, null, "    "));
+		res.end();  
+	});
+})

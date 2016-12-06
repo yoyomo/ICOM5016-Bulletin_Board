@@ -176,7 +176,7 @@ $scope.search = function(searchText){
 
 })
 
-.controller('messageCtrl', function($scope, $http, $window) {
+.controller('messageCtrl', function($scope, $http, $window, $anchorScroll) {
   $scope.uid = sessionStorage.getItem('uid');
   $scope.username = sessionStorage.getItem('username');
   $scope.email = sessionStorage.getItem('email');
@@ -202,6 +202,10 @@ $scope.search = function(searchText){
     });
   };
   $scope.getMessageDetails();
+
+  $scope.goDown = function(){
+  	$anchorScroll('bottom');
+  };
 
   $scope.sendMessage = function(text){
     $scope.master = {};
@@ -895,14 +899,25 @@ $http({
 
 
     if($scope.master.cardid && $scope.master.amount){
-      $http({
+    	 $http({
         method : "GET",
-        url : "/db/update/subscription/"+$scope.uid+"/"+
-        $scope.transfer.sellerid+"/"+$scope.master.cardid+"/"+
-        $scope.transfer.category+"/"+$scope.transfer.postid+"/"+$scope.master.amount+""
+
+        url : "/db/insert/payment/"+
+        $scope.uid+"/"+31+"/"+$scope.master.cardid+"/"+
+        "a"+"/"+1+"/"+$scope.master.amount+""
 
       }).then(function mySucces(response) {
-          alert("You have successfully paid user "+$scope.transfer.sellerid);
+
+      }, function myError(response) {
+          $scope.error = response.statusCode + ": User not found";
+      });
+
+      $http({
+        method : "GET",
+        url : "/db/update/subscription/"+$scope.uid+""
+
+      }).then(function mySucces(response) {
+          alert("You have successfully subscribed");
           $window.location.href = "profile.html";
 
       }, function myError(response) {
@@ -945,6 +960,110 @@ $http({
       });
     }
   };  
+})
+
+.controller('settingsCtrl',function($scope, $http,$window) {
+	$scope.uid = sessionStorage.getItem('uid');
+	$scope.username = sessionStorage.getItem('username');
+  	$scope.email = sessionStorage.getItem('email');
+
+  	//get user info
+  	$http({
+    method : "GET",
+    url : "/db/get/user/"+$scope.uid+"/"+$scope.username+
+    "/"+$scope.email+"/"
+
+	}).then(function mySucces(response) {
+		$scope.userInfo = response.data;
+	}, function myError(response) {
+		$scope.error = response.statusCode + ": User not found";
+	});
+
+	// get creditcards
+	$http({
+    method : "GET",
+    url : "/db/get/creditcards/"+$scope.uid
+
+	}).then(function mySucces(response) {
+		$scope.userCreditCards = response.data;
+	}, function myError(response) {
+		$scope.error = response.statusCode + ": User not found";
+	});
+
+	$scope.saveSettings = function(newCard,newPassword,confirmPassword,currentPassword){
+		$scope.master = {
+			newCard : angular.copy(newCard),
+			newPassword : angular.copy(newPassword),
+			confirmPassword : angular.copy(confirmPassword),
+			currentPassword : angular.copy(currentPassword)
+		};
+
+		if($scope.master.currentPassword != $scope.userInfo.password){
+			$scope.currentError = "Must verify password";
+			return;
+		}
+
+		if($scope.master.newPassword && $scope.master.confirmPassword){
+			if($scope.master.newPassword === $scope.master.confirmPassword){
+				$scope.userInfo.password = $scope.master.newPassword;
+			}
+			else{
+				$scope.confirmError = "Must be the same password as new one";
+				return;
+			}
+		}
+
+		if(!$scope.userInfo.phonenumber){
+			$scope.userInfo.phonenumber="";
+		}
+
+		// update user settings
+		$http({
+	    method : "GET",
+	    url : "/db/update/user/"+$scope.uid+"/"+$scope.userInfo.username+
+	    "/"+$scope.userInfo.email+"/"+$scope.userInfo.phonenumber+"/"+
+	    $scope.userInfo.password+""
+
+		}).then(function mySucces(response) {
+			
+		}, function myError(response) {
+			$scope.error = response.statusCode + ": User not found";
+		});
+
+		for(card in $scope.userCreditCards){
+			$scope.card = $scope.userCreditCards[card];
+			// update user settings
+			$http({
+		    method : "GET",
+		    url : "/db/update/creditcard/"+$scope.card.cardid+"/"+$scope.uid+
+		    "/"+$scope.card.cardtype+"/"+$scope.card.cardnumber
+
+			}).then(function mySucces(response) {
+				
+			}, function myError(response) {
+				$scope.error = response.statusCode + ": User not found";
+			});
+			
+		}
+
+		if($scope.master.newCard){
+			// update user settings
+			$http({
+		    method : "GET",
+		    url : "/db/insert/creditcard/"+$scope.uid+"/"+
+		    $scope.master.newCard.cardtype+"/"+$scope.master.newCard.cardnumber
+
+			}).then(function mySucces(response) {
+				
+			}, function myError(response) {
+				$scope.error = response.statusCode + ": User not found";
+			});
+		}
+
+		alert('Settings Saved');
+		$window.location.href = "profile.html";
+
+	};
 })
 
 .run(function($ionicPlatform) {

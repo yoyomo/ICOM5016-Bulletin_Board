@@ -63,7 +63,7 @@
 					<span id="email">{{user.email}}</span> 
 					</br>
 					Phone Numbers:</br>
-					<span id="phone" ng-repeat="phonenumber in user.phonenumber">{{phonenumber}}</br></span>
+					<span id="phone">{{user.phonenumber}}</br></span>
 					Credit Cards:</br>
 					<span id="creditcard" ng-repeat="creditcard in creditcards">{{creditcard.cardtype}}: {{creditcard.cardnumber}}</br></span></p>
 			</div>
@@ -117,13 +117,13 @@
 			</ion-list>
 			
 		<div id="profileButtons" class="list-inset button-group">
-		<a ng-show="ifAdmin" href="reportlist.html"
+		<a ng-show="ifAdmin" href="reportlist.html">
 		<button class="button button-positive">Report List</button>
 		</a>
-		<a href="premiumpayment.html"
+		<a ng-show="user.typeofaccount=='Regular'" href="premiumpayment.html">
 		<button class="button button-royal" >Subscribe</button>
 		</a>
-		<a ng-show="ifAdmin" href="admod.html"
+		<a ng-show="ifAdmin" href="admod.html">
 		<button class="button button-positive" >Admod</button>
 		</a>
 		
