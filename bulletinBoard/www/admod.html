@@ -33,11 +33,11 @@
     <!-- your app's js -->
     <script src="js/bb.js"></script>
 	</head>
-	<body ng-app="bb">
+	<body ng-app="bb" ng-controller="admodCtrl">
 	<ion-header-bar class="bar bar-header bar-stable">
 		<div class="buttons">
 		<a href="index.html">
-			<button class="button button-positive"><i class="icon ion-home"></i></button></a>
+			<button class="button button-positive"><i class="icon ion-home"></i>{{username}}</button></a>
 		</div>
 		<h1 class="title">Bulletin Board</h1>
 		<div class="buttons">
@@ -54,33 +54,33 @@
 		
 		<div class="list">
 			<label class="item item-input">
-			<span class="input-label">Title:</span>
-			<input type="text"/>
+				<span class="input-label">Title:<span class="error">{{titleError}}</span></span>
+				<input required ng-model="admod.title" type="text"/>
 			</label>
 			<label class="item item-input">
 			<span class="input-label">Description:</span>
-			<textarea></textarea>
+			<textarea ng-model="admod.description"></textarea>
 			</label>
 
 			<ion-list>
-			<div class="item item-divider">Category:</div>
-				<ion-radio ng-model="category" value="error" > Error</ion-radio>
-				<ion-radio ng-model="category" value="warning"> Warning</ion-radio>
-				<ion-radio ng-model="category" value="attention"> Attention</ion-radio>
-				<ion-radio ng-model="category" value="announcement"> Announcement</ion-radio>
-				<ion-radio ng-model="category" value="modification"> Modification</ion-radio>
-				<ion-radio ng-model="category" value="update"> Update</ion-radio>
+			<div class="item item-divider">Type of Mod:</div>
+				<ion-radio ng-model="admod.typeofmod" value="Error" > Error</ion-radio>
+				<ion-radio ng-model="admod.typeofmod" value="Warning"> Warning</ion-radio>
+				<ion-radio ng-model="admod.typeofmod" value="Attention"> Attention</ion-radio>
+				<ion-radio ng-model="admod.typeofmod" value="Announcement"> Announcement</ion-radio>
+				<ion-radio ng-model="admod.typeofmod" value="Modification"> Modification</ion-radio>
+				<ion-radio ng-model="admod.typeofmod" value="Update"> Update</ion-radio>
 			</ion-list>
 			
 			<ion-list>
 				<div class="item item-divider">Type Of User:</div>
-				<ion-radio ng-model="category" value="regular" > Regular</ion-radio>
-				<ion-radio ng-model="category" value="premium"> Premium</ion-radio>
-				<ion-radio ng-model="category" value="all" > All</ion-radio>
+				<ion-radio ng-model="admod.typeofusers" value="Regular" > Regular</ion-radio>
+				<ion-radio ng-model="admod.typeofusers" value="Premium"> Premium</ion-radio>
+				<ion-radio ng-model="admod.typeofusers" value="All" > All</ion-radio>
 
 			</ion-list>
 			</br>
-			<a href="index.html"><button class="button button-balanced" onclick="alert('Your admod has been successfully posted!')"">Post</button></a>
+			<a href="index.html"><button class="button button-balanced" ng-click="postAdmod(admod)" >Post</button></a>
 		</div>
 
 		</ion-content>

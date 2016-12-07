@@ -1066,6 +1066,51 @@ $http({
 	};
 })
 
+
+
+.controller('admodCtrl',function($scope, $http,$window) {
+
+  $scope.uid = sessionStorage.getItem('uid');
+  $scope.username = sessionStorage.getItem('username');
+  
+  errorMessage = "Required Field";
+
+  $scope.postAdmod = function(admod){
+
+    $scope.master = {};
+    $scope.master.admod = angular.copy(admod);
+
+    if(!$scope.master.admod.title){
+      $scope.titleError = errorMessage;
+      return;
+    }
+
+    $http({
+        method : "GET",
+        url : "/db/insert/admod/"+$scope.uid+"/"+$scope.master.admod.title+"/"+
+		$scope.master.admod.description+"/"+$scope.master.admod.typeofmod+"/"+
+		$scope.master.admod.typeofusers
+    }).then(function mySucces(response) {
+        alert("Your admod was succesfully posted!");
+        $window.location.href = "index.html";
+
+    }, function myError(response) {
+        $scope.error = response.statusCode + ": User not found";
+    });
+
+  };
+
+})
+
+
+
+
+
+
+
+
+
+
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard

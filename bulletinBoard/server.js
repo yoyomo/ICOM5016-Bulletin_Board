@@ -61,7 +61,7 @@ app.get('/db/get', function (req,res) {
 
 app.get('/db/get/event', function (req,res) {
 	clientConnect();
-	query = client.query("select category,postID,title,description, attachment, dateAdded\
+	query = client.query("select category,postID,title,description, dateAdded\
 	from event");    
    	query.on("end", function (result) {          
    		client.end(); 
@@ -73,7 +73,7 @@ app.get('/db/get/event', function (req,res) {
 
 app.get('/db/get/book', function (req,res) {
 	clientConnect();
-	query = client.query("select category,postID,title,description, attachment, dateAdded\
+	query = client.query("select category,postID,title,description, dateAdded\
     from book");    
    	query.on("end", function (result) {          
    		client.end(); 
@@ -85,7 +85,7 @@ app.get('/db/get/book', function (req,res) {
 
 app.get('/db/get/mentorship', function (req,res) {
 	clientConnect();
-	query = client.query("select category,postID,title,description, attachment, dateAdded\
+	query = client.query("select category,postID,title,description, dateAdded\
 	from mentorship");    
    	query.on("end", function (result) {          
    		client.end(); 
@@ -97,7 +97,7 @@ app.get('/db/get/mentorship', function (req,res) {
 
 app.get('/db/get/housing', function (req,res) {
 	clientConnect();
-	query = client.query("select category,postID,title,description, attachment, dateAdded\
+	query = client.query("select category,postID,title,description, dateAdded\
 	from housing");    
    	query.on("end", function (result) {          
    		client.end(); 
@@ -109,7 +109,7 @@ app.get('/db/get/housing', function (req,res) {
 
 app.get('/db/get/other', function (req,res) {
 	clientConnect();
-	query = client.query("select category,postID,title,description, attachment, dateAdded\
+	query = client.query("select category,postID,title,description, dateAdded\
 	from other");    
    	query.on("end", function (result) {          
    		client.end(); 
@@ -174,19 +174,19 @@ app.get('/db/get/announcements', function (req,res) {
 	clientConnect();
 	query = client.query(
 		"with announcements as \
-		((select category,postID,title,description, attachment, dateAdded\
+		((select category,postID,title,description,  dateAdded\
 		from event )\
 		union \
-		(select category,postID,title,description, attachment, dateAdded\
+		(select category,postID,title,description,  dateAdded\
 		from book)\
 		union\
-		(select category,postID,title,description, attachment, dateAdded\
+		(select category,postID,title,description,  dateAdded\
 		from housing)\
 		union\
-		(select category,postID,title,description, attachment, dateAdded\
+		(select category,postID,title,description,  dateAdded\
 		from mentorship)\
 		union\
-		(select category,postID,title,description, attachment, dateAdded\
+		(select category,postID,title,description,  dateAdded\
 		from other))\
 		select *\
 		from announcements\
@@ -204,22 +204,22 @@ app.get('/db/get/premiumPosts',function(req,res) {
 	clientConnect();
 	query = client.query(
 		"with announcements as \
-		((select category,postID,uID,title,description, attachment, dateAdded\
+		((select category,postID,uID,title,description,  dateAdded\
 		from event )\
 		union \
-		(select category,postID,uID,title,description, attachment, dateAdded\
+		(select category,postID,uID,title,description,  dateAdded\
 		from book)\
 		union\
-		(select category,postID,uID,title,description, attachment, dateAdded\
+		(select category,postID,uID,title,description,  dateAdded\
 		from housing)\
 		union\
-		(select category,postID,uID,title,description, attachment, dateAdded\
+		(select category,postID,uID,title,description,  dateAdded\
 		from mentorship)\
 		union\
-		(select category,postID,uID,title,description, attachment, dateAdded\
+		(select category,postID,uID,title,description,  dateAdded\
 		from other))\
 		\
-		select distinct category,postID,uID,title,description, attachment, dateAdded\
+		select distinct category,postID,uID,title,description,  dateAdded\
 		from announcements natural join member\
 		where member.typeOfAccount='Premium'\
 		order by dateAdded desc;"
@@ -236,19 +236,19 @@ app.get('/db/get/search/:searchtext', function (req,res) {
 	clientConnect();
 	query = client.query(
 		"with announcements as \
-		((select category,postID,title,description, attachment, dateAdded\
+		((select category,postID,title,description, dateAdded\
 		from event )\
 		union \
-		(select category,postID,title,description, attachment, dateAdded\
+		(select category,postID,title,description,  dateAdded\
 		from book)\
 		union\
-		(select category,postID,title,description, attachment, dateAdded\
+		(select category,postID,title,description,  dateAdded\
 		from housing)\
 		union\
-		(select category,postID,title,description, attachment, dateAdded\
+		(select category,postID,title,description,  dateAdded\
 		from mentorship)\
 		union\
-		(select category,postID,title,description, attachment, dateAdded\
+		(select category,postID,title,description,  dateAdded\
 		from other))\
 		select *\
 		from announcements\
@@ -298,19 +298,19 @@ app.get('/db/get/user/announcements/:uID/', function (req,res) {
 	clientConnect();
 	query = client.query("\
 		with announcements as \
-		((select category,postID,uid,title,description, attachment, dateAdded\
+		((select category,postID,uid,title,description, dateAdded\
 		from event )\
 		union \
-		(select category,postID,uid,title,description, attachment, dateAdded\
+		(select category,postID,uid,title,description,  dateAdded\
 		from book)\
 		union\
-		(select category,postID,uid,title,description, attachment, dateAdded\
+		(select category,postID,uid,title,description,  dateAdded\
 		from housing)\
 		union\
-		(select category,postID,uid,title,description, attachment, dateAdded\
+		(select category,postID,uid,title,description,  dateAdded\
 		from mentorship)\
 		union\
-		(select category,postID,uid,title,description, attachment, dateAdded\
+		(select category,postID,uid,title,description,  dateAdded\
 		from other))\
 \
 		select *\
@@ -329,19 +329,19 @@ app.get('/db/get/user/announcements/:uID/', function (req,res) {
 app.get('/db/get/user/payments/:uID/', function (req,res) {
 	clientConnect();
 	query = client.query("\
-		with announcements as ((select category,postID,uID,title,description, attachment, dateAdded\
+		with announcements as ((select category,postID,uID,title,description, dateAdded\
 		from event )\
 		union \
-		(select category,postID,uID,title,description, attachment, dateAdded\
+		(select category,postID,uID,title,description, dateAdded\
 		from book)\
 		union\
-		(select category,postID,uID,title,description, attachment, dateAdded\
+		(select category,postID,uID,title,description, dateAdded\
 		from housing)\
 		union\
-		(select category,postID,uID,title,description, attachment, dateAdded\
+		(select category,postID,uID,title,description, dateAdded\
 		from mentorship)\
 		union\
-		(select category,postID,uID,title,description, attachment, dateAdded\
+		(select category,postID,uID,title,description, dateAdded\
 		from other))\
 		select p.*,a.title,c.cardtype\
 		from payment as p natural join announcements as a, creditcard as c\
@@ -741,3 +741,37 @@ app.get('/db/update/subscription/:uid',
 		res.end();  
 	});
 })
+
+
+
+
+
+
+
+
+
+
+
+app.get('/db/insert/admod/:uid/:title/:description/:typeofmod/:typeofusers/', function(req,res){
+	clientConnect();
+	query = client.query("\
+		INSERT INTO admod(uid, title, description,\
+		typeofmod, typeofusers)\
+		VALUES ("+req.params.uid+",'"+req.params.title+"','"+req.params.description+"'\
+		,'"+req.params.typeofmod+"','"+req.params.typeofusers+"')\
+	");    
+   	query.on("end", function (result) {          
+   		client.end(); 
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+		res.status(200).write(JSON.stringify(result.rows, null, "    "));
+		res.end();  
+	});
+})
+
+
+
+
+
+
+
+
