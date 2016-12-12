@@ -156,8 +156,13 @@ app.get('/db/get/announcement/:category/:postID/', function (req,res) {
 		where postID="+req.params.postID+" and category='"+req.params.category+"' ;"
 		);  
 	} 
-	else{
-		//
+	else if(req.params.category== 'a'){
+
+		query = client.query("\
+			select *\
+			from admod\
+			where postID="+req.params.postID+" and category='"+req.params.category+"'\
+			 ;")
 	}
 
    	query.on("end", function (result) {          
@@ -188,8 +193,11 @@ app.get('/db/get/announcements', function (req,res) {
 		union\
 		(select category,postID,title,description,  dateAdded\
 		from other))\
-		select *\
-		from announcements\
+		(select *\
+		from announcements)\
+		union\
+		(select category,postID,title,description,  dateAdded\
+		from admod)\
 		order by dateAdded desc;"
 	);    
    	query.on("end", function (result) {          

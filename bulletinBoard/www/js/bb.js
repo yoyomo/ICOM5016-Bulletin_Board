@@ -79,6 +79,7 @@ $scope.search = function(searchText){
   	$scope.eFilter = false;
   	$scope.mFilter = false;
   	$scope.oFilter = false;
+    $scope.aFilter = false;
   	$scope.allFilters = false;
   }
   $scope.filterHousing = function(){
@@ -87,6 +88,7 @@ $scope.search = function(searchText){
   	$scope.eFilter = false;
   	$scope.mFilter = false;
   	$scope.oFilter = false;
+    $scope.aFilter = false;
   	$scope.allFilters = false;
   }
   $scope.filterEvents = function(){
@@ -95,6 +97,7 @@ $scope.search = function(searchText){
   	$scope.eFilter = true;
   	$scope.mFilter = false;
   	$scope.oFilter = false;
+    $scope.aFilter = false;
   	$scope.allFilters = false;
   }
   $scope.filterMentoring = function(){
@@ -103,6 +106,7 @@ $scope.search = function(searchText){
   	$scope.eFilter = false;
   	$scope.mFilter = true;
   	$scope.oFilter = false;
+    $scope.aFilter = false;
   	$scope.allFilters = false;
   }
   $scope.filterOther = function(){
@@ -111,6 +115,7 @@ $scope.search = function(searchText){
   	$scope.eFilter = false;
   	$scope.mFilter = false;
   	$scope.oFilter = true;
+    $scope.aFilter = false;
   	$scope.allFilters = false;
   }
   $scope.showAll = function(){
@@ -119,6 +124,7 @@ $scope.search = function(searchText){
   	$scope.eFilter = true;
   	$scope.mFilter = true;
   	$scope.oFilter = true;
+    $scope.aFilter = true;
   	$scope.allFilters = true;
   }
   $scope.showAll();
