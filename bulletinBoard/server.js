@@ -777,9 +777,72 @@ app.get('/db/insert/admod/:uid/:title/:description/:typeofmod/:typeofusers/', fu
 })
 
 
+app.get('/db/get/notifications/:uid', function(req,res){
+	clientConnect();
+	query = client.query("\
+		with notifications as ((select count(seen)\
+		from message payment\
+		where receiverid="+req.params.uid+"\
+		and seen='Not Seen')\
+		union\
+		(select count(pseen)\
+		from payment\
+		where sellerid="+req.params.uid+"\
+		and pseen='Not Seen'))\
+		select sum(count)\
+		from notifications\
+	");    
+   	query.on("end", function (result) {          
+   		client.end(); 
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+		res.status(200).write(JSON.stringify(result.rows, null, "    "));
+		res.end();  
+	});
+})
 
+app.get('/db/update/notifications/messages/:uid/:otherid', function(req,res){
+	clientConnect();
+	query = client.query("\
+		update message\
+		set seen='Seen'\
+		where receiverid="+req.params.uid+"\
+		and senderid="+req.params.otherid+"\
+		and seen='Not Seen'\
+	");    
+   	query.on("end", function (result) {          
+   		client.end(); 
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+		res.status(200).write(JSON.stringify(result.rows, null, "    "));
+		res.end();  
+	});
+})
 
+app.get('/db/update/notifications/payments/:uid', function(req,res){
+	clientConnect();
+	query = client.query("\
+		update payment\
+		set pseen='Seen'\
+		where sellerid="+req.params.uid+"\
+		and pseen='Not Seen'\
+	");    
+   	query.on("end", function (result) {          
+   		client.end(); 
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+		res.status(200).write(JSON.stringify(result.rows, null, "    "));
+		res.end();  
+	});
+})
 
-
-
-
+app.get('/db/get/maxchatid/', function(req,res){
+	clientConnect();
+	query = client.query("\
+		select (max(chatid)+1) as chatid\
+		from message\
+	");    
+   	query.on("end", function (result) {          
+   		client.end(); 
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+		res.status(200).write(JSON.stringify(result.rows, null, "    "));
+		res.end();  
+	});
+})

@@ -52,3 +52,9 @@ button-group{
 #logout{
 	float:right;
 }
+.notification{
+	color: black;
+}
+.button-orange{
+	background-color:orange;
+}

@@ -38,14 +38,22 @@
 		<ion-header-bar class="bar bar-header bar-stable">
 			<h1 class="title">Bulletin Board</h1>
 			<div class="buttons">
+			<a ng-hide="notifications==0" href="profile.html" class>
+				<button class="button button-royal">
+				{{notifications}}
+				</button></a>
+
 			<a ng-show="loggedIn" href="profile.html">
-				<button class="button button-positive"><i class="icon ion-android-person"></i>{{username}}</button></a>
+				<button class="button button-positive">
+				
+				<i class="icon ion-android-person"></i>
+				{{username}}</button>
+			</a>
 			<a ng-hide="loggedIn" href="signup.html">
 				<button  class="button button-positive">Sign Up/Sign In</button>
 			</a>
 			</div>
 		</ion-header-bar>
-
 		<ion-content class="has-header">
 		<div id="searchbar" class="list list-inset">
 			<form ng-submit="search(searchtext)" class="item item-input ">

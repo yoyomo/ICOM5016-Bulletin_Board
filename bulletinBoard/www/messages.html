@@ -44,6 +44,11 @@
 
 		<h1 class="title">Bulletin Board</h1>
 		<div class="buttons">
+		<a ng-hide="notifications==0" href="profile.html">
+			<button class="button button-royal">
+			{{notifications}}
+			</button>
+		</a>
 		<a href="profile.html">
 		<button class="button button-positive"><i class="icon ion-android-person"></i>{{username}}</button></a>
 		</div>
@@ -74,7 +79,7 @@
 		<label class="item item-input">
 			<textarea ng-model="messagetext" placeholder="Type message..."></textarea>
 		</label>
-				
+		
 		<button id="bottom" ng-click="sendMessage(messagetext)" class="button button-balanced">Send</button>
 		</ion-content>
 	</body>

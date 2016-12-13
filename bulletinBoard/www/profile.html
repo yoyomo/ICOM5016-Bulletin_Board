@@ -47,6 +47,11 @@
 
 		<h1 class="title">Bulletin Board</h1>
 		<div class="buttons">
+		<a ng-hide="notifications==0" href="profile.html">
+			<button class="button button-royal">
+			{{notifications}}
+			</button>
+		</a>
 		<a href="settings.html">
 		<button class="button button-positive"><i class="icon ion-gear-b"></i></button></a>
 		</div>
@@ -57,7 +62,7 @@
 
 		<ion-content class="has-subheader" draggable="false">
 			<div class="item item-avatar">
-				<img src="{{user.profpic}}">
+				<img src="img/profile.png">
 				<h2><span id="username">{{user.username}}</span></h2>
 				<p>
 					<span id="email">{{user.email}}</span> 
@@ -84,9 +89,11 @@
 			<div ng-show="details=='messages'">
 				<div class="list">
 					<a ng-repeat="chat in chatlogs" class="item item-avatar" ng-click="transferMessage(chat.uid)">
-					  <img src="{{chat.profpic}}">
+					  <img src="img/profile.png">
 					  <h2>{{chat.username}}</h2>
 					  <p>{{chat.messagetext}}</p>
+					  <p ng-show="chat.seen=='Not Seen'" style="color:orange;">{{chat.seen}}</p>
+					  <p ng-show="chat.seen=='Seen'" style="color:blue;">{{chat.seen}}</p>
 					</a>
 
 				</div>

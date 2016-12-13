@@ -19,9 +19,9 @@ angular.module('bb', ['ionic'])
         url : "/db/get/announcements"
     }).then(function mySucces(response) {
         $scope.announcements = response.data;
-    $scope.statuscode = response.status;
-    $scope.statustext  = response.statustext;
-    console.log($scope.statuscode, "Data Retrieved.");
+        $scope.statuscode = response.status;
+        $scope.statustext  = response.statustext;
+        console.log($scope.statuscode, "Data Retrieved.");
 
     }, function myError(response) {
         $scope.data = response.statusText;
@@ -43,6 +43,22 @@ $scope.getPremiumPosts = function(){
     });
   };
 $scope.getPremiumPosts();
+
+$scope.getNotifications = function(){
+      return $http({
+        method : "GET",
+        url : "/db/get/notifications/"+$scope.uid
+    }).then(function mySucces(response) {
+        $scope.notifications = response.data[0].sum;
+        $scope.statuscode = response.status;
+        $scope.statustext  = response.statustext;
+        console.log($scope.statuscode, "Data Retrieved.");
+
+    }, function myError(response) {
+        $scope.data = response.statusText;
+    });
+  };
+$scope.getNotifications();
 
 $scope.transferAnnouncement = function(category,postID){
   sessionStorage.setItem('category',category);
@@ -192,6 +208,22 @@ $scope.search = function(searchText){
     loggedInUser: sessionStorage.getItem('uid')
   };
 
+  $scope.getNotifications = function(){
+      return $http({
+        method : "GET",
+        url : "/db/get/notifications/"+$scope.uid
+    }).then(function mySucces(response) {
+        $scope.notifications = response.data[0].sum;
+        $scope.statuscode = response.status;
+        $scope.statustext  = response.statustext;
+        console.log($scope.statuscode, "Data Retrieved.");
+
+    }, function myError(response) {
+        $scope.data = response.statusText;
+    });
+  };
+  $scope.getNotifications();
+
   $scope.getMessageDetails = function(){
       return $http({
         method : "GET",
@@ -208,6 +240,23 @@ $scope.search = function(searchText){
     });
   };
   $scope.getMessageDetails();
+  if(!$scope.messages){
+    $http({
+        method : "GET",
+        url : "/db/get/maxchatid/"
+    }).then(function mySucces(response) {
+        $scope.chatid = response.data[0].chatid;
+        $scope.statuscode = response.status;
+        $scope.statustext  = response.statustext;
+        console.log($scope.statuscode, "Data Retrieved.");
+
+    }, function myError(response) {
+        $scope.transfer = response.statusText;
+    });
+  }
+  else{
+    $scope.chatid = $scope.messages[0].chatid;
+  }
 
   $scope.goDown = function(){
   	$anchorScroll('bottom');
@@ -220,7 +269,7 @@ $scope.search = function(searchText){
     if($scope.master.text){
       $http({
           method : "GET",
-          url : "/db/insert/message/"+$scope.messages[0].chatid+"/"+
+          url : "/db/insert/message/"+$scope.chatid+"/"+
           $scope.transfer.loggedInUser+"/"
           +$scope.transfer.messageUser+"/"+
           $scope.master.text+""
@@ -371,6 +420,28 @@ $http({
     email:sessionStorage.getItem('email')
   };
 
+   $scope.ifAdmin = function(){
+
+    $http({
+        method : "GET",
+        url : "/db/get/ifadmin/"+$scope.transfer.uid+""
+    }).then(function mySucces(response) {
+        $scope.ifAdmin = response.data[0];
+        $scope.statuscode = response.status;
+        $scope.statustext  = response.statustext;
+        console.log($scope.statuscode, "Data Retrieved.");
+        
+
+
+    }, function myError(response) {
+        $scope.error = response.statusCode + ": User not found";
+
+    });
+
+  };
+
+  $scope.ifAdmin();
+
   $scope.profileDetails = function(){
 
     $http({
@@ -414,27 +485,22 @@ $http({
 
   $scope.getCreditCards();
 
-  $scope.ifAdmin = function(){
-
-    $http({
+ 
+  $scope.getNotifications = function(){
+      return $http({
         method : "GET",
-        url : "/db/get/ifadmin/"+$scope.transfer.uid+""
+        url : "/db/get/notifications/"+$scope.transfer.uid
     }).then(function mySucces(response) {
-        $scope.ifAdmin = response.data[0];
+        $scope.notifications = response.data[0].sum;
         $scope.statuscode = response.status;
         $scope.statustext  = response.statustext;
         console.log($scope.statuscode, "Data Retrieved.");
-        
-
 
     }, function myError(response) {
-        $scope.error = response.statusCode + ": User not found";
-
+        $scope.data = response.statusText;
     });
-
   };
-
-  $scope.ifAdmin();
+  $scope.getNotifications();
 
 	$scope.chatlogs = function(){
 
@@ -452,11 +518,22 @@ $http({
         $scope.error = response.statusCode + ": Announcements not found";
 
     });
+    
 
   };
+
   $scope.transferMessage = function(messageUser){
   	$scope.master = {};
   	$scope.master = angular.copy(messageUser);
+    $http({
+        method : "GET",
+        url : "/db/update/notifications/messages/"+$scope.user.uid+"/"+
+        $scope.master+""
+    }).then(function mySucces(response) {
+    }, function myError(response) {
+        $scope.error = response.statusCode + ": Announcements not found";
+
+    });
     sessionStorage.setItem('messageuser',$scope.master);
     $window.location.href = "messages.html";
   }
@@ -501,6 +578,19 @@ $http({
         $scope.error = response.statusCode + ": Announcements not found";
 
     });
+
+     $http({
+        method : "GET",
+        url : "/db/update/notifications/payments/"+$scope.user.uid
+    }).then(function mySucces(response) {
+        
+        
+
+    }, function myError(response) {
+        $scope.error = response.statusCode + ": Announcements not found";
+
+    });
+    $scope.getNotifications();
 
   };
 
