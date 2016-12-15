@@ -304,6 +304,20 @@ app.get('/db/get/user/:uID/:username/:email/', function (req,res) {
 	});
 })
 
+app.get('/db/get/user/:uID/', function (req,res) {
+	//clientConnect();
+	query = client.query("select *\
+	from member\
+	where uID="+req.params.uID+"\
+	");    
+   	query.on("end", function (result) {          
+   		//client.end(); 
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+		res.status(200).write(JSON.stringify(result.rows[0], null, "    "));
+		res.end();  
+	});
+})
+
 app.get('/db/get/user/announcements/:uID/', function (req,res) {
 	//clientConnect();
 	query = client.query("\

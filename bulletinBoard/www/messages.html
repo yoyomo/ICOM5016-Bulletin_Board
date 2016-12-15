@@ -54,13 +54,12 @@
 		</div>
 		</ion-header-bar>
 		<ion-header-bar class="bar bar-subheader bar-light">
-		<h2 class="title">Messages with {{messages[0].messageuser}}</h2><button ng-click="goDown()" class="button button-positive"><i class="icon ion-arrow-down-c"></i></button></a>
+		<h2 class="title">Messages with {{otherUser.username}}</h2><button ng-click="goDown()" class="button button-positive"><i class="icon ion-arrow-down-c"></i></button></a>
 		</ion-header-bar>
 
 	<!--CONTENT-->
 
 		<ion-content class="has-subheader">
-		
 		<ul >
 			<li class="item item-avatar" ng-repeat="message in messages">
 				<div ng-show="message.senderid==transfer.messageUser" style="text-align:left">

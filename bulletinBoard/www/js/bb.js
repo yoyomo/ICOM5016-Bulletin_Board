@@ -224,8 +224,24 @@ $scope.search = function(searchText){
   };
   $scope.getNotifications();
 
-  $scope.getMessageDetails = function(){
+  $scope.getOtherUser = function(){
       return $http({
+        method : "GET",
+        url : "/db/get/user/"+$scope.transfer.messageUser+"/"
+    }).then(function mySucces(response) {
+        $scope.otherUser = response.data;
+        $scope.statuscode = response.status;
+        $scope.statustext  = response.statustext;
+        console.log($scope.statuscode, "Data Retrieved.");
+
+    }, function myError(response) {
+        $scope.transfer = response.statusText;
+    });
+  };
+  $scope.getOtherUser();
+
+  $scope.getMessageDetails = function(){
+    $http({
         method : "GET",
         url : "/db/get/messages/"+$scope.transfer.loggedInUser+"/"
         +$scope.transfer.messageUser+"/"
@@ -238,15 +254,12 @@ $scope.search = function(searchText){
     }, function myError(response) {
         $scope.transfer = response.statusText;
     });
-  };
-  $scope.getMessageDetails();
-  
-  if(!$scope.messages){
-    $http({
+
+    return $http({
         method : "GET",
         url : "/db/get/maxchatid/"
     }).then(function mySucces(response) {
-        $scope.chatid = response.data[0].chatid;
+        $scope.maxchatid = response.data[0].chatid;
         $scope.statuscode = response.status;
         $scope.statustext  = response.statustext;
         console.log($scope.statuscode, "Data Retrieved.");
@@ -254,18 +267,24 @@ $scope.search = function(searchText){
     }, function myError(response) {
         $scope.transfer = response.statusText;
     });
-  }
-  else{
-    $scope.chatid = $scope.messages[0].chatid;
-  }
+  };
+  $scope.getMessageDetails();
 
   $scope.goDown = function(){
   	$anchorScroll('bottom');
   };
+  
 
   $scope.sendMessage = function(text){
     $scope.master = {};
     $scope.master.text = angular.copy(text);
+
+	if(!$scope.messages[0]){
+		$scope.chatid = $scope.maxchatid;
+	}
+	else{
+		$scope.chatid = $scope.messages[0].chatid;
+	}
 
     if($scope.master.text){
       $http({
