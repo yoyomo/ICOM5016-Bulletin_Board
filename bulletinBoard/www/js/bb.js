@@ -68,7 +68,8 @@ $scope.transferAnnouncement = function(category,postID){
 
 $scope.search = function(searchText){
   $scope.master = {};
-  $scope.master = angular.copy(searchText);
+  $scope.master = angular.copy(searchText).replace("'", "''");
+
   if($scope.master){
     return $http({
         method : "GET",
@@ -277,7 +278,7 @@ $scope.search = function(searchText){
 
   $scope.sendMessage = function(text){
     $scope.master = {};
-    $scope.master.text = angular.copy(text);
+    $scope.master.text = angular.copy(text).replace("'", "''");;
 
 	if(!$scope.messages[0]){
 		$scope.chatid = $scope.maxchatid;
@@ -328,6 +329,10 @@ $http({
     $scope.master = angular.copy(user);
 
     if($scope.master.email && $scope.master.password){
+
+    	$scope.master.email = $scope.master.email.replace("'","''");
+    	$scope.master.password = $scope.master.password.replace("'","''");
+
       $http({
           method : "GET",
           url : "/db/get/login/"+$scope.master.email+"/"+$scope.master.password+"/"
@@ -401,6 +406,11 @@ $http({
     if(getOut){
       return;
     }
+
+    $scope.master.newUser.username = $scope.master.newUser.username.replace("'","''");
+    $scope.master.newUser.email = $scope.master.newUser.email.replace("'","''");
+    $scope.master.newUser.password = $scope.master.newUser.password.replace("'","''");
+    $scope.master.newUser.confirm = $scope.master.newUser.confirm.replace("'","''");
 
     $http({
         method : "GET",
@@ -760,6 +770,11 @@ $http({
       return;
     }
 
+    // Escape apostrophe's
+    $scope.master.announcement.title = $scope.master.announcement.title.replace("'","''");
+    $scope.master.announcement.description = $scope.master.announcement.description.replace("'","''");
+    $scope.master.detail.location = $scope.master.detail.location.replace("'","''");
+
     $http({
         method : "GET",
         url : "/db/insert/event/"+$scope.uid+"/"+
@@ -802,6 +817,14 @@ $http({
     if(getOut){
       return;
     }
+
+    // Escape apostrophe's
+    $scope.master.announcement.title = $scope.master.announcement.title.replace("'","''");
+    $scope.master.announcement.description = $scope.master.announcement.description.replace("'","''");
+    $scope.master.detail.name = $scope.master.detail.name.replace("'","''");
+    $scope.master.detail.author = $scope.master.detail.author.replace("'","''");
+    $scope.master.detail.edition = $scope.master.detail.edition.replace("'","''");
+
     $http({
         method : "GET",
         url : "/db/insert/book/"+$scope.uid+"/"+
@@ -834,6 +857,11 @@ $http({
       $scope.titleError = errorMessage;
       return;
     }
+
+    // Escape apostrophe's
+    $scope.master.announcement.title = $scope.master.announcement.title.replace("'","''");
+    $scope.master.announcement.description = $scope.master.announcement.description.replace("'","''");
+    $scope.master.detail.address = $scope.master.detail.address.replace("'","''");
 
     $http({
         method : "GET",
@@ -872,7 +900,11 @@ $http({
     if(getOut){
       return;
     }
-    
+
+    // Escape apostrophe's
+    $scope.master.announcement.title = $scope.master.announcement.title.replace("'","''");
+    $scope.master.announcement.description = $scope.master.announcement.description.replace("'","''");
+    $scope.master.detail.subject = $scope.master.detail.subject.replace("'","''");
 
     $http({
         method : "GET",
@@ -909,7 +941,11 @@ $http({
     if(getOut){
       return;
     }
-    
+
+    // Escape apostrophe's
+    $scope.master.announcement.title = $scope.master.announcement.title.replace("'","''");
+    $scope.master.announcement.description = $scope.master.announcement.description.replace("'","''");
+    $scope.master.detail.item = $scope.master.detail.item.replace("'","''");
 
     $http({
         method : "GET",
@@ -1056,7 +1092,7 @@ $http({
   $scope.report = function(type,comment){
     $scope.master = {};
     $scope.master.type = angular.copy(type);
-    $scope.master.comment = angular.copy(comment);
+    $scope.master.comment = angular.copy(comment).replace("'", "''");
 
 
     if($scope.master.type && $scope.master.comment){
@@ -1109,9 +1145,9 @@ $http({
 	$scope.saveSettings = function(newCard,newPassword,confirmPassword,currentPassword){
 		$scope.master = {
 			newCard : angular.copy(newCard),
-			newPassword : angular.copy(newPassword),
-			confirmPassword : angular.copy(confirmPassword),
-			currentPassword : angular.copy(currentPassword)
+			newPassword : angular.copy(newPassword).replace("'", "''"),
+			confirmPassword : angular.copy(confirmPassword).replace("'", "''"),
+			currentPassword : angular.copy(currentPassword).replace("'", "''")
 		};
 
 		if($scope.master.currentPassword != $scope.userInfo.password){
@@ -1132,6 +1168,11 @@ $http({
 		if(!$scope.userInfo.phonenumber){
 			$scope.userInfo.phonenumber="";
 		}
+		
+		$scope.userInfo.username = $scope.userInfo.username.replace("'", "''");
+		$scope.userInfo.email = $scope.userInfo.email.replace("'", "''");
+		$scope.userInfo.phonenumber = $scope.userInfo.phonenumber.replace("'", "''");
+		
 
 		// update user settings
 		$http({
@@ -1200,6 +1241,9 @@ $http({
       $scope.titleError = errorMessage;
       return;
     }
+
+    $scope.master.admod.title = $scope.master.admod.title.replace("'", "''");
+    $scope.master.admod.description = $scope.master.admod.description.replace("'", "''");
 
     $http({
         method : "GET",
