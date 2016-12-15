@@ -240,6 +240,7 @@ $scope.search = function(searchText){
     });
   };
   $scope.getMessageDetails();
+  
   if(!$scope.messages){
     $http({
         method : "GET",
