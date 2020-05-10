@@ -23,3 +23,38 @@ button-group{
 #reportButton{
 	float:right;
 }
+.error{
+	color:red;
+}
+#profileButtons{
+	width: 100%;
+	margin-left: 40%;
+	margin-right: 40%;
+	
+}
+#reportsCSS{
+	width: 50%;
+	float: left;
+	
+}
+#reportlistdivider{
+	width: 50%;
+	float:left;
+}
+#reportdetailsdivider{
+	width:50%;
+	float: right;
+}
+#reportAnnouncementDetails{
+	width:50%;
+	float:right;
+}
+#logout{
+	float:right;
+}
+.notification{
+	color: black;
+}
+.button-orange{
+	background-color:orange;
+}

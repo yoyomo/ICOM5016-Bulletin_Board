@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+	<head>
+			<meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>Bulletin Board</title>
+
+    <link rel="manifest" href="manifest.json">
+
+    <!-- un-comment this code to enable service worker
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(() => console.log('service worker installed'))
+          .catch(err => console.log('Error', err));
+      }
+    </script>-->
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+	<link href="css/Bulletin_Board_CSS.css" rel="stylesheet" >
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/services.js"></script>
+	<script src="js/bb.js"></script>
+	</head>
+	<body ng-app="bb" ng-controller="adminCtrl"> 
+
+	<ion-header-bar class="bar bar-header bar-stable">
+
+	<div class="buttons">
+		<a href="index.html">
+			<button class="button button-positive"><i class="icon ion-home"></i></button></a>
+		</div>
+
+		<h1 class="title">Bulletin Board</h1>
+		<div class="buttons">
+		<a href="settings.html">
+		<button class="button button-positive"><i class="icon ion-gear-b"></i></button></a>
+		</div>
+		</ion-header-bar>
+		<ion-header-bar class="bar bar-subheader bar-light">
+		<h2 class="title">Website Adminstration</h2>
+		</ion-header-bar>
+
+		<ion-content class="has-subheader" draggable="false">
+					
+			<div id="reportlistdivider" class="item item-divider">Report List</div>
+			<div id="reportdetailsdivider" class="item item-divider">Report Details	</div>
+			
+			<div id="reportsCSS" class="list" >
+				<a ng-repeat="report in reports" ng-click="getAnnouncementsDetails(report.category,report.postid)" class="item item-avatar">
+				  <h2>{{report.typeofreport}}</h2>
+				  <p>{{report.comment}}</p>
+				</a>
+			</div>		
+			<div id="reportAnnouncementDetails">
+				<img src="{{announcement.attachment}}">
+				<h2><span>{{announcement.title}}</span></h2>
+				<p>
+					<span>{{announcement.description}}</span> 
+					</br>
+
+					<p ng-show="announcement.category=='e'">
+						<span>Location: {{announcement.location}}</span>
+						</br>
+						<span>Date of Event: {{announcement.dateofevent}}</span>
+						</br>
+						<span>Fee: {{announcement.fee}}</span>
+						</br>
+					</p>
+					<p ng-show="announcement.category=='b'">
+						<span>Name: {{announcement.name}}</span>
+						</br>
+						<span>Author: {{announcement.author}}</span>
+						</br>
+						<span>Edition: {{announcement.edition}}</span>
+						</br>
+						<span>Year: {{announcement.year}}</span>
+						</br>
+						<span>Price: {{announcement.price}}</span>
+						</br>
+					</p>
+					<p ng-show="announcement.category=='h'">
+						<span>Address: {{announcement.address}}</span>
+						</br>
+						<span>Monthly Price: {{announcement.monthlyprice}}</span>
+						</br>
+					</p>
+					<p ng-show="announcement.category=='m'">
+						<span>Subject: {{announcement.subject}}</span>
+						</br>
+						<span>Fee: {{announcement.fee}}</span>
+						</br>
+					</p>
+					<p ng-show="announcement.category=='o'">
+						<span>Item Name: {{announcement.itemname}}</span>
+						</br>
+					</p>
+					<span>Date Added: {{announcement.dateadded}}</span>
+					</br></br>
+					<button ng-click="deletePost(announcement.category,announcement.postid)" style="float:right;" class="button button-clear button-assertive">Delete</button>
+					<button  ng-click="ignoreReport(announcement.category,announcement.postid)" style="float:right;" class="button button-clear button-stable">Ignore</button>
+
+				</p>
+			</div>
+			
+		</ion-content>
+		
+
+		</body>
+</html>

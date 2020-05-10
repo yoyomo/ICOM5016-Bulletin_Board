@@ -36,7 +36,7 @@
     <script src="js/services.js"></script>
 	<script src="js/bb.js"></script>
 	</head>
-	<body ng-app="bb" ng-controller="bbCtrl"> 
+	<body ng-app="bb" ng-controller="profileCtrl"> 
 
 	<ion-header-bar class="bar bar-header bar-stable">
 
@@ -47,6 +47,11 @@
 
 		<h1 class="title">Bulletin Board</h1>
 		<div class="buttons">
+		<a ng-hide="notifications==0" href="profile.html">
+			<button class="button button-royal">
+			{{notifications}}
+			</button>
+		</a>
 		<a href="settings.html">
 		<button class="button button-positive"><i class="icon ion-gear-b"></i></button></a>
 		</div>
@@ -57,72 +62,88 @@
 
 		<ion-content class="has-subheader" draggable="false">
 			<div class="item item-avatar">
-				<img src="{{data.users[0].profPic}}">
-				<h2><span id="username">{{data.users[0].username}}</span></h2>
+				<img src="img/profile.png">
+				<h2><span id="username">{{user.username}}</span></h2>
 				<p>
-					<span id="email">{{data.users[0].email}}</span> 
+					<span id="email">{{user.email}}</span> 
 					</br>
-					<span id="phone">{{data.users[0].phone}}</span></p>
+					Phone Numbers:</br>
+					<span id="phone">{{user.phonenumber}}</br></span>
+					Credit Cards:</br>
+					<span id="creditcard" ng-repeat="creditcard in creditcards">{{creditcard.cardtype}}: {{creditcard.cardnumber}}</br></span></p>
 			</div>
+			
 			<ion-list>
 			<div class="item item-divider">History:</div>
-
-
-			<table style="width:100%">
-				<tr>
-					<td><ion-radio ng-model="details" value="messages"><i class="icon ion-chatbubbles"></i></ion-radio></td>
-					<td><ion-radio ng-model="details" value="announcements"><i class="icon ion-compose"></i></ion-radio></td>
-					<td><ion-radio ng-model="details" value="payments"><i class="icon ion-card"></i></ion-radio></td>
-				</tr>
-			</table>
+				<table style="width:100%">
+					<tr>
+						<td><ion-radio ng-model="details" value="messages" ng-click="chatlogs()"><i class="icon ion-chatbubbles"></i></ion-radio></td>
+						<td><ion-radio ng-model="details" value="announcements" ng-click="announcementHistory()"><i class="icon ion-compose"></i></ion-radio></td>
+						<td><ion-radio ng-model="details" value="payments" ng-click="paymentHistory()"><i class="icon ion-card"></i></ion-radio></td>
+					</tr>
+				</table>
 			
 			
 			<div class="item-divider"></div>
+			
 			<div ng-show="details=='messages'">
 				<div class="list">
-					<a class="item item-avatar" href="messages.html">
-					  <img src="{{data.users[1].profPic}}">
-					  <h2>{{data.users[1].username}}</h2>
-					  <p>{{data.messages[0].text}}</p>
-					</a>
-					<a class="item item-avatar" href="messages.html">
-					  <img src="{{data.users[2].profPic}}">
-					  <h2>{{data.users[2].username}}</h2>
-					  <p>{{data.messages[1].text}}</p>
-					</a>
-					<a class="item item-avatar" href="messages.html">
-					  <img src="{{data.users[3].profPic}}">
-					  <h2>{{data.users[3].username}}</h2>
-					  <p>{{data.messages[2].text}}</p>
+					<a ng-repeat="chat in chatlogs" class="item item-avatar" ng-click="transferMessage(chat.uid)">
+					  <img src="img/profile.png">
+					  <h2>{{chat.username}}</h2>
+					  <p>{{chat.messagetext}}</p>
+					  <p ng-show="chat.seen=='Not Seen'" style="color:orange;">{{chat.seen}}</p>
+					  <p ng-show="chat.seen=='Seen'" style="color:blue;">{{chat.seen}}</p>
 					</a>
 
 				</div>
 			</div>
 			
 			<div ng-show="details=='announcements'">
-			<a class="item item-avatar" href="announcement_details.html">
-			  <img src="{{data.announcements[0].attachment}}">
-			  <h2>{{data.announcements[0].title}}</h2>
-			  <p>{{data.announcements[0].description}}</p>
-			</a>
-			<a class="item item-avatar" href="announcement_details.html">
-			  <img src="{{data.announcements[1].attachment}}">
-			  <h2>{{data.announcements[1].title}}</h2>
-			  <p>{{data.announcements[1].description}}</p>
+			<a ng-repeat="announcement in announcements" class="item item-avatar" ng-click="transferAnnouncement(announcement.category,announcement.postid)">
+			  <img src="img/{{announcement.category}}.png">
+			  <h2>{{announcement.title}}</h2>
+			  <p>{{announcements.description}}</p>
 			</a>
 			</div>
 			
 			<div ng-show="details=='payments'">
 				<ul class="list">
-					<li class="item">
-					{{data.payments[0].dateOfPayment}}: Payed user {{data.payments[0].seller_uID}} through {{data.payments[0].typeOfPayment}} ......................  {{data.payments[0].amount}}
-					</li>
-					<li class="item">
-					{{data.payments[1].dateOfPayment}}: Payed user {{data.payments[1].seller_uID}} through {{data.payments[1].typeOfPayment}} ......................  {{data.payments[1].amount}}
+					<li class="item" ng-repeat="payment in payments">
+					<div ng-show="user.uid==payment.buyerid">
+						{{payment.dateofpayment}}: Transaction of {{payment.title}} with user {{payment.sellerid}} through {{payment.cardtype}} ......................  (-){{payment.amount}}
+
+					</div>
+					<div ng-show="user.uid==payment.sellerid">
+						{{payment.dateofpayment}}: Transaction of {{payment.title}} with user {{payment.buyerid}} through {{payment.cardtype}} ......................  (+){{payment.amount}}
+					</div>
 					</li>
 				</ul>
 			</div>
+
 			</ion-list>
+			
+		<div id="profileButtons" class="list-inset button-group">
+		<a ng-show="ifAdmin" href="reportlist.html">
+		<button class="button button-positive">Report List</button>
+		</a>
+		<a ng-show="user.typeofaccount=='Regular'" href="premiumpayment.html">
+		<button class="button button-royal" >Subscribe</button>
+		</a>
+		<a ng-show="ifAdmin" href="admod.html">
+		<button class="button button-positive" >Admod</button>
+		</a>
+		
+		
+		</div>			
+			
+			<div id="logout">
+				<a ng-click="logout()">
+					<button class="button button-assertive">Log Out</button>
+				</a>
+			</div>
+
+			
 		</ion-content>
 		
 
